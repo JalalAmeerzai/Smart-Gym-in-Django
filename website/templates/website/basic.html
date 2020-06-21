@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{%block title%}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="{% static 'website/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'website/css/magnific-popup.css'%}">
+    <link rel="stylesheet" href="{% static 'website/css/jquery-ui.css'%}">
+    <link rel="stylesheet" href="{% static 'website/css/owl.carousel.min.css'%}">
+    <link rel="stylesheet" href="{% static 'website/css/owl.theme.default.min.css'%}">
+    <link rel="stylesheet" href="{% static 'website/css/bootstrap-datepicker.css'%}">
+    <link rel="stylesheet" href="{% static 'website/css/animate.css'%}">
+    
+    
+    <link rel="stylesheet" href="{% static 'website/fonts/flaticon/font/flaticon.css'%}">
+  
+    <link rel="stylesheet" href="{% static 'website/css/aos.css'%}">
+
+    <link rel="stylesheet" href="{% static 'website/css/style.css'%}">
+    
+  </head>
+  <body>
+  
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+    
+    
+    <div class="site-navbar-wrap bg-white">
+      
+      <div class="container">
+        <div class="site-navbar bg-light">
+          <div class="py-1">
+            <div class="row align-items-center">
+              <div class="col-2">
+                <h2 class="mb-0 site-logo"><a href="/webiste">Smart <strong class="darkcolor">GYM</strong></a></h2>
+              </div>
+              <div class="col-10">
+                <nav class="site-navigation text-right" role="navigation">
+                  <div class="container">
+                    <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+
+                    <ul class="site-menu js-clone-nav d-none d-lg-block">
+                      <li class="active">
+                        <a href="/webiste">Home</a>
+                      </li>
+                      
+                      <li><a href="classes.html">Classes</a></li>
+                      <li><a href="trainer.html">Trainers</a></li>
+                      <li><a href="membership.html">Membership</a></li>
+                      <li><a href="contact.html">Contact</a></li>
+                      <li><a href="services.html">Login</a></li>
+                   
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+{% block body %}{% endblock %}
+
+
+
+
+
+
+
+    <footer class="site-footer">
+        <div class="container">
+          
+  
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="row">
+                <div class="col-6 col-md-4 col-lg-8 mb-5 mb-lg-0">
+                  <h3 class="footer-heading mb-4 text-primary"><strong>About</strong></h3>
+                  <p>SmartGYM is a state-of-the-art gym and lifestyle fitness facility that incorporates cutting edge technology enabled training equipment targeting Strength, Cardio, HIIT, Functional Fit and Aerobics.</p>
+                  <p><a href="/website#about" class="btn btn-primary pill text-white px-4">Read More</a></p>
+                </div>
+                <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
+                  <h3 class="footer-heading mb-4 text-primary"><strong>Quick Menu</strong></h3>
+                  <ul class="list-unstyled">
+                    <li><a href="/website/">Home</a></li>
+                    <li><a href="#">Classes</a></li>
+                    <li><a href="#">Trainers</a></li>
+                    <li><a href="#">Membership</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">User Login</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="row mb-5">
+                <div class="col-md-12"><h3 class="footer-heading mb-4 text-primary"><strong>Contact Info</strong></h3></div>
+                <div class="col-md-6">
+                  <p>PECHS Block 2 - 239 <br> Karachi, Sindh<br>Pakistan</p>    
+                </div>
+                <div class="col-md-6">
+                  Tel. + (92) 303-765-4321 <br>
+                  Mail. help@smartgym.com
+                </div>
+              </div>
+  
+              
+              
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  
+    <script src="{% static 'website/js/jquery-3.3.1.min.js'%}"></script>
+    <script src="{% static 'website/js/jquery-migrate-3.0.1.min.js'%}"></script>
+    <script src="{% static 'website/js/jquery-ui.js'%}"></script>
+    <script src="{% static 'website/js/popper.min.js'%}"></script>
+    <script src="{% static 'website/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'website/js/owl.carousel.min.js'%}"></script>
+    <script src="{% static 'website/js/jquery.stellar.min.js'%}"></script>
+    <script src="{% static 'website/js/jquery.countdown.min.js'%}"></script>
+    <script src="{% static 'website/js/jquery.magnific-popup.min.js'%}"></script>
+    <script src="{% static 'website/js/bootstrap-datepicker.min.js'%}"></script>
+    <script src="{% static 'website/js/aos.js'%}"></script>
+  
+    <script src="{% static 'website/js/main.js'%}"></script>
+      
+    </body>
+  </html>
