@@ -46,7 +46,7 @@
           <div class="py-1">
             <div class="row align-items-center">
               <div class="col-2">
-                <h2 class="mb-0 site-logo"><a href="/website">Smart <strong class="darkcolor">GYM</strong></a></h2>
+                <h2 class="mb-0 site-logo"><a href="/website/">Smart<strong class="darkcolor">GYM</strong></a></h2>
               </div>
               <div class="col-10">
                 <nav class="site-navigation text-right" role="navigation">
@@ -54,15 +54,15 @@
                     <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle darkcolor"><span class="icon-menu h3 darkcolor"></span></a></div>
 
                     <ul class="site-menu js-clone-nav d-none d-lg-block">
-                      <li class="active">
-                        <a href="/website">Home</a>
+                      <li class="nav-item">
+                        <a href="/website/" class="nav-link">Home</a>
                       </li>
                       
-                      <li><a href="classes.html">Classes</a></li>
-                      <li><a href="trainer.html">Trainers</a></li>
-                      <li><a href="membership.html">Membership</a></li>
-                      <li><a href="contact.html">Contact</a></li>
-                      <li><a href="services.html">Login</a></li>
+                      <li class="nav-item"><a href="/website/classes" class="nav-link">Classes</a></li>
+                      <li class="nav-item"><a href="/website/trainer" class="nav-link">Trainers</a></li>
+                      <li class="nav-item"><a href="/website/membership" class="nav-link">Membership</a></li>
+                      <li class="nav-item"><a href="/website/contact" class="nav-link">Contact</a></li>
+                      <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
                    
                     </ul>
                   </div>
@@ -96,17 +96,17 @@
                 <div class="col-6 col-md-4 col-lg-8 mb-5 mb-lg-0">
                   <h3 class="footer-heading mb-4 text-primary"><strong>About</strong></h3>
                   <p>SmartGYM is a state-of-the-art gym and lifestyle fitness facility that incorporates cutting edge technology enabled training equipment targeting Strength, Cardio, HIIT, Functional Fit and Aerobics.</p>
-                  <p><a href="/website#about" class="btn btn-primary pill text-white px-4">Read More</a></p>
+                  <p><a href="/website/#about" class="btn btn-primary pill text-white px-4">Read More</a></p>
                 </div>
                 <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
                   <h3 class="footer-heading mb-4 text-primary"><strong>Quick Menu</strong></h3>
                   <ul class="list-unstyled">
                     <li><a href="/website/">Home</a></li>
-                    <li><a href="#">Classes</a></li>
-                    <li><a href="#">Trainers</a></li>
-                    <li><a href="#">Membership</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">User Login</a></li>
+                    <li><a href="/website/classes">Classes</a></li>
+                    <li><a href="/website/trainer">Trainers</a></li>
+                    <li><a href="/website/membership">Membership</a></li>
+                    <li><a href="/website/contact">Contact</a></li>
+                    <li><a href="">User Login</a></li>
                   </ul>
                 </div>
               </div>
@@ -155,6 +155,22 @@
     <script src="{% static 'website/js/aos.js'%}"></script>
   
     <script src="{% static 'website/js/main.js'%}"></script>
+    
+    <!--Adding active class to navigation link script-->
+    <script>
+      titleString = document.title
+      var navLink = document.getElementsByClassName("nav-link");
+      var navItem = document.getElementsByClassName("nav-item");
       
-    </body>
+      for(i =0; i < navLink.length; i++){
+        var a = navLink[i].innerHTML
+        if(titleString.indexOf(a) >= 0){
+          navItem[i].classList.add("active");
+          break;
+        }
+      }
+    </script>
+    
+
+  </body>
   </html>
