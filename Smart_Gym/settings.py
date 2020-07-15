@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'website.apps.WebsiteConfig'
+    'website.apps.WebsiteConfig',
+    'userportal.apps.UserportalConfig',
+    'adminportal.apps.AdminportalConfig'
 ]
 
 MIDDLEWARE = [
@@ -123,7 +125,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "Smart_Gym/static"),
-    os.path.join(BASE_DIR, "website/static")
+    os.path.join(BASE_DIR, "website/static"),
+    os.path.join(BASE_DIR, "adminportal/static"),
+    os.path.join(BASE_DIR, "userportal/static")
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "static") #this will be used as an overall static directory used in the productionn
 
