@@ -1,0 +1,959 @@
+<!doctype html>
+<!--[if lt IE 8]><html class="no-js lt-ie8"> <![endif]-->
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>Admin Dashboard | The Smart GYM</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="application-name" content="" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700' rel='stylesheet' type='text/css'>
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="css/icons.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <link href="css/bootstrap.css" rel="stylesheet" />
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="img/ico/favicon.ico" type="image/png">
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+    </head>
+    <body>
+        <!--[if lt IE 9]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+        <!-- .page-navbar -->
+        <div id="header" class="page-navbar">
+            <!-- .navbar-brand -->
+            <a href="dashboard.html" class="navbar-brand hidden-xs hidden-sm">
+                <img src="img/logo.png" class="logo hidden-xs" alt="Dynamic logo">
+                <img src="img/logosm.png" class="logo-sm hidden-lg hidden-md" alt="Dynamic logo">
+                 
+            </a>
+            <!-- / navbar-brand -->
+            <!-- .no-collapse -->
+            <div id="navbar-no-collapse" class="navbar-no-collapse">
+                <!-- top left nav -->
+                <ul class="nav navbar-nav">
+                    <li class="toggle-sidebar" id="menubut">
+                        <a href="#">
+                            <i class="fa fa-reorder"></i>
+                            <span class="sr-only">Collapse sidebar</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <!-- / top left nav -->
+                <!-- top right nav -->
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li id="otherbut">
+                        <a href="settings.html">
+                            <i class="fa fa-cog setlogbtn"></i>
+                            <span class="sr-only ">Settings</span>
+                        </a>
+                        
+                    </li>
+                    <li id="otherbut">
+                        <a href="login.html">
+                            <i class="fa fa-power-off setlogbtn"></i>
+                            <span class="sr-only">Logout</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+                <!-- / top right nav -->
+            </div>
+            <!-- / collapse -->
+        </div>
+        <!-- / page-navbar -->
+        <!-- #wrapper -->
+        <div id="wrapper">
+            <!-- .page-sidebar -->
+            <aside id="sidebar" class="page-sidebar hidden-md hidden-sm hidden-xs">
+                <!-- Start .sidebar-inner -->
+                <div class="sidebar-inner">
+                    <!-- Start .sidebar-scrollarea -->
+                    <div class="sidebar-scrollarea">
+                        <!--  .sidebar-panel -->
+                        <div class="sidebar-panel">
+                            <h5 class="sidebar-panel-title">Profile</h5>
+                        </div>
+                        <!-- / .sidebar-panel -->
+                        <div class="user-info clearfix">
+                            <img src="img/avatars/128.jpg" alt="avatar">
+                            <span class="name">Jalal Ameerzai</span>
+                            <div class="btn-group">
+                                <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
+                                </div>
+                                <div type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" style="margin-top: 5px ;">Admin
+                                </div>
+                            </div>
+                        </div>
+                        <!--  .sidebar-panel -->
+                        <div class="sidebar-panel">
+                            <h5 class="sidebar-panel-title">Navigation</h5>
+                        </div>
+                        <!-- / .sidebar-panel -->
+                        <!-- .side-nav -->
+                        <div class="side-nav">
+                            <ul class="nav">
+                                <li>
+                                    <a href="dashboard.html" class="active actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Dashboard</span></a>
+                                </li>
+                                <li>
+                                    <a href="user.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Profile</span></a>
+                                </li>
+                                <li>
+                                    <a href="staff.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Staff</span></a>
+                                </li>
+                                <li>
+                                    <a href="trainers.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Trainers</span></a>
+                                </li>
+                                <li>
+                                    <a href="members.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Members</span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class=" l-arrows-right-double-31"></i> <span class="txt">Attendance</span></a>
+                                    <ul class="sub">
+                                        <li><a href="todayattendance.html"><span class="txt">Today's Attendance</span></a>
+                                        </li>
+                                        <li><a href="historyattendance.html"><span class="txt">Attendance History</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#"><i class=" l-arrows-right-double-31"></i> <span class="txt">Member Finance</span></a>
+                                    <ul class="sub">
+                                        <li><a href="addpayment.html"><span class="txt">Add Payment</span></a>
+                                        </li>
+                                        <li><a href="duepayment.html"><span class="txt">Payments Due</span></a>
+                                        </li>
+                                        <li><a href="historypayment.html"><span class="txt">Transaction History</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="classes.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Gym Classes</span></a>
+                                </li><li>
+                                    <a href="expenses.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Gym Expenses</span></a>
+                                </li>
+                                <li>
+                                    <a href="packages.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Packages</span></a>
+                                </li>
+                                <li>
+                                    <a href="equipments.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Equipments</span></a>
+                                </li><li>
+                                    <a href="exercise.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Exercises</span></a>
+                                </li>
+                                <li>
+                                    <a href="routine.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Workout Routines</span></a>
+                                </li>
+                                <li>
+                                    <a href="diet.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Diet Plans</span></a>
+                                </li>
+                                <li>
+                                    <a href="messagecenter.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Message Center</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- / side-nav -->
+                        <!--  .sidebar-panel -->
+                    </div>
+                    <!-- End .sidebar-scrollarea -->
+                </div>
+                <!-- End .sidebar-inner -->
+            </aside>
+            <!-- / page-sidebar -->
+
+
+            
+            <!-- End #right-sidebar -->
+            <!-- .page-content -->
+            <div class="page-content sidebar-page right-sidebar-page clearfix">
+                <!-- .page-content-wrapper -->
+                <div class="page-content-wrapper">
+                    <div class="page-content-inner">
+                        <!-- Start .page-content-inner -->
+                        <div id="page-header" class="clearfix">
+                            <div class="page-header">
+                                <h2>Dashboard</h2>
+                                <span class="txt">Welcome to SmartGym - Gym Management System</span>
+                            </div>
+                            <div class="header-stats" style="display: none;">
+                                <div class="spark clearfix">
+                                    <div class="spark-info"><span class="number">2345</span>Visitors</div>
+                                    <div id="spark-visitors" class="sparkline"></div>
+                                </div>
+                                <div class="spark clearfix">
+                                    <div class="spark-info"><span class="number">17345</span>Views</div>
+                                    <div id="spark-templateviews" class="sparkline"></div>
+                                </div>
+                                <div class="spark clearfix">
+                                    <div class="spark-info"><span class="number">3700$</span>Sales</div>
+                                    <div id="spark-sales" class="sparkline"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                           <!-- .row -->
+                           <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                            <!-- .col-md-3 -->
+                            <div class="panel panel-info tile" style="width:100%">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Total Members</h4>
+                                </div>
+                                <div class="panel-body pt0">
+                                    <div class="progressbar-stats-1">
+                                        <div class="stats">
+                                            <i class="fa fa-group" style="color : white; font-size:30px;"></i> 
+                                            <div id="visitor_number" class="stats-number" data-from="0" data-to="76" style="color : white; font-size:30px;">0</div>
+                                        </div>
+                                        <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="76"></div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- / .col-md-3 -->
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                            <!-- .col-md-3 -->
+                            <div class="panel tile yellowback">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" style="color:white" >Trainers</h4>
+                                </div>
+                                <div class="panel-body pt0">
+                                    <div class="progressbar-stats-1">
+                                        <div class="stats">
+                                            <i class="fa fa-user" style="font-size:30px"></i> 
+                                            <div class="stats-number" data-from="0" data-to="45" style="font-size:30px">0</div>
+                                        </div>
+                                        <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="86"></div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- / .col-md-3 -->
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12" >
+                            <!-- .col-md-3 -->
+                            <div class="panel panel-success tile ">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Equipments</h4>
+                                </div>
+                                <div class="panel-body pt0">
+                                    <div class="progressbar-stats-1">
+                                        <div class="stats">
+                                            <i class="fa fa-anchor" style="color : white; font-size:30px;"></i> 
+                                            <div class="stats-number" data-from="0" data-to="78" style="color : white; font-size:30px;">0</div>
+                                        </div>
+                                        <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="35"></div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- / .col-md-3 -->
+                        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                            <!-- .col-md-3 -->
+                            <div class="panel panel-danger tile ">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" style="color : white">Diet Plans</h4>
+                                </div>
+                                <div class="panel-body pt0">
+                                    <div class="progressbar-stats-1 dark">
+                                        <div class="stats">
+                                            <i class="fa  fa-apple" style="color : white; font-size:30px;"></i> 
+                                            <div class="stats-number money" data-from="0" data-to="245" style="color : white; font-size:30px;">0</div>
+                                        </div>
+                                        <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        
+                         <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                            <!-- .col-md-3 -->
+                            <div class="panel salmonback tile ">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" style="color : white">Routines</h4>
+                                </div>
+                                
+                                <div class="panel-body pt0">
+                                    <div class="progressbar-stats-1 dark">
+                                        <div class="stats">
+                                            <i class="fa fa-chain-broken" style="color : white; font-size:30px;"></i> 
+                                            <div class="stats-number money" data-from="0" data-to="245" style="color : white; font-size:30px;">0</div>
+                                        </div>
+                                        <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        
+                         <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                            <!-- .col-md-3 -->
+                            <div class="panel lblueback tile ">
+                                <!-- Start .panel -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title" style="color : white">Exercises</h4>
+                                </div>
+                                
+                                <div class="panel-body pt0">
+                                    <div class="progressbar-stats-1 dark">
+                                        <div class="stats">
+                                            <i class="fa  fa-hand-rock-o" style="color : white; font-size:30px;"></i> 
+                                            <div class="stats-number money" data-from="0" data-to="1000" style="color : white; font-size:30px;">0</div>
+                                        </div>
+                                        <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End .panel -->
+                        </div>
+                        <!-- / .col-md-3 -->
+                    </div>
+                    <!-- / .row -->
+
+
+
+                        <!-- Start .row -->
+                        <div class="row" style="">
+                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="panel panel-default ">
+                                        <div class="panel-heading" style=" background-color:#505050; color: #e2d34d;">
+                                                <h4 class="panel-title" style="text-align: center; font-size:25px; color: #e2d34d;"><i class="fa fa-dollar" style="font-size:25px; "></i> Income VS Profit</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="canvas-holder">
+                                                <canvas id="line-dots-chartjs" height="100"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="panel panel-default ">
+                                        <div class="panel-heading" style=" background-color:#505050; color: #e2d34d;">
+                                                <h4 class="panel-title" style="text-align: center; font-size:25px; color: #e2d34d;"><i class="fa fa-user" style="font-size:25px; "></i> Active/Inactive Users</h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="canvas-holder">
+                                                <canvas id="donut-chartjs" height="214"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="col-lg-6" style="display: none;">
+                                <!-- col-lg-6 start here -->
+                                <div class="panel panel-default toggle panelMove panelClose panelRefresh" style="display: none;">
+                                    <!-- Start .panel -->
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Line chart</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="canvas-holder">
+                                            <canvas id="line-chartjs" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End .panel -->
+                                <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+                                    <!-- Start .panel -->
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Line chart unfilled
+                                            <small>and curved</small>
+                                        </h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="canvas-holder">
+                                            <canvas id="line-unfilled-chartjs" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End .panel -->
+                                <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+                                    <!-- Start .panel -->
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Pie chart</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="canvas-holder">
+                                            <canvas id="pie-chartjs" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End .panel -->
+                                <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+                                    <!-- Start .panel -->
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Radar chart</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="canvas-holder">
+                                            <canvas id="radar-chartjs" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End .panel -->
+                            </div>
+                            <!-- col-lg-6 end here -->
+                            <div class="col-lg-6" style="display: none;">
+                                <!-- col-lg-6 start here -->
+                                
+                                <!-- End .panel -->
+                                <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+                                    <!-- Start .panel -->
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Bar chart</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="canvas-holder">
+                                            <canvas id="bar-chartjs" height="100" class="col-md-12 col-lg-12"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End .panel -->
+
+
+                                <div class="row">
+                                    <!-- .row -->
+                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                                        <!-- .col-md-3 -->
+                                        <div class="panel panel-info tile" style="width:100%">
+                                            <!-- Start .panel -->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">Total Members</h4>
+                                            </div>
+                                            <div class="panel-body pt0">
+                                                <div class="progressbar-stats-1">
+                                                    <div class="stats">
+                                                        <i class="fa fa-group" style="color : white; font-size:30px;"></i> 
+                                                        <div id="visitor_number" class="stats-number" data-from="0" data-to="76" style="color : white; font-size:30px;">0</div>
+                                                    </div>
+                                                    <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                                        <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="76"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End .panel -->
+                                    </div>
+                                    <!-- / .col-md-3 -->
+                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                                        <!-- .col-md-3 -->
+                                        <div class="panel tile yellowback">
+                                            <!-- Start .panel -->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title" style="color:white" >Trainers</h4>
+                                            </div>
+                                            <div class="panel-body pt0">
+                                                <div class="progressbar-stats-1">
+                                                    <div class="stats">
+                                                        <i class="fa fa-user" style="font-size:30px"></i> 
+                                                        <div class="stats-number" data-from="0" data-to="45" style="font-size:30px">0</div>
+                                                    </div>
+                                                    <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                                        <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="86"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End .panel -->
+                                    </div>
+                                    <!-- / .col-md-3 -->
+                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12" >
+                                        <!-- .col-md-3 -->
+                                        <div class="panel panel-success tile ">
+                                            <!-- Start .panel -->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">Equipments</h4>
+                                            </div>
+                                            <div class="panel-body pt0">
+                                                <div class="progressbar-stats-1">
+                                                    <div class="stats">
+                                                        <i class="fa fa-anchor" style="color : white; font-size:30px;"></i> 
+                                                        <div class="stats-number" data-from="0" data-to="78" style="color : white; font-size:30px;">0</div>
+                                                    </div>
+                                                    <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                                        <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="35"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End .panel -->
+                                    </div>
+                                    <!-- / .col-md-3 -->
+                                    <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                                        <!-- .col-md-3 -->
+                                        <div class="panel panel-danger tile ">
+                                            <!-- Start .panel -->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title" style="color : white">Diet Plans</h4>
+                                            </div>
+                                            <div class="panel-body pt0">
+                                                <div class="progressbar-stats-1 dark">
+                                                    <div class="stats">
+                                                        <i class="fa  fa-apple" style="color : white; font-size:30px;"></i> 
+                                                        <div class="stats-number money" data-from="0" data-to="245" style="color : white; font-size:30px;">0</div>
+                                                    </div>
+                                                    <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                                        <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End .panel -->
+                                    </div>
+                                    
+                                     <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                                        <!-- .col-md-3 -->
+                                        <div class="panel salmonback tile ">
+                                            <!-- Start .panel -->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title" style="color : white">Routines</h4>
+                                            </div>
+                                            
+                                            <div class="panel-body pt0">
+                                                <div class="progressbar-stats-1 dark">
+                                                    <div class="stats">
+                                                        <i class="fa fa-chain-broken" style="color : white; font-size:30px;"></i> 
+                                                        <div class="stats-number money" data-from="0" data-to="245" style="color : white; font-size:30px;">0</div>
+                                                    </div>
+                                                    <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                                        <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End .panel -->
+                                    </div>
+                                    
+                                     <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12">
+                                        <!-- .col-md-3 -->
+                                        <div class="panel lblueback tile ">
+                                            <!-- Start .panel -->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title" style="color : white">Exercises</h4>
+                                            </div>
+                                            
+                                            <div class="panel-body pt0">
+                                                <div class="progressbar-stats-1 dark">
+                                                    <div class="stats">
+                                                        <i class="fa  fa-hand-rock-o" style="color : white; font-size:30px;"></i> 
+                                                        <div class="stats-number money" data-from="0" data-to="1000" style="color : white; font-size:30px;">0</div>
+                                                    </div>
+                                                    <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
+                                                        <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End .panel -->
+                                    </div>
+                                    <!-- / .col-md-3 -->
+                                </div>
+                                <!-- / .row -->
+                                <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+                                    <!-- Start .panel -->
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Donut chart</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="canvas-holder">
+                                            <canvas id="donut-chartjs" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End .panel -->
+                                <div class="panel panel-default toggle panelMove panelClose panelRefresh">
+                                    <!-- Start .panel -->
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">Polar area</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="canvas-holder">
+                                            <canvas id="polar-chartjs" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End .panel -->
+                            </div>
+                            <!-- col-lg-6 end here -->
+                        </div>
+                        <!-- End .row -->
+
+
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-12">
+                                    <!-- col-lg-12 start here -->
+                                    <div class="panel panel-default plain panelRefresh">
+                                        <!-- Start .panel -->
+                                        
+                                        <div class="panel-heading" style=" background-color:#505050; color: #e2d34d;">
+                                            <h5 class="panel-title" style="text-align: center; font-size:25px; color: #e2d34d;">Admission Requests</h5>
+                                        </div>  
+                                      
+                                        <div class="panel-body">
+                                            <table id="basic-datatables" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                                <thead >
+                                                    <tr style="">
+                                                       
+                                                        <th title="ID" style="font-size: 12px; text-align: center; width: 12%"><i class="fa fa-sort-numeric-asc"> </i> Sr No.</th>
+                                                        <th title="name" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Name</th>
+                                                        
+                                                        <th title="email" style="font-size: 12px; text-align: center; "><i class="fa fa-envelope"> </i> Email</th>
+                                                        <th title="phone" style="font-size: 12px; text-align: center; "><i class="fa fa-phone"> </i> Phone</th>
+                                                        <th title="package" style="font-size: 12px; text-align: center; "><i class="fa fa-dropbox"> </i> Package</th>
+                                                        <th title="request date" style="font-size: 12px; text-align: center;"><i class="fa fa-calendar"> </i> Added on</th>
+                                                    
+                                                        <th title="Edit" class="tableedit" style=" font-size: 12px; text-align: center;"><i class="l-software-pathfinder-subtract"> </i> Options</th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                <tbody>
+                                                    <tr>
+                                                         
+                                                        <td>1.</td>
+                                                        <td>Jalal</td>
+                                                        <td>jalalx@msn.com</td>
+                                                        <td>03032002831</td>
+                                                        <td>Silver</td>
+                                                        <td>07/14/2020</td>
+                                                        <td>
+                                                            <a title="delete" href=""><i class="fa fa-trash-o" id="tablebtns" style="background-color: #d9534f; color: white; padding: 5px;" data-toggle="modal" data-target=""> delete</i></a>
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                    
+                                                    
+
+                                                   
+                                                </tbody>
+                                            </table>
+    
+                                </div>    
+                                    </div>
+                                    <!-- End .panel -->
+                                </div>
+                                <!-- col-lg-12 end here -->
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- End .page-content-inner -->
+                </div>
+                <!-- / page-content-wrapper -->
+            </div>
+            <!-- / page-content -->
+        </div>
+        <!-- / #wrapper -->
+        <div id="footer" class="clearfix sidebar-page">
+            <!-- Start #footer  -->
+            <p class="pull-left">
+                Copyrights &copy; 2020 <a href="../website/index.html" class="color-blue strong" target="_blank">Smart GYM</a>. All rights reserved.
+            </p>
+            <p class="pull-right">
+                
+                Designed & Developed by 
+                <a href="" class="ml5 mr25">Chai & Co.</a>
+            </p>
+        </div>
+        <!-- End #footer  -->
+        <!-- Back to top -->
+        <div id="back-to-top"><a href="#">Back to Top</a>
+        </div>
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        <script src="plugins/core/pace/pace.min.js"></script>
+        <!-- Important javascript libs(put in all pages) -->
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script>
+        window.jQuery || document.write('<script src="js/libs/jquery-2.1.1.min.js">\x3C/script>')
+        </script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script>
+        window.jQuery || document.write('<script src="js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+        </script>
+        <!--[if lt IE 9]>
+  <script type="text/javascript" src="js/libs/excanvas.min.js"></script>
+  <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <script type="text/javascript" src="js/libs/respond.min.js"></script>
+<![endif]-->
+        <!-- Bootstrap plugins -->
+        <script src="js/bootstrap/bootstrap.js"></script>
+        <!-- Core plugins ( not remove ) -->
+        <script src="js/libs/modernizr.custom.js"></script>
+        <!-- Handle responsive view functions -->
+        <script src="js/jRespond.min.js"></script>
+        <!-- Custom scroll for sidebars,tables and etc. -->
+        <script src="plugins/core/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="plugins/core/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+        <!-- Remove click delay in touch -->
+        <script src="plugins/core/fastclick/fastclick.js"></script>
+        <!-- Increase jquery animation speed -->
+        <script src="plugins/core/velocity/jquery.velocity.min.js"></script>
+        <!-- Quick search plugin (fast search for many widgets) -->
+        <script src="plugins/core/quicksearch/jquery.quicksearch.js"></script>
+        <!-- Bootbox fast bootstrap modals -->
+        <script src="plugins/ui/bootbox/bootbox.js"></script>
+        <!-- Other plugins ( load only nessesary plugins for every page) -->
+
+        <script src="js/libs/date.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.custom.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.pie.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.resize.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.time.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.growraf.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.categories.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.stack.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.orderBars.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="plugins/charts/flot/jquery.flot.curvedLines.js"></script>
+        <script src="plugins/charts/sparklines/jquery.sparkline.js"></script>
+        <script src="plugins/charts/progressbars/progressbar.js"></script>
+        <script src="plugins/ui/waypoint/waypoints.js"></script>
+        <script src="plugins/ui/weather/skyicons.js"></script>
+        <script src="plugins/ui/notify/jquery.gritter.js"></script>
+        <script src="plugins/misc/vectormaps/jquery-jvectormap-1.2.2.min.js"></script>
+        <script src="plugins/misc/vectormaps/maps/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="plugins/misc/countTo/jquery.countTo.js"></script>
+        <script src="js/jquery.dynamic.js"></script>
+        <script src="js/main.js"></script>
+        <script src="plugins/forms/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+         <script src="plugins/forms/fancyselect/fancySelect.js"></script>
+        <script src="plugins/forms/select2/select2.js"></script>
+        <script src="plugins/forms/maskedinput/jquery.maskedinput.js"></script>
+        <script src="plugins/forms/dual-list-box/jquery.bootstrap-duallistbox.js"></script>
+        <script src="plugins/forms/spinner/jquery.bootstrap-touchspin.js"></script>
+        <script src="plugins/forms/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+        <script src="plugins/forms/bootstrap-timepicker/bootstrap-timepicker.js"></script>
+        <script src="plugins/forms/bootstrap-colorpicker/bootstrap-colorpicker.js"></script>
+        <script src="plugins/forms/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+        <script src="plugins/charts/chartjs/Chart.js"></script>
+        <script src="js/pages/dashboard.js"></script>
+        <script src="plugins/charts/sparklines/jquery.sparkline.js"></script>
+        <script src="plugins/charts/chartjs/Chart.js"></script>
+        <script src="js/jquery.dynamic.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/pages/charts-chartjs.js"></script>
+        <script src="plugins/charts/sparklines/jquery.sparkline.js"></script>
+        <script src="plugins/tables/datatables/jquery.dataTables.js"></script>
+        <script src="plugins/tables/datatables/dataTables.tableTools.js"></script>
+        <script src="plugins/tables/datatables/dataTables.bootstrap.js"></script>
+        <script src="plugins/tables/datatables/dataTables.responsive.js"></script>
+        <script src="js/jquery.dynamic.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/pages/tables-data.js"></script>
+        
+
+
+
+
+
+            <script>
+
+                $(document).ready(function() {
+                                //------------- Line chart with dots -------------//
+                            var lineDotsData = {
+                                labels : ["October","February","March","April","May","June","July"],
+                                datasets : [
+                                    {
+                                        label: "Income",
+                                        fillColor : "rgba(226, 211, 77,.2)",
+                                        strokeColor : "rgba(226, 211, 77,1)",
+                                        pointColor : "rgba(226, 211, 77,1)",
+                                        pointStrokeColor : "#fff",
+                                        pointHighlightFill : "#fff",
+                                        pointHighlightStroke : "rgba(226,211,77,1)",				
+                                        data : [10000, 12000, 9000, 16000, 50000, 40000, 25000]
+                                    },
+                                    {
+                                        label: "Profit",
+                                        fillColor : "rgba(64,64,64,0.2)",
+                                        strokeColor : "rgba(64,64,64,1)",
+                                        pointColor : "rgba(64,64,64,1)",
+                                        pointStrokeColor : "#fff",
+                                        pointHighlightFill : "#fff",
+                                        pointHighlightStroke : "rgba(64,64,64,1)",
+                                        data : [4000, 6000, 8000, 10000, 34000, 20000, 12500]
+                                    }
+                                ]
+
+                            }
+                            var ctxDots = document.getElementById("line-dots-chartjs").getContext("2d");
+                            var myLineDotsChart = new Chart(ctxDots).Line(lineDotsData, {
+                                responsive: true,
+                                scaleShowGridLines : true,
+                                scaleGridLineColor : "#bfbfbf",
+                                scaleGridLineWidth : 0.2,
+                                bezierCurve : false,
+                                bezierCurveTension : 0.4,
+                                //points
+                                pointDot : true,
+                                pointDotRadius : 4,
+                                pointDotStrokeWidth : 1,
+                                pointHitDetectionRadius : 20,
+                                datasetStroke : true,
+                                datasetStrokeWidth : 2,
+                                datasetFill : true,
+                                //animations
+                                animation: true,
+                                animationSteps: 60,
+                                animationEasing: "easeOutQuart",
+                                //scale
+                                showScale: true,
+                                scaleFontFamily: "'Roboto'",
+                                scaleFontSize: 13,
+                                scaleFontStyle: "normal",
+                                scaleFontColor: "#333",
+                                //tooltips
+                                showTooltips: true,
+                                tooltipFillColor: "#344154",
+                                tooltipFontFamily: "'Roboto'",
+                                tooltipFontSize: 13,
+                                tooltipFontColor: "#fff",
+                                tooltipYPadding: 8,
+                                tooltipXPadding: 10,
+                                tooltipCornerRadius: 2,
+                                tooltipTitleFontFamily: "'Roboto'",
+                            });
+
+
+
+
+
+
+
+                                                    //------------- Donut chart  -------------//
+                            var donutData = [
+                                {
+                                    value: 50,
+                                    color:"rgba(64,64,64,0.8)",
+                                    highlight: "#404040",
+                                    label: "Users Inactive: "
+                                },
+                                {
+                                    value: 150,
+                                    color: "rgba(267, 211, 77, 0.6)",
+                                    highlight: "rgba(267, 211, 77, 0.8)",
+                                    label: "Users Active: "
+                                }
+                                
+                            ];
+
+                            var ctxDonut = document.getElementById("donut-chartjs").getContext("2d");
+                            myDonut = new Chart(ctxDonut).Doughnut(donutData, {
+                                responsive : true,
+                                //donut options
+                                segmentShowStroke : true,
+                                segmentStrokeColor : "#fff",
+                                segmentStrokeWidth : 2,
+                                percentageInnerCutout : 45, // This is 0 for Pie charts
+                                //animations
+                                animation: true,
+                                animationSteps: 100,
+                                animationEasing: "easeOutBounce",
+                                animateRotate : true,
+                                animateScale : true,
+                                //tooltips
+                                showTooltips: true,
+                                tooltipFillColor: "#344154",
+                                tooltipFontFamily: "'Roboto'",
+                                tooltipFontSize: 13,
+                                tooltipFontColor: "#fff",
+                                tooltipYPadding: 8,
+                                tooltipXPadding: 10,
+                                tooltipCornerRadius: 2,
+                                tooltipTitleFontFamily: "'Roboto'",
+                            });
+
+
+
+
+                });
+                
+            </script>
+
+
+
+
+        
+    </body>
+</html>

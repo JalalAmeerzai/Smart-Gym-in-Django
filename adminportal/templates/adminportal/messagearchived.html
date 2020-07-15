@@ -1,0 +1,463 @@
+<!doctype html>
+<!--[if lt IE 8]><html class="no-js lt-ie8"> <![endif]-->
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title>Archived Messages | The Smart GYM</title>
+        <!-- Mobile specific metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">
+        <!-- Force IE9 to render in normal mode -->
+        <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
+        <meta name="author" content="" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="application-name" content="" />
+        <!-- Import google fonts - Heading first/ text second -->
+        <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700' rel='stylesheet' type='text/css'>
+        <!-- Css files -->
+        <!-- Icons -->
+        <link href="css/icons.css" rel="stylesheet" />
+        <!-- Bootstrap stylesheets (included template modifications) -->
+        <link href="css/bootstrap.css" rel="stylesheet" />
+        <!-- Plugins stylesheets (all plugin custom css) -->
+        <link href="css/plugins.css" rel="stylesheet" />
+        <!-- Main stylesheets (template main css file) -->
+        <link href="css/main.css" rel="stylesheet" />
+        <!-- Custom stylesheets ( Put your own changes here ) -->
+        <link href="css/custom.css" rel="stylesheet" />
+        <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="img/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="icon" href="img/ico/favicon.ico" type="image/png">
+        <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
+        <meta name="msapplication-TileColor" content="#3399cc" />
+    </head>
+    <body>
+        <!--[if lt IE 9]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+        <!-- .page-navbar -->
+        <div id="header" class="page-navbar">
+            <!-- .navbar-brand -->
+            <a href="dashboard.html" class="navbar-brand hidden-xs hidden-sm">
+                <img src="img/logo.png" class="logo hidden-xs" alt="Dynamic logo">
+                <img src="img/logosm.png" class="logo-sm hidden-lg hidden-md" alt="Dynamic logo">
+                 
+            </a>
+            <!-- / navbar-brand -->
+            <!-- .no-collapse -->
+            <div id="navbar-no-collapse" class="navbar-no-collapse">
+                <!-- top left nav -->
+                <ul class="nav navbar-nav">
+                    <li class="toggle-sidebar" id="menubut">
+                        <a href="#">
+                            <i class="fa fa-reorder"></i>
+                            <span class="sr-only">Collapse sidebar</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <!-- / top left nav -->
+                <!-- top right nav -->
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li id="otherbut">
+                        <a href="settings.html">
+                            <i class="fa fa-cog setlogbtn"></i>
+                            <span class="sr-only ">Settings</span>
+                        </a>
+                        
+                    </li>
+                    <li id="otherbut">
+                        <a href="login.html">
+                            <i class="fa fa-power-off setlogbtn"></i>
+                            <span class="sr-only">Logout</span>
+                        </a>
+                    </li>
+                   
+                </ul>
+                <!-- / top right nav -->
+            </div>
+            <!-- / collapse -->
+        </div>
+        <!-- / page-navbar -->
+        <!-- #wrapper -->
+        <div id="wrapper">
+            <!-- .page-sidebar -->
+            <aside id="sidebar" class="page-sidebar hidden-md hidden-sm hidden-xs">
+                <!-- Start .sidebar-inner -->
+                <div class="sidebar-inner">
+                    <!-- Start .sidebar-scrollarea -->
+                    <div class="sidebar-scrollarea">
+                        <!--  .sidebar-panel -->
+                        <div class="sidebar-panel">
+                            <h5 class="sidebar-panel-title">Profile</h5>
+                        </div>
+                        <!-- / .sidebar-panel -->
+                        <div class="user-info clearfix">
+                            <img src="img/avatars/128.jpg" alt="avatar">
+                            <span class="name">Jalal Ameerzai</span>
+                            <div class="btn-group">
+                                <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
+                                </div>
+                                <div type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" style="margin-top: 5px ;">Admin
+                                </div>
+                            </div>
+                        </div>
+                        <!--  .sidebar-panel -->
+                        <div class="sidebar-panel">
+                            <h5 class="sidebar-panel-title">Navigation</h5>
+                        </div>
+                        <!-- / .sidebar-panel -->
+                        <!-- .side-nav -->
+                        <div class="side-nav">
+                            <ul class="nav">
+                                <li>
+                                    <a href="dashboard.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Dashboard</span></a>
+                                </li>
+                                <li>
+                                    <a href="user.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Profile</span></a>
+                                </li>
+                                <li>
+                                    <a href="staff.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Staff</span></a>
+                                </li>
+                                <li>
+                                    <a href="trainers.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Trainers</span></a>
+                                </li>
+                                <li>
+                                    <a href="members.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Members</span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class=" l-arrows-right-double-31"></i> <span class="txt">Attendance</span></a>
+                                    <ul class="sub">
+                                        <li><a href="todayattendance.html"><span class="txt">Today's Attendance</span></a>
+                                        </li>
+                                        <li><a href="historyattendance.html"><span class="txt">Attendance History</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#"><i class=" l-arrows-right-double-31"></i> <span class="txt">Member Finance</span></a>
+                                    <ul class="sub">
+                                        <li><a href="addpayment.html"><span class="txt">Add Payment</span></a>
+                                        </li>
+                                        <li><a href="duepayment.html"><span class="txt">Payments Due</span></a>
+                                        </li>
+                                        <li><a href="historypayment.html"><span class="txt">Transaction History</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="classes.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Gym Classes</span></a>
+                                </li><li>
+                                    <a href="expenses.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Gym Expenses</span></a>
+                                </li>
+                                <li>
+                                    <a href="packages.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Packages</span></a>
+                                </li>
+                                <li>
+                                    <a href="equipments.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Equipments</span></a>
+                                </li><li>
+                                    <a href="exercise.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Exercises</span></a>
+                                </li>
+                                <li>
+                                    <a href="routine.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Workout Routines</span></a>
+                                </li>
+                                <li>
+                                    <a href="diet.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Diet Plans</span></a>
+                                </li>
+                                <li>
+                                    <a href="messagecenter.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Message Center</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- / side-nav -->
+                        <!--  .sidebar-panel -->
+                    </div>
+                    <!-- End .sidebar-scrollarea -->
+                </div>
+                <!-- End .sidebar-inner -->
+            </aside>
+            <!-- / page-sidebar -->
+            <!-- .page-content -->
+            <div class="page-content sidebar-page right-sidebar-page clearfix" style="margin-bottom: 20px;">
+                <!-- .page-content-wrapper -->
+                <div class="page-content-wrapper">
+                    <div class="page-content-inner">
+                        <!-- Start .page-content-inner -->
+                        <div id="page-header" class="clearfix">
+                            <div class="page-header">
+                                <h2>Archived Messages</h2>
+                                <span class="txt">List of your emails you archived</span>
+                            </div>
+                           
+                        </div>
+                        <div id="email-app-wrapper">
+                            <!-- Start #email-app-wrapper -->
+                            <div id="email-sidebar">
+                                <!-- Start #email-sidebar -->
+                                <div class="p15">
+                                    <a id="write-email" href="messagewrite.html"><span id="subcbtn" class="btn subcbtn" style="width: 100%;">compose</span></a>
+                                </div>
+                                <ul id="email-nav" class="nav nav-pills nav-stacked">
+                                    <li><a href="messagecenter.html"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">27</span></a>
+                                    </li>
+                                    
+                                    <li><a href="messagesent.html"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">14</span></a>
+                                    </li>
+    
+                                    <li><a href="messagearchived.html"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">3</span></a>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            <!--End #email-sidebar -->
+                            <div id="email-content">
+                                <!-- Start #email-content -->
+                                <div class="email-wrapper">
+                                    <div class="panel panel-default plain mb0 bshadowNone brad0 bl br bb bt checkall">
+                                        <!-- Start .panel -->
+                                        <div class="panel-body p0">
+                                            <div class="email-toolbar col-lg-12">
+                                                <div class="pull-left" role="toolbar">
+                                                    <button id="email-toggle" class="email-toggle" type="button" style="color: #404040;">
+                                                        <span class="sr-only">Toggle email nav</span>
+                                                        <span class="icon-bar"></span>
+                                                        <span class="icon-bar"></span>
+                                                        <span class="icon-bar"></span>
+                                                    </button>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                            <div class="email-list col-lg-12">
+                                                <ul class="list-group">
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                    <a href="messagearchivedview.html" class="list-group-item email-list-item clearfix">
+                                                        
+                                                        <img class="email-inbox-avatar" src="img/avatars/3.jpg" alt="avatar">
+                                                        <p class="email-inbox-name">Shoun Paul</p>
+                                                        
+                                                        <div class="email-inbox-info">
+                                                            
+                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            </p>
+                                                        </div>
+                                                        <p class="email-txt-preview">
+                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
+                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
+                                                        </p>
+                                                    </a>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End .panel -->
+                                </div>
+                                <!--End .email-wrapper -->
+                            </div>
+                            <!--End #email-content -->
+                        </div>
+                        <!-- End #email-app-wrapper -->
+                    </div>
+                    <!-- End .page-content-inner -->
+                </div>
+                <!-- / page-content-wrapper -->
+            </div>
+            <!-- / page-content -->
+        </div>
+        <!-- / #wrapper -->
+        <div id="footer" class="clearfix sidebar-page">
+            <!-- Start #footer  -->
+            <p class="pull-left">
+                Copyrights &copy; 2020 <a href="../website/index.html" class="color-blue strong" target="_blank">Smart GYM</a>. All rights reserved.
+            </p>
+            <p class="pull-right">
+                
+                Designed & Developed by 
+                <a href="" class="ml5 mr25">Chai & Co.</a>
+            </p>
+        </div>
+        <!-- End #footer  -->
+        <!-- Back to top -->
+        <div id="back-to-top"><a href="#">Back to Top</a>
+        </div>
+        <!-- Javascripts -->
+        <!-- Load pace first -->
+        <script src="plugins/core/pace/pace.min.js"></script>
+        <!-- Important javascript libs(put in all pages) -->
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script>
+        window.jQuery || document.write('<script src="js/libs/jquery-2.1.1.min.js">\x3C/script>')
+        </script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script>
+        window.jQuery || document.write('<script src="js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+        </script>
+        <!--[if lt IE 9]>
+  <script type="text/javascript" src="js/libs/excanvas.min.js"></script>
+  <script type="text/javascript" src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <script type="text/javascript" src="js/libs/respond.min.js"></script>
+<![endif]-->
+        <!-- Bootstrap plugins -->
+        <script src="js/bootstrap/bootstrap.js"></script>
+        <!-- Core plugins ( not remove ) -->
+        <script src="js/libs/modernizr.custom.js"></script>
+        <!-- Handle responsive view functions -->
+        <script src="js/jRespond.min.js"></script>
+        <!-- Custom scroll for sidebars,tables and etc. -->
+        <script src="plugins/core/slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="plugins/core/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+        <!-- Remove click delay in touch -->
+        <script src="plugins/core/fastclick/fastclick.js"></script>
+        <!-- Increase jquery animation speed -->
+        <script src="plugins/core/velocity/jquery.velocity.min.js"></script>
+        <!-- Quick search plugin (fast search for many widgets) -->
+        <script src="plugins/core/quicksearch/jquery.quicksearch.js"></script>
+        <!-- Bootbox fast bootstrap modals -->
+        <script src="plugins/ui/bootbox/bootbox.js"></script>
+        <!-- Other plugins ( load only nessesary plugins for every page) -->
+        <script src="plugins/charts/sparklines/jquery.sparkline.js"></script>
+        <script src="plugins/forms/checkall/jquery.checkAll.js"></script>
+        <script src="js/jquery.dynamic.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/pages/email.js"></script>
+    </body>
+</html>
