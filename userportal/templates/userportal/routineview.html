@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <!--[if lt IE 8]><html class="no-js lt-ie8"> <![endif]-->
 <html class="no-js">
@@ -16,21 +17,21 @@
         <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700' rel='stylesheet' type='text/css'>
         <!-- Css files -->
         <!-- Icons -->
-        <link href="css/icons.css" rel="stylesheet" />
+        <link href="{% static 'userportal/css/icons.css'%}" rel="stylesheet" />
         <!-- Bootstrap stylesheets (included template modifications) -->
-        <link href="css/bootstrap.css" rel="stylesheet" />
+        <link href="{% static 'userportal/css/bootstrap.css'%}" rel="stylesheet" />
         <!-- Plugins stylesheets (all plugin custom css) -->
-        <link href="css/plugins.css" rel="stylesheet" />
+        <link href="{% static 'userportal/css/plugins.css'%}" rel="stylesheet" />
         <!-- Main stylesheets (template main css file) -->
-        <link href="css/main.css" rel="stylesheet" />
+        <link href="{% static 'userportal/css/main.css'%}" rel="stylesheet" />
         <!-- Custom stylesheets ( Put your own changes here ) -->
-        <link href="css/custom.css" rel="stylesheet" />
+        <link href="{% static 'userportal/css/custom.css'%}" rel="stylesheet" />
         <!-- Fav and touch icons -->
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="img/ico/apple-touch-icon-57-precomposed.png">
-        <link rel="icon" href="img/ico/favicon.ico" type="image/png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'userportal/mg/ico/apple-touch-icon-144-precomposed.png'%}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'userportal/img/ico/apple-touch-icon-114-precomposed.png'%}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'userportal/img/ico/apple-touch-icon-72-precomposed.png'%}">
+        <link rel="apple-touch-icon-precomposed" href="{% static 'userportal/img/ico/apple-touch-icon-57-precomposed.png'%}">
+        <link rel="icon" href="{% static 'userportal/img/ico/favicon.ico'%}" type="image/png">
         <!-- Windows8 touch icon ( http://www.buildmypinnedsite.com/ )-->
         <meta name="msapplication-TileColor" content="#3399cc" />
     </head>
@@ -41,9 +42,9 @@
         <!-- .page-navbar -->
         <div id="header" class="page-navbar">
             <!-- .navbar-brand -->
-            <a href="user.html" class="navbar-brand hidden-xs hidden-sm">
-                <img src="img/logo.png" class="logo hidden-xs" alt="Dynamic logo">
-                <img src="img/logosm.png" class="logo-sm hidden-lg hidden-md" alt="Dynamic logo">
+            <a href="/userportal/user/" class="navbar-brand hidden-xs hidden-sm">
+                <img src="{% static 'userportal/img/logo.png'%}" class="logo hidden-xs" alt="Dynamic logo">
+                <img src="{% static 'userportal/img/logosm.png'%}" class="logo-sm hidden-lg hidden-md" alt="Dynamic logo">
                  
             </a>
             <!-- / navbar-brand -->
@@ -64,14 +65,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     
                     <li id="otherbut">
-                        <a href="settings.html">
+                        <a href="/userportal/settings">
                             <i class="fa fa-cog setlogbtn"></i>
                             <span class="sr-only ">Settings</span>
                         </a>
                         
                     </li>
                     <li id="otherbut">
-                        <a href="login.html">
+                        <a href="/userportal/login">
                             <i class="fa fa-power-off setlogbtn"></i>
                             <span class="sr-only">Logout</span>
                         </a>
@@ -97,7 +98,7 @@
                         </div>
                         <!-- / .sidebar-panel -->
                         <div class="user-info clearfix">
-                            <img src="img/avatars/128.jpg" alt="avatar">
+                            <img src="{% static 'userportal/img/avatars/128.jpg'%}" alt="avatar">
                             <span class="name">Jalal Ameerzai</span>
                             <div class="btn-group">
                                 <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
@@ -115,29 +116,29 @@
                         <!-- .side-nav -->
                         <div class="side-nav">
                             <ul class="nav">
-                                <li><a href="user.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">User Profile</span></a>
+                                <li><a href="/userportal/user" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">User Profile</span></a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class=" l-arrows-right-double-31"></i> <span class="txt">Workout Routines</span></a>
+                                    <a href="#" class="active"><i class=" l-arrows-right-double-31"></i> <span class="txt">Workout Routines</span></a>
                                     <ul class="sub">
-                                        <li><a href="routine.html"><span class="txt">Routine List</span></a>
+                                        <li><a href="/userportal/routines"><span class="txt">Routine List</span></a>
                                         </li>
-                                        <li><a href="createroutine.html"><span class="txt">Create Routine</span></a>
+                                        <li><a href="/userportal/createroutine"><span class="txt">Create Routine</span></a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="diet.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Diet</span></a>
+                                    <a href="/userportal/diet"><i class=" l-arrows-right-double-31"></i><span class="txt">Diet</span></a>
                                 </li>
                                 <li>
-                                    <a href="exercise.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Exercises</span></a>
+                                    <a href="/userportal/exercises"><i class=" l-arrows-right-double-31"></i><span class="txt">Exercises</span></a>
                                 </li>
                                 <li>
-                                    <a href="finances.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Finances</span></a>
+                                    <a href="/userportal/finances"><i class=" l-arrows-right-double-31"></i><span class="txt">Finances</span></a>
                                 </li>
                 
                                 <li>
-                                    <a href="help.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Help and Support</span></a>
+                                    <a href="/userportal/help"><i class=" l-arrows-right-double-31"></i><span class="txt">Help and Support</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -215,7 +216,7 @@
                                                             </div>
                                                             <div class="panel-body">
                                                                 <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="img/exr1.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
                                                                 <ul>
                                                                     <h5><li>Sets: <strong>4</strong></li></h5>
                                                                     <h5><li>Reps: <strong>12</strong></li></h5>
@@ -234,7 +235,7 @@
                                                             </div>
                                                             <div class="panel-body">
                                                                 <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="img/exr1.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
                                                                 <ul>
                                                                     <h5><li>Sets: <strong>4</strong></li></h5>
                                                                     <h5><li>Reps: <strong>12</strong></li></h5>
@@ -253,7 +254,7 @@
                                                             </div>
                                                             <div class="panel-body">
                                                                 <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="img/exr1.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
                                                                 <ul>
                                                                     <h5><li>Sets: <strong>4</strong></li></h5>
                                                                     <h5><li>Reps: <strong>12</strong></li></h5>
@@ -272,7 +273,7 @@
                                                             </div>
                                                             <div class="panel-body">
                                                                 <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="img/exr1.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
                                                                 <ul>
                                                                     <h5><li>Sets: <strong>4</strong></li></h5>
                                                                     <h5><li>Reps: <strong>12</strong></li></h5>
@@ -291,7 +292,7 @@
                                                             </div>
                                                             <div class="panel-body">
                                                                 <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="img/exr1.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
                                                                 <ul>
                                                                     <h5><li>Sets: <strong>4</strong></li></h5>
                                                                     <h5><li>Reps: <strong>12</strong></li></h5>
@@ -310,7 +311,7 @@
                                                             </div>
                                                             <div class="panel-body">
                                                                 <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="img/exr1.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
                                                                 <ul>
                                                                     <h5><li>Sets: <strong>4</strong></li></h5>
                                                                     <h5><li>Reps: <strong>12</strong></li></h5>
@@ -987,15 +988,15 @@
         </div>
         <!-- Javascripts -->
         <!-- Load pace first -->
-        <script src="plugins/core/pace/pace.min.js"></script>
+        <script src="{% static 'userportal/plugins/core/pace/pace.min.js'%}"></script>
         <!-- Important javascript libs(put in all pages) -->
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script>
-        window.jQuery || document.write('<script src="js/libs/jquery-2.1.1.min.js">\x3C/script>')
+        window.jQuery || document.write("<script src='{% static 'userportal/js/libs/jquery-2.1.1.min.js'%}'>\x3C/script>")
         </script>
         <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <script>
-        window.jQuery || document.write('<script src="js/libs/jquery-ui-1.10.4.min.js">\x3C/script>')
+        window.jQuery || document.write("<script src='{% static 'userportal/js/libs/jquery-ui-1.10.4.min.js'%}'>\x3C/script>")
         </script>
         <!--[if lt IE 9]>
   <script type="text/javascript" src="js/libs/excanvas.min.js"></script>
@@ -1003,32 +1004,32 @@
   <script type="text/javascript" src="js/libs/respond.min.js"></script>
 <![endif]-->
         <!-- Bootstrap plugins -->
-        <script src="js/bootstrap/bootstrap.js"></script>
+        <script src="{% static 'userportal/js/bootstrap/bootstrap.js'%}"></script>
         <!-- Core plugins ( not remove ) -->
-        <script src="js/libs/modernizr.custom.js"></script>
+        <script src="{% static 'userportal/js/libs/modernizr.custom.js'%}"></script>
         <!-- Handle responsive view functions -->
-        <script src="js/jRespond.min.js"></script>
+        <script src="{% static 'userportal/js/jRespond.min.js'%}"></script>
         <!-- Custom scroll for sidebars,tables and etc. -->
-        <script src="plugins/core/slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="plugins/core/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+        <script src="{% static 'userportal/plugins/core/slimscroll/jquery.slimscroll.min.js'%}"></script>
+        <script src="{% static 'userportal/plugins/core/slimscroll/jquery.slimscroll.horizontal.min.js'%}"></script>
         <!-- Remove click delay in touch -->
-        <script src="plugins/core/fastclick/fastclick.js"></script>
+        <script src="{% static 'userportal/plugins/core/fastclick/fastclick.js'%}"></script>
         <!-- Increase jquery animation speed -->
-        <script src="plugins/core/velocity/jquery.velocity.min.js"></script>
+        <script src="{% static 'userportal/plugins/core/velocity/jquery.velocity.min.js'%}"></script>
         <!-- Quick search plugin (fast search for many widgets) -->
-        <script src="plugins/core/quicksearch/jquery.quicksearch.js"></script>
+        <script src="{% static 'userportal/plugins/core/quicksearch/jquery.quicksearch.js'%}"></script>
         <!-- Bootbox fast bootstrap modals -->
-        <script src="plugins/ui/bootbox/bootbox.js"></script>
+        <script src="{% static 'userportal/plugins/ui/bootbox/bootbox.js'%}"></script>
         <!-- Other plugins ( load only nessesary plugins for every page) -->
-        <script src="plugins/charts/sparklines/jquery.sparkline.js"></script>
-        <script src="js/jquery.dynamic.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/pages/modals.js"></script>
-        <script src="plugins/charts/sparklines/jquery.sparkline.js"></script>
-        <script src="plugins/ui/tabdrop/bootstrap-tabdrop.js"></script>
-        <script src="js/jquery.dynamic.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/pages/tabs.js"></script>
+        <script src="{% static 'userportal/plugins/charts/sparklines/jquery.sparkline.js'%}"></script>
+        <script src="{% static 'userportal/js/jquery.dynamic.js'%}"></script>
+        <script src="{% static 'userportal/js/main.js'%}"></script>
+        <script src="{% static 'userportal/js/pages/modals.js'%}"></script>
+        <script src="{% static 'userportal/plugins/charts/sparklines/jquery.sparkline.js'%}"></script>
+        <script src="{% static 'userportal/plugins/ui/tabdrop/bootstrap-tabdrop.js'%}"></script>
+        <script src="{% static 'userportal/js/jquery.dynamic.js'%}"></script>
+        <script src="{% static 'userportal/js/main.js'%}"></script>
+        <script src="{% static 'userportal/js/pages/tabs.js'%}"></script>
         
     </body>
 </html>
