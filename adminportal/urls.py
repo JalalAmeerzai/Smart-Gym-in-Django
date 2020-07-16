@@ -14,6 +14,9 @@ urlpatterns = [
     path('trainers/', views.trainers, name="adminportal-trainers"),
     path('trainersprofile/', views.trainersprofile, name="adminportal-trainersprofile"),
     path('trainersprofileedit/', views.trainersprofileedit, name="adminportal-trainersprofileedit"),
+    path('members/', views.members, name="adminportal-members"),
+    path('membersprofile/', views.membersprofile, name="adminportal-membersprofile"),
+    path('membersprofileedit/', views.membersprofileedit, name="adminportal-membersprofileedit"),
     #path('products/<int:myid>', views.products, name='shop-products'),
     #path('checkout/', views.checkout, name='shop-checkout'),
 ]

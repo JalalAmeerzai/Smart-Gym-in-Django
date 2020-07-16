@@ -54,3 +54,17 @@ def trainersprofile(request):
 
 def trainersprofileedit(request):
     return render(request, 'adminportal/edittrainer.html')
+
+
+
+def members(request):
+    return render(request, 'adminportal/members.html')
+
+
+
+def membersprofile(request):
+    return render(request, 'adminportal/memberprofile.html')
+
+
+def membersprofileedit(request):
+    return render(request, 'adminportal/editmember.html')
