@@ -1216,6 +1216,7 @@ body.fixed-right-sidebar:not(.fixed-header) #right-sidebar.rstop {
 .page-sidebar .side-nav {
   width: 100%;
   float: left;
+  
 }
 .page-sidebar .side-nav .nav > li a {
   padding: 10px 20px 9px;

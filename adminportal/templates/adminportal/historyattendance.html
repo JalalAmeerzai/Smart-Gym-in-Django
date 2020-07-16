@@ -1,3 +1,4 @@
+{% load static%}
 <!doctype html>
 <!--[if lt IE 8]><html class="no-js lt-ie8"> <![endif]-->
 <html class="no-js">
@@ -116,61 +117,61 @@
                         <div class="side-nav">
                             <ul class="nav">
                                 <li>
-                                    <a href="dashboard.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Dashboard</span></a>
+                                    <a href="/adminportal/dashboard" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Dashboard</span></a>
                                 </li>
                                 <li>
-                                    <a href="user.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Profile</span></a>
+                                    <a href="/adminportal/user" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Profile</span></a>
                                 </li>
                                 <li>
-                                    <a href="staff.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Staff</span></a>
+                                    <a href="/adminportal/staff" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Staff</span></a>
                                 </li>
                                 <li>
-                                    <a href="trainers.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Trainers</span></a>
+                                    <a href="/adminportal/trainers" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Trainers</span></a>
                                 </li>
                                 <li>
-                                    <a href="members.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Members</span></a>
+                                    <a href="/adminportal/members" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Members</span></a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class=" l-arrows-right-double-31"></i> <span class="txt">Attendance</span></a>
-                                    <ul class="sub">
-                                        <li><a href="todayattendance.html"><span class="txt">Today's Attendance</span></a>
+                                    <a href="#" class="active"><i class=" l-arrows-right-double-31"></i> <span class="txt">Attendance</span></a>
+                                    <ul class="sub show">
+                                        <li><a  href="/adminportal/attendance"><span class="txt">Today's Attendance</span></a>
                                         </li>
-                                        <li><a href="historyattendance.html"><span class="txt">Attendance History</span></a>
+                                        <li><a class="active" href="/adminportal/attendancehistory"><span class="txt">Attendance History</span></a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#"><i class=" l-arrows-right-double-31"></i> <span class="txt">Member Finance</span></a>
                                     <ul class="sub">
-                                        <li><a href="addpayment.html"><span class="txt">Add Payment</span></a>
+                                        <li><a href="/adminportal/paymentadd"><span class="txt">Add Payment</span></a>
                                         </li>
-                                        <li><a href="duepayment.html"><span class="txt">Payments Due</span></a>
+                                        <li><a href="/adminportal/paymentdue"><span class="txt">Payments Due</span></a>
                                         </li>
-                                        <li><a href="historypayment.html"><span class="txt">Transaction History</span></a>
+                                        <li><a href="/adminportal/paymenthistory"><span class="txt">Transaction History</span></a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="classes.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Gym Classes</span></a>
+                                    <a href="/adminportal/classes" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Gym Classes</span></a>
                                 </li><li>
-                                    <a href="expenses.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Gym Expenses</span></a>
+                                    <a href="/adminportal/expenses" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Gym Expenses</span></a>
                                 </li>
                                 <li>
-                                    <a href="packages.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Packages</span></a>
+                                    <a href="/adminportal/packages" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Packages</span></a>
                                 </li>
                                 <li>
-                                    <a href="equipments.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Equipments</span></a>
+                                    <a href="/adminportal/equipments" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Equipments</span></a>
                                 </li><li>
-                                    <a href="exercise.html" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Exercises</span></a>
+                                    <a href="/adminportal/exercises" class="actlogic"><i class=" l-arrows-right-double-31"></i><span class="txt">Exercises</span></a>
                                 </li>
                                 <li>
-                                    <a href="routine.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Workout Routines</span></a>
+                                    <a href="/adminportal/routines"><i class=" l-arrows-right-double-31"></i><span class="txt">Workout Routines</span></a>
                                 </li>
                                 <li>
-                                    <a href="diet.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Diet Plans</span></a>
+                                    <a href="/adminportal/diet"><i class=" l-arrows-right-double-31"></i><span class="txt">Diet Plans</span></a>
                                 </li>
                                 <li>
-                                    <a href="messagecenter.html"><i class=" l-arrows-right-double-31"></i><span class="txt">Message Center</span></a>
+                                    <a href="/adminportal/messages"><i class=" l-arrows-right-double-31"></i><span class="txt">Message Center</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -313,12 +314,12 @@
         <div id="footer" class="clearfix sidebar-page">
             <!-- Start #footer  -->
             <p class="pull-left">
-                Copyrights &copy; 2020 <a href="../website/index.html" class="color-blue strong" target="_blank">Smart GYM</a>. All rights reserved.
+                Copyrights &copy; 2020 <a href="/website/" class="color-blue strong" target="_blank">Smart GYM</a>. All rights reserved.
             </p>
             <p class="pull-right">
                 
                 Designed & Developed by 
-                <a href="" class="ml5 mr25">Chai & Co.</a>
+                <a href="/" class="ml5 mr25">Chai & Co.</a>
             </p>
         </div>
         <!-- End #footer  -->
@@ -360,35 +361,35 @@
         <!-- Bootbox fast bootstrap modals -->
         <script src="{% static 'adminportal/plugins/ui/bootbox/bootbox.js'%}"></script>
         <!-- Other plugins ( load only nessesary plugins for every page) -->
-        <script src="plugins/charts/sparklines/jquery.sparkline.js"></script>
-        <script src="plugins/tables/datatables/jquery.dataTables.js"></script>
-        <script src="plugins/tables/datatables/dataTables.tableTools.js"></script>
-        <script src="plugins/tables/datatables/dataTables.bootstrap.js"></script>
-        <script src="plugins/tables/datatables/dataTables.responsive.js"></script>
-        <script src="js/jquery.dynamic.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/pages/tables-data.js"></script>
+        <script src="{% static  'adminportal/plugins/charts/sparklines/jquery.sparkline.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/tables/datatables/jquery.dataTables.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/tables/datatables/dataTables.tableTools.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/tables/datatables/dataTables.bootstrap.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/tables/datatables/dataTables.responsive.js' %}"></script>
+        <script src="{% static  'adminportal/js/jquery.dynamic.js' %}"></script>
+        <script src="{% static  'adminportal/js/main.js' %}"></script>
+        <script src="{% static  'adminportal/js/pages/tables-data.js' %}"></script>
         
         
-        <script src="plugins/forms/fancyselect/fancySelect.js"></script>
-        <script src="plugins/forms//.js"></script>
-        <script src="plugins/forms/maskedinput/jquery.maskedinput.js"></script>
-        <script src="plugins/forms/dual-list-box/jquery.bootstrap-duallistbox.js"></script>
-        <script src="plugins/forms/spinner/jquery.bootstrap-touchspin.js"></script>
-        <script src="plugins/forms/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-        <script src="plugins/forms/bootstrap-timepicker/bootstrap-timepicker.js"></script>
-        <script src="plugins/forms/bootstrap-colorpicker/bootstrap-colorpicker.js"></script>
-        <script src="plugins/forms/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
-        <script src="js/libs/typeahead.bundle.js"></script>
-        <script src="plugins/forms/summernote/summernote.js"></script>
-        <script src="plugins/forms/bootstrap-markdown/bootstrap-markdown.js"></script>
-        <script src="plugins/forms/dropzone/dropzone.js"></script>
-        <script src="plugins/charts/sparklines/jquery.sparkline.js"></script>
-        <script src="js/jquery.dynamic.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/pages/forms-advanced.js"></script>
+        <script src="{% static  'adminportal/plugins/forms/fancyselect/fancySelect.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms//.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/maskedinput/jquery.maskedinput.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/dual-list-box/jquery.bootstrap-duallistbox.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/spinner/jquery.bootstrap-touchspin.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/bootstrap-datepicker/bootstrap-datepicker.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/bootstrap-timepicker/bootstrap-timepicker.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/bootstrap-colorpicker/bootstrap-colorpicker.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+        <script src="{% static  'adminportal/js/libs/typeahead.bundle.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/summernote/summernote.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/bootstrap-markdown/bootstrap-markdown.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/forms/dropzone/dropzone.js' %}"></script>
+        <script src="{% static  'adminportal/plugins/charts/sparklines/jquery.sparkline.js' %}"></script>
+        <script src="{% static  'adminportal/js/jquery.dynamic.js' %}"></script>
+        <script src="{% static  'adminportal/js/main.js' %}"></script>
+        <script src="{% static  'adminportal/js/pages/forms-advanced.js' %}"></script>
         
-        <script src="js/pages/modals.js"></script>
+        <script src="{% static  'adminportal/js/pages/modals.js' %}"></script>
 
 
     </body>
