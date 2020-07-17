@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.utils.datastructures import MultiValueDictKeyError #for files
+import base64
 
 def login(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
@@ -96,6 +98,16 @@ def staffprofile(request):
 
 def staffprofileedit(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
+        if request.method == "POST":
+            if "uploadpicture" in request.POST:
+                try:
+                    file = request.FILES['picture']
+                except MultiValueDictKeyError:
+                    file = False
+                image_64_encode = base64.encodebytes(file.read())
+                image_64_decode = base64.decodebytes(image_64_encode)
+                image_result = open("media\\adminportal\\admin\\adm1.jpg", 'wb')
+                image_result.write(image_64_decode)
         return render(request, 'adminportal/editstaff.html')
     else:
         return redirect('/adminportal/login/')
