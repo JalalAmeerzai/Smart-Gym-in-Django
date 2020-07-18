@@ -1,21 +1,28 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from .models import AdminData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 
 def login(request):
+    params = {"error": 0} 
     if "userid" in request.session and request.session["userrole"] == "Admin" :
         return redirect('/adminportal/dashboard/')
     else:
         if request.method == 'POST': 
-            email = request.POST['email']
+            email = request.POST['email'].lower()
             password = request.POST['password']
-            request.session["userid"] = "adm1" #value to be retrieved from db
-            request.session["userrole"] = "Admin" #value to be retrived from db
-            print("session created")
-            return redirect('/adminportal/dashboard/')
-        else:
-            return render(request, 'adminportal/login.html')
+            admin = AdminData.objects.filter(admin_password=password, admin_email=email)
+            if len(admin) > 0:
+                request.session["userid"] = admin[0].admin_id #value to be retrieved from db
+                request.session["userrole"] = admin[0].admin_role #value to be retrived from db
+                request.session["username"] = admin[0].admin_name #value to be retrived from db
+                return redirect('/adminportal/dashboard/')    
+            else:
+                params["error"] = 1
+        admin = AdminData(admin_id="adm2", admin_name="Jalalalala", admin_email="jalal_baloch@live.com", admin_password="jalal123", admin_contact="03032002831", admin_address="House#940, Block 31G, Opp. Sufaid Masjid Allahwala Town, Korangi Crossing, Karachi", admin_dob="10/02/1994", admin_status="Active", admin_role="Admin", admin_img_name="adm2.jpg", admin_added_by="superuser", admin_added_on="07/18/2020")
+        admin.save()
+        return render(request, 'adminportal/login.html', params)
 
 
 
@@ -26,6 +33,7 @@ def logout(request):
     if "userid" in request.session and "userrole" in request.session:
         del request.session["userid"]
         del request.session["userrole"]
+        del request.session["username"]
     return redirect('/adminportal/login/')
 
 
