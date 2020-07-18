@@ -222,7 +222,7 @@
                                             <!-- Start .row -->
                                             <div class="col-md-2">
                                                 <div class="profile-avatar">
-                                                    <img src="{% static 'adminportal/img/T2.jpg'%}" alt="Avatar" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" >
+                                                    <img src="/media/adminportal/admin/{{admin.admin_img_name}}" alt="Avatar" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" >
                                                     <p class="mt10">
                                                         Online
                                                         <span class="device">
@@ -233,10 +233,15 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="profile-name">
-                                                    <h3>Jalal Ameerzai</h3>
+                                                    <h3>{{ admin.admin_name }}</h3>
                                                     <p class="job-title mb0"><i class="fa  fa-info-circle"></i> Admin at SmartGYM</p>
                                                     <p class="balance" style="margin-bottom: 30px; font-size: 20px;">
-                                                        Status: <span class="text-success" style="font-size: 20px;">Active</span>
+                                                        Status:
+                                                        {% if admin.admin_status == "Active" %}
+                                                            <span class="text-success" style="font-size: 20px;">Active</span>
+                                                        {% else %}
+                                                            <span class="text-danger" style="font-size: 20px;">Inactive</span>
+                                                        {% endif %}
                                                     </p>
                                                     <a href="/adminportal/settings" style="" id="subcbtn"> <i class="l-basic-settings"></i> Update</a>
                                                     
@@ -249,18 +254,18 @@
                                                         <div class="col-md-6">
                                                             <dl class="mt20">
                                                                 <dt class="text-muted">Phone</dt>
-                                                                <dd>(367)-045-347</dd>
+                                                                <dd>{{admin.admin_contact}}</dd>
                                                                 <dt class="text-muted">Email</dt>
-                                                                <dd>jalalx@msn.com</dd>
+                                                                <dd>{{admin.admin_email}}</dd>
                                                                 
                                                             </dl>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <dl class="mt20">
                                                                 <dt class="text-muted">Date of Birth</dt>
-                                                                <dd>02 - 10 - 1994</dd>
+                                                                <dd>{{admin.admin_dob}}</dd>
                                                                 <dt class="text-muted">Address</dt>
-                                                                <dd>XYZ Street, ABC City, Pakistan</dd>
+                                                                <dd>{{admin.admin_address}}</dd>
                                                             </dl>
                                                         </div>
                                                     </div>

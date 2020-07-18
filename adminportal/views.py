@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from .models import AdminData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
+import imghdr
 
 def login(request):
-    params = {"error": 0} 
+    params = {"error": 0, "errormessage": ""} 
     if "userid" in request.session and request.session["userrole"] == "Admin" :
         return redirect('/adminportal/dashboard/')
     else:
@@ -14,14 +15,17 @@ def login(request):
             password = request.POST['password']
             admin = AdminData.objects.filter(admin_password=password, admin_email=email)
             if len(admin) > 0:
-                request.session["userid"] = admin[0].admin_id #value to be retrieved from db
-                request.session["userrole"] = admin[0].admin_role #value to be retrived from db
-                request.session["username"] = admin[0].admin_name #value to be retrived from db
-                return redirect('/adminportal/dashboard/')    
+                if admin[0].admin_status == "Active":
+                    request.session["userid"] = admin[0].admin_id #value to be retrieved from db
+                    request.session["userrole"] = admin[0].admin_role #value to be retrived from db
+                    request.session["username"] = admin[0].admin_name #value to be retrived from db
+                    return redirect('/adminportal/dashboard/')
+                else:
+                    params["error"] = 1
+                    params["errormessage"] ="Your account is deactivated. Contact gym admin."
             else:
                 params["error"] = 1
-        admin = AdminData(admin_id="adm2", admin_name="Jalalalala", admin_email="jalal_baloch@live.com", admin_password="jalal123", admin_contact="03032002831", admin_address="House#940, Block 31G, Opp. Sufaid Masjid Allahwala Town, Korangi Crossing, Karachi", admin_dob="10/02/1994", admin_status="Active", admin_role="Admin", admin_img_name="adm2.jpg", admin_added_by="superuser", admin_added_on="07/18/2020")
-        admin.save()
+                params["errormessage"] ="Incorrect Email/Password"
         return render(request, 'adminportal/login.html', params)
 
 
@@ -60,9 +64,61 @@ def dashboard(request):
 
 
 
+
+
+
+
+
+
 def settings(request):
+    params = {"imageerror":0, "dataerror":0, "passerror1":0, "passerror2":0}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/settings.html')
+        admin = AdminData.objects.filter(admin_id=request.session["userid"])
+        params["admin"] = admin[0]
+        if request.method == "POST":
+            #upload image logic
+            if "uploadpicture" in request.POST:
+                try:
+                    file = request.FILES['picture']
+                except MultiValueDictKeyError:
+                    file = False
+                if file != False:
+                    if imghdr.what(file) == None:
+                        params["imageerror"] = 1
+                    else:
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\admin\\"+admin[0].admin_img_name, 'wb')
+                        image_result.write(image_64_decode)
+
+            #upload data logic
+            if "uploaddata" in request.POST:
+                name = request.POST["fullname"]
+                contact = request.POST["contact"]
+                address = request.POST["address"]
+                dob = request.POST.get("dob", "")
+                status = request.POST.get("status","Active")
+                update = AdminData.objects.filter(admin_id=request.session["userid"]).update(admin_name=name, admin_contact=contact, admin_address=address, admin_dob=dob, admin_status=status)
+                if update == 0:
+                    params["dataerror"] = 1
+                else:
+                    request.session["username"] = name
+            
+            #upload data logic
+            if "uploadpassword" in request.POST:
+                password = request.POST["pass"]
+                newpassword = request.POST["newpass"]
+                passwordtest = AdminData.objects.filter(admin_id=request.session["userid"], admin_password=password)
+                if len(passwordtest) > 0:
+                    updatepassword = AdminData.objects.filter(admin_id=request.session["userid"]).update(admin_password=newpassword)
+                    if updatepassword == 0:
+                        params["passerror2"] = -1 # unsuccessful
+                    else:
+                        params["passerror2"] = 1 # successful
+                else:
+                    params["passerror1"] = 1
+    
+        return render(request, 'adminportal/settings.html', params)
     else:
         return redirect('/adminportal/login/')
 
@@ -71,9 +127,18 @@ def settings(request):
 
 
 
+
+
+
+
+
+
 def user(request):
+    params={}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/user.html')
+        admin = AdminData.objects.filter(admin_id = request.session["userid"])
+        params["admin"] = admin[0]
+        return render(request, 'adminportal/user.html', params)
     else:
         return redirect('/adminportal/login/')
 
@@ -83,8 +148,9 @@ def user(request):
 
 
 def staff(request):
+    params={}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/staff.html')
+        return render(request, 'adminportal/staff.html',params)
     else:
         return redirect('/adminportal/login/')
 
