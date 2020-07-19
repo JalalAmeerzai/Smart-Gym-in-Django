@@ -246,19 +246,44 @@ def staffprofile(request, adminid):
 
 
 
-def staffprofileedit(request):
+def staffprofileedit(request, adminid):
+    params = {"imageerror":0, "dataerror":0, "passerror1":0, "passerror2":0}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
+        admin = AdminData.objects.filter(admin_id=adminid)
+
+        if admin[0].admin_added_by == "superuser":
+            return redirect('/adminportal/staff/')
+
         if request.method == "POST":
+
+            #upload image logic
             if "uploadpicture" in request.POST:
                 try:
                     file = request.FILES['picture']
                 except MultiValueDictKeyError:
                     file = False
-                image_64_encode = base64.encodebytes(file.read())
-                image_64_decode = base64.decodebytes(image_64_encode)
-                image_result = open("media\\adminportal\\admin\\adm1.jpg", 'wb')
-                image_result.write(image_64_decode)
-        return render(request, 'adminportal/editstaff.html')
+                if file != False:
+                    if imghdr.what(file) == None:
+                        params["imageerror"] = 1
+                    else:
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\admin\\"+admin[0].admin_img_name, 'wb')
+                        image_result.write(image_64_decode)
+            
+            #upload data logic
+            if "uploaddata" in request.POST:
+                name = request.POST["fullname"]
+                contact = request.POST["contact"]
+                address = request.POST["address"]
+                dob = request.POST.get("dob", "")
+                status = request.POST.get("status","Active")
+                update = AdminData.objects.filter(admin_id=adminid).update(admin_name=name, admin_contact=contact, admin_address=address, admin_dob=dob, admin_status=status)
+                if update == 0:
+                    params["dataerror"] = 1
+        
+        params["admin"] = admin[0]
+        return render(request, 'adminportal/editstaff.html', params)
     else:
         return redirect('/adminportal/login/')
 
