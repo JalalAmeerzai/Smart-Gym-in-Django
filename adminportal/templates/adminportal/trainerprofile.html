@@ -223,23 +223,28 @@
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="col-md-2">
                                                 <div class="profile-avatar">
-                                                    <img src="{% static 'adminportal/img/T2.jpg'%}" alt="Avatar" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" >
+                                                    <img src="/media/adminportal/trainer/{{trainer.trainer_img_name}}" alt="Avatar" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" >
                                                     <p class="mt10">
-                                                        Online
+                                                        
                                                         <span class="device">
-                                                            <i class="fa fa-mobile s16"></i>
+                                                            <i class="fa fa-mobile s16" style="color: transparent;"></i>
                                                         </span>
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="profile-name">
-                                                    <h3>Jalal Ameerzai</h3>
+                                                    <h3>{{trainer.trainer_name}}</h3>
                                                     <p class="job-title mb0"><i class="fa  fa-info-circle"></i> Trainer at SmartGYM</p>
                                                     <p class="balance" style="margin-bottom: 30px; font-size: 20px;">
-                                                        Status: <span class="text-success" style="font-size: 20px;">Active</span>
+                                                        Status: 
+                                                        {% if trainer.trainer_status == "Active" %}
+                                                            <span class="text-success" style="font-size: 20px;">Active</span>
+                                                        {% else %}
+                                                            <span class="text-danger" style="font-size: 20px;">Inactive</span>
+                                                        {% endif %}
                                                     </p>
-                                                    <a href="/adminportal/trainersprofileedit" style="" id="subcbtn"> <i class="l-basic-settings"></i> Update</a>
+                                                    <a href="/adminportal/trainersprofileedit/{{trainer.trainer_id}}" style="" id="subcbtn"> <i class="l-basic-settings"></i> Update</a>
                                                     
                                                 </div>
                                             </div>
@@ -251,21 +256,21 @@
                                                         <div class="col-md-6">
                                                             <dl class="mt20">
                                                                 <dt class="text-muted">Phone</dt>
-                                                                <dd>(367)-045-347</dd>
+                                                                <dd>{{trainer.trainer_contact}}</dd>
                                                                 <dt class="text-muted">Email</dt>
-                                                                <dd>jalalx@msn.com</dd>
+                                                                <dd>{{trainer.trainer_email}}</dd>
                                                                 <dt class="text-muted">Address</dt>
-                                                                <dd>XYZ Street, ABC City, Pakistan</dd>
+                                                                <dd>{{trainer.trainer_address}}</dd>
                                                             </dl>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <dl class="mt20">
                                                                 <dt class="text-muted">Date of Birth</dt>
-                                                                <dd>02 - 10 - 1994</dd>
+                                                                <dd>{{trainer.trainer_dob}}</dd>
                                                                 <dt class="text-muted">Height</dt>
-                                                                <dd>5' 10''</dd>
+                                                                <dd>{{trainer.trainer_height}}</dd>
                                                                 <dt class="text-muted">Weight</dt>
-                                                                <dd>87 kgs</dd>
+                                                                <dd>{{trainer.trainer_weight}} kgs</dd>
                                                             </dl>
                                                         </div>
                                                     </div>
@@ -277,7 +282,7 @@
                                             <div class="col-md-12">
                                                 <div class="profile-info bt">
                                                     <h5 class="text-muted">Profile info</h5>
-                                                    <p>Abou the trainer comes here. what he did and everything bla bla bla...</p>
+                                                    <p>{{trainer.trainer_about}}</p>
                                                 </div>
                                                 
                                                 <div class="social bt">
@@ -289,7 +294,7 @@
                                             Facebook:
                                         </span>
                                                         </dt>
-                                                        <dd><a href="#">facebook.com/1231</a>
+                                                        <dd><a href="{{trainer.trainer_fb}}" target="_blank">{{trainer.trainer_fb}}</a>
                                                         </dd>
                                                         <dt>
                                                             <span class="text-muted">
@@ -297,7 +302,7 @@
                                             Instagram:
                                         </span>
                                                         </dt>
-                                                        <dd><a href="#">ig.com/profile/3234.html</a>
+                                                        <dd><a href="{{trainer.trainer_ig}}" target="_blank">{{trainer.trainer_ig}}</a>
                                                         </dd>
                                                         
                                                     </dl>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import AdminData
+from .models import AdminData, TrainerData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -247,7 +247,7 @@ def staffprofile(request, adminid):
 
 
 def staffprofileedit(request, adminid):
-    params = {"imageerror":0, "dataerror":0, "passerror1":0, "passerror2":0}
+    params = {"imageerror":0, "dataerror":0}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
         admin = AdminData.objects.filter(admin_id=adminid)
 
@@ -294,7 +294,74 @@ def staffprofileedit(request, adminid):
 
 def trainers(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/trainers.html')
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        trainer_count = TrainerData.objects.all().order_by('trainer_id')
+
+        # add trainer logic
+        if "addtrainer" in request.POST:
+            if len(trainer_count) == 0:
+                new_id = "tr1"
+            else:
+                new_id = "tr" + str((int(trainer_count[len(trainer_count)-1].trainer_id[-1])+1))
+
+            try:
+                file = request.FILES['picture']
+            except MultiValueDictKeyError:
+                file = False
+            if file != False:
+                if imghdr.what(file) == None:
+                    params["error"] = 1
+                    params["errormessage"] = "Select a suitable image file type"
+                else:
+                    email = request.POST["email"].lower()
+                    if trainer_count.filter(trainer_email=email).exists():
+                        params["error"] = 1
+                        params["errormessage"] = "Account with email address '"+email+"' already exists!"
+                    else:
+                        try:
+                            name = request.POST["name"]
+                            about = request.POST["about"]
+                            contact = request.POST["contact"]
+                            address = request.POST["address"]
+                            dob = request.POST.get("dob","")
+                            status = request.POST.get("status","Active")
+                            height = request.POST["height1"]+"' "+request.POST["height2"]+"''"
+                            weight = request.POST["weight"]
+                            fb = request.POST["fb"]
+                            ig = request.POST["ig"]
+                            added_by = request.session["userid"]
+                            added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                            picture = new_id+".jpg"
+                            new_trainer = TrainerData(trainer_id=new_id, trainer_name=name, trainer_email=email, trainer_about=about, trainer_img_name=picture, trainer_contact=contact, trainer_address=address, trainer_dob=dob, trainer_height=height, trainer_weight=weight, trainer_fb=fb, trainer_ig=ig, trainer_status=status, trainer_added_by=added_by, trainer_added_on=added_on)
+                            new_trainer.save()
+                            image_64_encode = base64.encodebytes(file.read())
+                            image_64_decode = base64.decodebytes(image_64_encode)
+                            image_result = open("media\\adminportal\\trainer\\"+picture, 'wb')
+                            image_result.write(image_64_decode)
+                            params["success"] = 1
+                            params["successmessage"] = "Trainer added successfully."
+                        except Exception:
+                            params["error"] = 1
+                            params["errormessage"] = "Something went wrong. Try again later."
+
+        # delete trainer logic
+        if "deletetrainer" in request.POST:
+            del_id = request.POST["id"]
+            trainer_delete = TrainerData.objects.filter(trainer_id = del_id).delete()
+            if trainer_delete[0] == 1:
+                try:
+                    os.remove("media\\adminportal\\trainer\\"+del_id+".jpg")
+                    params["success"] = 1
+                    params["successmessage"] = "Trainer successfully deleted."
+                except Exception:
+                    pass
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+
+
+        params["trainers"] = trainer_count
+        return render(request, 'adminportal/trainers.html', params)
     else:
         return redirect('/adminportal/login/')
 
@@ -303,9 +370,12 @@ def trainers(request):
 
 
 
-def trainersprofile(request):
+def trainersprofile(request, trainerid):
+    params={}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/trainerprofile.html')
+        trainer = TrainerData.objects.filter(trainer_id = trainerid)
+        params["trainer"] = trainer[0]
+        return render(request, 'adminportal/trainerprofile.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -314,9 +384,47 @@ def trainersprofile(request):
 
 
 
-def trainersprofileedit(request):
+def trainersprofileedit(request, trainerid):
+    params = {"imageerror":0, "dataerror":0}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/edittrainer.html')
+        trainer = TrainerData.objects.filter(trainer_id = trainerid)
+
+        if request.method == "POST":
+
+            #upload image logic
+            if "uploadpicture" in request.POST:
+                try:
+                    file = request.FILES['picture']
+                except MultiValueDictKeyError:
+                    file = False
+                if file != False:
+                    if imghdr.what(file) == None:
+                        params["imageerror"] = 1
+                    else:
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\trainer\\"+trainer[0].trainer_img_name, 'wb')
+                        image_result.write(image_64_decode)
+            
+            #upload data logic
+            if "uploaddata" in request.POST:
+                name = request.POST["name"]
+                about = request.POST.get("about","")
+                contact = request.POST["contact"]
+                address = request.POST["address"]
+                dob = request.POST.get("dob","")
+                status = request.POST.get("status","Active")
+                height = request.POST["height1"]+"' "+request.POST["height2"]+"''"
+                weight = request.POST["weight"]
+                fb = request.POST["fb"]
+                ig = request.POST["ig"]
+                update = TrainerData.objects.filter(trainer_id=trainerid).update(trainer_name=name, trainer_contact=contact, trainer_about=about, trainer_height=height, trainer_weight=weight, trainer_fb= fb, trainer_ig= ig, trainer_address=address, trainer_dob=dob, trainer_status=status)
+                if update == 0:
+                    params["dataerror"] = 1
+
+
+        params["trainer"] = trainer[0]
+        return render(request, 'adminportal/edittrainer.html', params)
     else:
         return redirect('/adminportal/login/')
     
