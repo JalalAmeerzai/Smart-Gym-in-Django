@@ -4,6 +4,8 @@ from .models import AdminData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
+import datetime
+import os
 
 def login(request):
     params = {"error": 0, "errormessage": ""} 
@@ -104,7 +106,7 @@ def settings(request):
                 else:
                     request.session["username"] = name
             
-            #upload data logic
+            #upload password logic
             if "uploadpassword" in request.POST:
                 password = request.POST["pass"]
                 newpassword = request.POST["newpass"]
@@ -117,7 +119,8 @@ def settings(request):
                         params["passerror2"] = 1 # successful
                 else:
                     params["passerror1"] = 1
-    
+
+        #main page logic
         return render(request, 'adminportal/settings.html', params)
     else:
         return redirect('/adminportal/login/')
@@ -147,9 +150,73 @@ def user(request):
 
 
 
+
+
+
+
+
 def staff(request):
-    params={}
+    params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+    admin_count = AdminData.objects.all().order_by('admin_id')
+    
     if "userid" in request.session and request.session["userrole"] == "Admin" :
+
+        # add admin logic
+        if "addadmin" in request.POST:
+            new_id = "adm" + str((int(admin_count[len(admin_count)-1].admin_id[-1])+1))
+            try:
+                file = request.FILES['picture']
+            except MultiValueDictKeyError:
+                file = False
+            if file != False:
+                if imghdr.what(file) == None:
+                    params["error"] = 1
+                    params["errormessage"] = "Select a suitable image file type"
+                else:
+                    email = request.POST["email"].lower()
+                    if admin_count.filter(admin_email=email).exists():
+                        params["error"] = 1
+                        params["errormessage"] = "Account with email address '"+email+"' already exists!"
+                    else:
+                        try:
+                            name = request.POST["name"]
+                            password = request.POST["password"]
+                            contact = request.POST["contact"]
+                            address = request.POST["address"]
+                            dob = request.POST.get("dob","")
+                            status = request.POST.get("status","Active")
+                            added_by = request.session["userid"]
+                            added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                            picture = new_id+".jpg"
+                            new_admin = AdminData(admin_id=new_id, admin_name=name, admin_email=email, admin_password=password, admin_contact=contact, admin_address=address, admin_dob=dob, admin_status=status, admin_role="Admin", admin_img_name=picture, admin_added_by=added_by, admin_added_on=added_on)
+                            new_admin.save()
+                            image_64_encode = base64.encodebytes(file.read())
+                            image_64_decode = base64.decodebytes(image_64_encode)
+                            image_result = open("media\\adminportal\\admin\\"+picture, 'wb')
+                            image_result.write(image_64_decode)
+                            params["success"] = 1
+                            params["successmessage"] = "Staff member added successfully."
+                        except Exception:
+                            params["error"] = 1
+                            params["errormessage"] = "Something went wrong. Try again later."
+
+        # delete admin logic
+        if "deleteadmin" in request.POST:
+            del_id = request.POST["id"]
+            admin_delete = AdminData.objects.filter(admin_id = del_id).delete()
+            if admin_delete[0] == 1:
+                try:
+                    os.remove("media\\adminportal\\admin\\"+del_id+".jpg")
+                    params["success"] = 1
+                    params["successmessage"] = "Staff member successfully deleted."
+                except Exception:
+                    pass
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+
+        #main page logic
+        params["admins"] = admin_count
         return render(request, 'adminportal/staff.html',params)
     else:
         return redirect('/adminportal/login/')
@@ -159,9 +226,18 @@ def staff(request):
 
 
 
-def staffprofile(request):
+
+
+
+
+
+
+def staffprofile(request, adminid):
+    params={}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/staffprofile.html')
+        admin = AdminData.objects.filter(admin_id = adminid)
+        params["admin"] = admin[0]
+        return render(request, 'adminportal/staffprofile.html',params)
     else:
         return redirect('/adminportal/login/')
 
