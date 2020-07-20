@@ -211,6 +211,23 @@
                                     
                                   
                                     <div class="panel-body">
+                                        <div class="col-lg-12"> 
+                                            {% if error == 1 %}
+                                                <div class="alert alert-danger fade in">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                    <strong>Input Error!</strong> <br>{{errormessage}}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if success == 1 %}
+                                                <div class="alert alert-success fade in">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <i class="fa fa-check alert-icon "></i>
+                                                    <strong>Success!</strong> <br>{{successmessage}}
+                                                </div>
+                                            {% endif %}
+                                        </div>
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-4"></div>
                                         <div style="col-lg-4">
@@ -239,134 +256,37 @@
                                                                 <div class="col-lg-12 col-md-12">
                                                                     <div class="row">
             
-                                                                        <div class="col-lg-4 col-md-6 col-sm-12">
-                                                                            <!-- col-lg-3 start here -->
-                                                                            <div class="pricing-table">
-                                                                                <div class="pricing-header" >
-                                                                                    <h3 style="background: #404040; color:#e2d34d ">Gold</h3>
-                                                                                </div>
-                                                                                <li class="list-group-item" id="packagedescription">Package description comes here. describe your package here.</li>
-                                                                                
-                                                                                <ul class="list-group">
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 1</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 2</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 3</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 4</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 5</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 6</li>
+                                                                        {% for package in package_list.values %}
+                                                                            <div class="col-lg-4 col-md-6 col-sm-12">
+                                                                                <!-- col-lg-3 start here -->
+                                                                                <div class="pricing-table">
+                                                                                    <div class="pricing-header" >
+                                                                                        <h3 style="background: #404040; color:#e2d34d ">{{package.name}}</h3>
+                                                                                    </div>
+                                                                                    <li class="list-group-item" id="packagedescription">{{package.desc}}</li>
                                                                                     
-                                                                                </ul>
-                                                                                <div class="pricing-bottom clearfix">
-                                                                                    <div class="price">
-                                                                                        <span>16,000</span>
-                                                                                        / month
-                                                                                        <span class="col-lg-12" style="margin-top: 10px;">
-                                                                                            <a href="/adminportal/packagesedit" class="btn col-lg-5" id="subcbtn">Edit</a>
-                                                                                            <div class="col-lg-2"></div>
-                                                                                            <a href="#" class="btn   col-lg-5" id="subcbtndelete" style="">Delete</a>
-                                                                                        </span>
-                                                                                        
+                                                                                    <ul class="list-group">
+                                                                                        {% for feature in package.features %}
+                                                                                            <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> {{feature}}</li>
+                                                                                        {% endfor %} 
+                                                                                    </ul>
+                                                                                    <div class="pricing-bottom clearfix">
+                                                                                        <div class="price">Rs. 
+                                                                                            <span>{{package.price}}</span>
+                                                                                            / month
+                                                                                            <span class="col-lg-12" style="margin-top: 10px;">
+                                                                                                <a href="/adminportal/packagesedit/{{package.id}}" class="btn col-lg-5" id="subcbtn">Edit</a>
+                                                                                                <div class="col-lg-2"></div>
+                                                                                                <span id="{{package.id}}" onclick="del(this.id)"><a  class="btn   col-lg-5 " id="subcbtndelete" style="" data-toggle="modal" data-target="#modal-style3">Delete</a></span>
+                                                                                            </span>
+                                                                                            
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                        {% endfor %}
             
-                                                                        <div class="col-lg-4 col-md-6 col-sm-12">
-                                                                            <!-- col-lg-3 start here -->
-                                                                            <div class="pricing-table">
-                                                                                <div class="pricing-header" >
-                                                                                    <h3 style="background: #404040; color:#e2d34d ">Gold</h3>
-                                                                                </div>
-                                                                                <li class="list-group-item" id="packagedescription">Package description comes here. describe your package here.</li>
-                                                                                
-                                                                                <ul class="list-group">
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 1</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 2</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 3</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 4</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 5</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 6</li>
-                                                                                    
-                                                                                </ul>
-                                                                                <div class="pricing-bottom clearfix">
-                                                                                    <div class="price">
-                                                                                        <span>16,000</span>
-                                                                                        / month
-                                                                                        <span class="col-lg-12" style="margin-top: 10px;">
-                                                                                            <a href="/adminportal/packagesedit" class="btn col-lg-5" id="subcbtn">Edit</a>
-                                                                                            <div class="col-lg-2"></div>
-                                                                                            <a href="#" class="btn   col-lg-5" id="subcbtndelete" style="">Delete</a>
-                                                                                        </span>
-                                                                                        
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-            
-            
-                                                                        <div class="col-lg-4 col-md-6 col-sm-12">
-                                                                            <!-- col-lg-3 start here -->
-                                                                            <div class="pricing-table">
-                                                                                <div class="pricing-header" >
-                                                                                    <h3 style="background: #404040; color:#e2d34d ">Gold</h3>
-                                                                                </div>
-                                                                                <li class="list-group-item" id="packagedescription">Package description comes here. describe your package here.</li>
-                                                                                
-                                                                                <ul class="list-group">
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 1</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 2</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 3</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 4</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 5</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 6</li>
-                                                                                    
-                                                                                </ul>
-                                                                                <div class="pricing-bottom clearfix">
-                                                                                    <div class="price">
-                                                                                        <span>16,000</span>
-                                                                                        / month
-                                                                                        <span class="col-lg-12" style="margin-top: 10px;">
-                                                                                            <a href="/adminportal/packagesedit" class="btn col-lg-5" id="subcbtn">Edit</a>
-                                                                                            <div class="col-lg-2"></div>
-                                                                                            <a href="#" class="btn   col-lg-5" id="subcbtndelete" style="">Delete</a>
-                                                                                        </span>
-                                                                                        
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="col-lg-4 col-md-6 col-sm-12">
-                                                                            <!-- col-lg-3 start here -->
-                                                                            <div class="pricing-table">
-                                                                                <div class="pricing-header" >
-                                                                                    <h3 style="background: #404040; color:#e2d34d ">Gold</h3>
-                                                                                </div>
-                                                                                <li class="list-group-item" id="packagedescription">Package description comes here. describe your package here.</li>
-                                                                                
-                                                                                <ul class="list-group">
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 1</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 2</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 3</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 4</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 5</li>
-                                                                                    <li class="list-group-item"><i class="glyphicon glyphicon-ok-circle s24 text-success"></i> Feature 6</li>
-                                                                                    
-                                                                                </ul>
-                                                                                <div class="pricing-bottom clearfix">
-                                                                                    <div class="price">
-                                                                                        <span>16,000</span>
-                                                                                        / month
-                                                                                        <span class="col-lg-12" style="margin-top: 10px;">
-                                                                                            <a href="/adminportal/packagesedit" class="btn col-lg-5" id="subcbtn">Edit</a>
-                                                                                            <div class="col-lg-2"></div>
-                                                                                            <a href="#" class="btn   col-lg-5" id="subcbtndelete" style="">Delete</a>
-                                                                                        </span>
-                                                                                        
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                        
             
                                                                     </div>
                                                                 </div>
@@ -383,7 +303,50 @@
 
                                         
                              
-                                        
+                                          <!--DELETE MODAL-->
+                                          <div class="modal fade modal-style2" id="modal-style3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        
+                                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color:#404040; color: #e2d34d">
+                                        <button type="button" class="close" data-dismiss="modal" style="color: #e2d34d">
+                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                        </button>
+                                        <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Package</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class=" group-border stripped" role="form" method="POST" action="/adminportal/packages/" >{% csrf_token %}
+                                            
+
+                                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    
+                                                        <input type="hidden" class="form-control" name="id" id="id"/>
+                                               
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    
+                                                        <button type="submit" class="btn btn-default col-lg-4" id="delgreen" style="width:100%" name="deletepackage">Yes, Remove The Package</button>
+                                               
+                                                </div>
+                                            </div>
+                                            
+                                             <div class="form-group">
+                                                <div class="col-lg-12">
+                                                    
+                                                        <button  class="btn btn-default col-lg-4" id="delred" style="width:100%" data-dismiss="modal">Cancel</button>
+                                               
+                                                </div>
+                                            </div>      
+                                        </form>
+                                    </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
@@ -401,10 +364,10 @@
                                                     <button type="button" class="close" data-dismiss="modal" style="color:#e2d34d">
                                                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                                                     </button>
-                                                    <h4 class="modal-title" id="mySmallModalLabel" style="color:#e2d34d; text-align: center">Add Equipment</h4>
+                                                    <h4 class="modal-title" id="mySmallModalLabel" style="color:#e2d34d; text-align: center">Add Package</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form class="form-horizontal group-border stripped" role="form">
+                                                    <form class="form-horizontal group-border stripped" role="form" method="POST" action="/adminportal/packages/" >{% csrf_token %}
                                                         
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
@@ -413,7 +376,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Name</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="pkgname" placeholder="Eg: Silver">
+                                                                            <input type="text" class="form-control" id="pkgname" placeholder="Eg: Silver" name="name" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -429,7 +392,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Description</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="pkdesc" placeholder="this package is for silver category">
+                                                                            <input type="text" class="form-control" id="pkdesc" placeholder="this package is for silver category" name="desc" required maxlength="200">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -443,7 +406,21 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Features</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="pkfeatures" placeholder="Comma seperated: feature 1, feature 2, feature 3">
+                                                                            <input type="text" class="form-control" id="pkfeatures" placeholder="Comma seperated: feature 1, feature 2, feature 3" required name="features">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="col-lg-12">
+                                                                <div class="col-lg-12">
+                                                                    <div class="form-group">
+                                                                        <label for="" class="col-sm-12 control-label">Price / Month</label>
+                                                                        <div class="col-sm-12">
+                                                                            <input type="number" class="form-control" id="pkfeatures" min="0" placeholder="16000" required name="price">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -455,7 +432,7 @@
                                                         <div class="form-group">
                                                             <div class="col-sm-offset-4 col-sm-4">
                                                                 <br><br>
-                                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save</button>
+                                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="addpackage">Save</button>
                                                             </div>
                                                         </div>
                                                                     
@@ -570,7 +547,12 @@
         <script src="{% static 'adminportal/js/main.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/modals.js'%}"></script>
         
-
+        <script>
+            function del(id){
+                document.getElementById("id").value = ""+id
+                
+            }
+        </script>
         
     </body>
 </html>

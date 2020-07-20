@@ -853,7 +853,7 @@
                                         pointStrokeColor : "#fff",
                                         pointHighlightFill : "#fff",
                                         pointHighlightStroke : "rgba(64,64,64,1)",
-                                        data : [4000, 6000, 8000, 10000, 34000, 20000, 12500]
+                                        data : {{data}}
                                     }
                                 ]
 
@@ -905,13 +905,13 @@
                                                     //------------- Donut chart  -------------//
                             var donutData = [
                                 {
-                                    value: 50,
+                                    value: {{users.inactive}},
                                     color:"rgba(64,64,64,0.8)",
                                     highlight: "#404040",
                                     label: "Users Inactive: "
                                 },
                                 {
-                                    value: 150,
+                                    value: {{users.active}},
                                     color: "rgba(267, 211, 77, 0.6)",
                                     highlight: "rgba(267, 211, 77, 0.8)",
                                     label: "Users Active: "

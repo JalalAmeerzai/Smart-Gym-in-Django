@@ -3772,6 +3772,28 @@ div.gallery-upload .dropzone .dz-message:after {
 
 
 
+.jalal{
+  padding: 10px;
+  font-size: 20px;
+  text-decoration: none;
+  background-color: #d9534f;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+
+.jalal:hover{
+  
+  border-color: #d9534f;
+  color: #d9534f;
+  background-color: white;
+  border: 1px solid #d9534f;
+  
+}
+
+
+
 #subcbtnfollow{
   padding: 10px;
   font-size: 20px;

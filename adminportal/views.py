@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import AdminData, TrainerData
+from .models import AdminData, TrainerData, PackageData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
 import datetime
 import os
+import re #regex
 
 def login(request):
     params = {"error": 0, "errormessage": ""} 
@@ -57,7 +58,7 @@ def passwordlost(request):
 
 def dashboard(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/dashboard.html')
+        return render(request, 'adminportal/dashboard.html',{"users":{"active": 100, "inactive": 2},"data":[4000, 6000, 8000, 10000, 14000, 20000, 12500]})
     else:
         return redirect('/adminportal/login/')
 
@@ -121,6 +122,8 @@ def settings(request):
                     params["passerror1"] = 1
 
         #main page logic
+        admin = AdminData.objects.filter(admin_id=request.session["userid"])
+        params["admin"] = admin[0]
         return render(request, 'adminportal/settings.html', params)
     else:
         return redirect('/adminportal/login/')
@@ -216,6 +219,7 @@ def staff(request):
                 params["errormessage"] = "Something went wrong. Try again later."
 
         #main page logic
+        admin_count = AdminData.objects.all().order_by('admin_id')
         params["admins"] = admin_count
         return render(request, 'adminportal/staff.html',params)
     else:
@@ -282,6 +286,7 @@ def staffprofileedit(request, adminid):
                 if update == 0:
                     params["dataerror"] = 1
         
+        admin = AdminData.objects.filter(admin_id=adminid)
         params["admin"] = admin[0]
         return render(request, 'adminportal/editstaff.html', params)
     else:
@@ -359,7 +364,7 @@ def trainers(request):
                 params["error"] = 1
                 params["errormessage"] = "Something went wrong. Try again later."
 
-
+        trainer_count = TrainerData.objects.all().order_by('trainer_id')
         params["trainers"] = trainer_count
         return render(request, 'adminportal/trainers.html', params)
     else:
@@ -422,7 +427,7 @@ def trainersprofileedit(request, trainerid):
                 if update == 0:
                     params["dataerror"] = 1
 
-
+        trainer = TrainerData.objects.filter(trainer_id = trainerid)
         params["trainer"] = trainer[0]
         return render(request, 'adminportal/edittrainer.html', params)
     else:
@@ -578,7 +583,56 @@ def expensesedit(request):
 
 def packages(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/packages.html')
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        package_count = PackageData.objects.all().order_by('package_id')
+        
+        #add package logic
+        if "addpackage" in request.POST:
+            if len(package_count) == 0:
+                new_id = "pkg1"
+            else:
+                new_id = "pkg" + str((int(package_count[len(package_count)-1].package_id[-1])+1))
+             
+            name = request.POST["name"].upper()
+
+            if package_count.filter(package_name=name).exists():
+                params["error"] = 1
+                params["errormessage"] = "Package with name '"+name+"' already exists!"
+            else:
+                try:
+                    desc = request.POST["desc"]
+                    features = request.POST["features"]
+                    price = request.POST["price"]
+                    added_by = request.session["userid"]
+                    added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                    new_package = PackageData(package_id=new_id, package_name=name, package_desc=desc, package_price=price, package_features=features, package_added_by=added_by, package_added_on=added_on)
+                    new_package.save()
+                    params["success"] = 1
+                    params["successmessage"] = "Package added successfully."
+                except Exception:
+                    params["error"] = 1
+                    params["errormessage"] = "Something went wrong. Try again later."
+        
+        #delete packages logic
+        if "deletepackage" in request.POST:
+            del_id = request.POST["id"]
+            package_delete = PackageData.objects.filter(package_id = del_id).delete()
+            if package_delete[0] == 1:
+                params["success"] = 1
+                params["successmessage"] = "Package successfully deleted."
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+            
+        
+        #page logic
+        package_count = PackageData.objects.all().order_by('package_id')
+        packages = {}
+        for package in package_count:
+            features = [feature.lstrip().rstrip() for feature in package.package_features.split(",")]
+            packages[package.package_id] = {"id":package.package_id, "name": package.package_name, "desc": package.package_desc, "features": features, "price": '{:,}'.format(package.package_price)}
+        params["package_list"] = packages 
+        return render(request, 'adminportal/packages.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -587,9 +641,28 @@ def packages(request):
 
 
 
-def packagesedit(request):
+def packagesedit(request, pkgid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/editpackage.html')
+        params = {"dataerror":0, "message":""}
+
+        #upload data logic
+        if "uploaddata" in request.POST:
+            name = request.POST["name"].upper()
+            desc = request.POST["desc"]
+            features = request.POST["features"]
+            price = request.POST["price"]
+            try:
+                update = PackageData.objects.filter(package_id=pkgid).update(package_name=name, package_price=price, package_desc=desc, package_features=features)
+                if update == 0:
+                    params["dataerror"] = 1
+                    params["message"] = "Something went wrong. Try again later."
+            except Exception:
+                params["dataerror"] = 1
+                params["message"] = "Cant change the name to '"+name+"'. It already exists."
+
+        package = PackageData.objects.filter(package_id=pkgid)
+        params["package"] = package[0]
+        return render(request, 'adminportal/editpackage.html', params)
     else:
         return redirect('/adminportal/login/')
     

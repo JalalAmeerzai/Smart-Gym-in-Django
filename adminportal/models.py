@@ -32,3 +32,14 @@ class TrainerData(models.Model):
     trainer_status = models.CharField(max_length=10, default="Active")
     trainer_added_by = models.CharField(max_length=10, default="")
     trainer_added_on = models.CharField(max_length=12, default="")
+
+
+
+class PackageData(models.Model):
+    package_id = models.CharField(max_length=10, primary_key=True, default="")
+    package_name = models.CharField(max_length=40, default="", unique=True)
+    package_desc = models.CharField(max_length=200, default="")
+    package_features = models.TextField(default="")
+    package_price = models.IntegerField(max_length=20, default=0)
+    package_added_by = models.CharField(max_length=10, default="")
+    package_added_on = models.CharField(max_length=12, default="")

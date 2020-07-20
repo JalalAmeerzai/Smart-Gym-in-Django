@@ -264,7 +264,7 @@
                                                         <td>{{trainer.trainer_id}}</td>
                                                         <td><img src="/media/adminportal/trainer/{{trainer.trainer_img_name}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
                                                         <td>{{trainer.trainer_name}}</td>
-                                                        <td>{{trainer.trainer_about}}</td>
+                                                        <td>{{trainer.trainer_about|slice:"0:80"}}...</td>
                                                         <td>{{trainer.trainer_status}}</td>
                                                         
                                                         <td>{{trainer.trainer_added_by}}</td>
@@ -401,7 +401,7 @@
                                                             <label for="inputHeight" class="col-sm-12 control-label">Height</label>
                                                             <div class="col-sm-6">
                                                                 <div class="col-sm-10">
-                                                                    <input type="number" class="form-control" id="" placeholder="5" required name="height1" minlength="0">
+                                                                    <input type="number" class="form-control" id="" placeholder="5" required name="height1" min="0">
                                                                 </div>
                                                                 <label for="inputhfts" class="col-sm-2 control-label">Feets</label>
                                                             </div>
@@ -410,7 +410,7 @@
     
                                                             <div class="col-sm-6">
                                                                 <div class="col-sm-10">
-                                                                    <input type="number" class="form-control" id="" placeholder="10" required name="height2" minlength="0">
+                                                                    <input type="number" class="form-control" id="" placeholder="10" required name="height2" min="0">
                                                                 </div>
                                                                 <label for="inputhinches" class="col-sm-2 control-label">Inches</label>
                                                             </div>
@@ -423,7 +423,7 @@
                                                             <label for="inputWeight" class="col-sm-12 control-label">Weight</label>
                                                             <div class="col-sm-12">
                                                                 <div class="col-sm-10">
-                                                                    <input type="number" class="form-control" id="" placeholder="87" required name="weight" minlength="0">
+                                                                    <input type="number" class="form-control" id="" placeholder="87" required name="weight" min="0">
                                                                 </div>
                                                                 <label for="inputWeight" class="col-sm-2 control-label">Kgs</label>
                                                             </div>
