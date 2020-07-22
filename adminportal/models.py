@@ -43,3 +43,15 @@ class PackageData(models.Model):
     package_price = models.IntegerField(max_length=20, default=0)
     package_added_by = models.CharField(max_length=10, default="")
     package_added_on = models.CharField(max_length=12, default="")
+
+
+
+class EquipmentData(models.Model):
+    equipment_id = models.CharField(max_length=10, primary_key=True, default="")
+    equipment_name = models.CharField(max_length=40, default="")
+    equipment_brand = models.CharField(max_length=40, default="")
+    equipment_quantity = models.IntegerField(max_length=20, default=0)
+    equipment_price = models.IntegerField(max_length=20, default=0)
+    equipment_total = models.IntegerField(max_length=20, default=0)
+    equipment_added_by = models.CharField(max_length=10, default="")
+    equipment_added_on = models.CharField(max_length=12, default="")

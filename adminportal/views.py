@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import AdminData, TrainerData, PackageData
+from .models import AdminData, TrainerData, PackageData, EquipmentData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -673,7 +673,46 @@ def packagesedit(request, pkgid):
 
 def equipments(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/equipments.html')
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        equipment_count = EquipmentData.objects.all().order_by('equipment_id')
+        #add equipment logic
+        if "addequipment" in request.POST:
+            if len(equipment_count) == 0:
+                new_id = "eqp1"
+            else:
+                new_id = "eqp" + str((int(equipment_count[len(equipment_count)-1].equipment_id[-1])+1))
+            
+            try:
+                name = request.POST["name"].title()
+                brand = request.POST["brand"]
+                quantity = int(request.POST["quantity"])
+                price = int(request.POST["price"])
+                total = quantity * price
+                added_by = request.session["userid"]
+                added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                new_equipment = EquipmentData(equipment_id=new_id, equipment_name=name, equipment_brand=brand, equipment_quantity=quantity, equipment_price=price, equipment_total=total, equipment_added_by=added_by, equipment_added_on=added_on)
+                new_equipment.save()
+                params["success"] = 1
+                params["successmessage"] = "Equipment added successfully."
+            except Exception:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+            
+        #delete packages logic
+        if "deleteequipment" in request.POST:
+            del_id = request.POST["id"]
+            equipment_delete = EquipmentData.objects.filter(equipment_id = del_id).delete()
+            if equipment_delete[0] == 1:
+                params["success"] = 1
+                params["successmessage"] = "Equipment successfully deleted."
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+        
+        #page logic
+        equipments = EquipmentData.objects.all().order_by('equipment_id')
+        params["equipments"] = equipments
+        return render(request, 'adminportal/equipments.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -682,9 +721,29 @@ def equipments(request):
 
 
 
-def equipmentsedit(request):
+def equipmentsedit(request, eqid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/editequipments.html')
+        params = {"dataerror":0, "message":""}
+
+        if "updateequipment" in request.POST:
+            try:
+                name = request.POST["name"].title()
+                brand = request.POST["brand"]
+                quantity = int(request.POST["quantity"])
+                price = int(request.POST["price"])
+                total = quantity * price
+                update = EquipmentData.objects.filter(equipment_id=eqid).update(equipment_name=name, equipment_brand=brand, equipment_quantity=quantity, equipment_price=price, equipment_total=total)
+                if update == 0:
+                    params["dataerror"] = 1
+                    params["message"] = "Something went wrong. Try again later."
+            except Exception:
+                params["dataerror"] = 1
+                params["message"] = "Something went wrong while updating. Try again later."
+
+
+        equipment = EquipmentData.objects.filter(equipment_id=eqid)
+        params["equipment"] = equipment[0]
+        return render(request, 'adminportal/editequipments.html', params)
     else:
         return redirect('/adminportal/login/')
     
