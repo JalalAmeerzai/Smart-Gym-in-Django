@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -93,10 +93,11 @@ def settings(request):
                         image_64_decode = base64.decodebytes(image_64_encode)
                         image_result = open("media\\adminportal\\admin\\"+admin[0].admin_img_name, 'wb')
                         image_result.write(image_64_decode)
+                        return redirect('/adminportal/user/')
 
             #upload data logic
             if "uploaddata" in request.POST:
-                name = request.POST["fullname"]
+                name = request.POST["fullname"].title()
                 contact = request.POST["contact"]
                 address = request.POST["address"]
                 dob = request.POST.get("dob", "")
@@ -106,6 +107,7 @@ def settings(request):
                     params["dataerror"] = 1
                 else:
                     request.session["username"] = name
+                    return redirect('/adminportal/user/')
             
             #upload password logic
             if "uploadpassword" in request.POST:
@@ -182,7 +184,7 @@ def staff(request):
                         params["errormessage"] = "Account with email address '"+email+"' already exists!"
                     else:
                         try:
-                            name = request.POST["name"]
+                            name = request.POST["name"].title()
                             password = request.POST["password"]
                             contact = request.POST["contact"]
                             address = request.POST["address"]
@@ -274,10 +276,11 @@ def staffprofileedit(request, adminid):
                         image_64_decode = base64.decodebytes(image_64_encode)
                         image_result = open("media\\adminportal\\admin\\"+admin[0].admin_img_name, 'wb')
                         image_result.write(image_64_decode)
+                        return redirect('/adminportal/staffprofile/'+adminid)
             
             #upload data logic
             if "uploaddata" in request.POST:
-                name = request.POST["fullname"]
+                name = request.POST["fullname"].title()
                 contact = request.POST["contact"]
                 address = request.POST["address"]
                 dob = request.POST.get("dob", "")
@@ -285,6 +288,8 @@ def staffprofileedit(request, adminid):
                 update = AdminData.objects.filter(admin_id=adminid).update(admin_name=name, admin_contact=contact, admin_address=address, admin_dob=dob, admin_status=status)
                 if update == 0:
                     params["dataerror"] = 1
+                else:
+                    return redirect('/adminportal/staffprofile/'+adminid)
         
         admin = AdminData.objects.filter(admin_id=adminid)
         params["admin"] = admin[0]
@@ -324,7 +329,7 @@ def trainers(request):
                         params["errormessage"] = "Account with email address '"+email+"' already exists!"
                     else:
                         try:
-                            name = request.POST["name"]
+                            name = request.POST["name"].title()
                             about = request.POST["about"]
                             contact = request.POST["contact"]
                             address = request.POST["address"]
@@ -410,10 +415,11 @@ def trainersprofileedit(request, trainerid):
                         image_64_decode = base64.decodebytes(image_64_encode)
                         image_result = open("media\\adminportal\\trainer\\"+trainer[0].trainer_img_name, 'wb')
                         image_result.write(image_64_decode)
+                        return redirect('/adminportal/trainersprofile/'+trainerid)
             
             #upload data logic
             if "uploaddata" in request.POST:
-                name = request.POST["name"]
+                name = request.POST["name"].title()
                 about = request.POST.get("about","")
                 contact = request.POST["contact"]
                 address = request.POST["address"]
@@ -426,6 +432,8 @@ def trainersprofileedit(request, trainerid):
                 update = TrainerData.objects.filter(trainer_id=trainerid).update(trainer_name=name, trainer_contact=contact, trainer_about=about, trainer_height=height, trainer_weight=weight, trainer_fb= fb, trainer_ig= ig, trainer_address=address, trainer_dob=dob, trainer_status=status)
                 if update == 0:
                     params["dataerror"] = 1
+                else:
+                    return redirect('/adminportal/trainersprofile/'+trainerid)
 
         trainer = TrainerData.objects.filter(trainer_id = trainerid)
         params["trainer"] = trainer[0]
@@ -539,7 +547,86 @@ def paymenthistoryview(request):
 
 def classes(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/classes.html')
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        class_count = ClassData.objects.all().order_by('class_id')
+
+        # add Class logic
+        if "addclass" in request.POST:
+            if len(class_count) == 0:
+                new_id = "cls1"
+            else:
+                new_id = "cls" + str((int(class_count[len(class_count)-1].class_id[-1])+1))
+            
+            try:
+                file = request.FILES['picture']
+            except MultiValueDictKeyError:
+                file = False
+        
+            if file != False:
+                if imghdr.what(file) == None:
+                    params["error"] = 1
+                    params["errormessage"] = "Select a suitable image file type"
+                else:
+                    try:
+                        name = request.POST["name"].title()
+                        desc = request.POST.get("desc","")
+                        days = " ".join(request.POST.getlist("days[]",""))
+                        stime = request.POST.get("stime","")
+                        etime = request.POST.get("etime","")
+                        trainer = request.POST.get("trainer","")
+                        picture = new_id+".jpg"
+                        added_by = request.session["userid"]
+                        added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                        picture = new_id+".jpg"
+                        new_class = ClassData(class_id=new_id, class_name=name, class_desc=desc, class_img_name=picture, class_days=days, class_stime=stime, class_etime=etime, class_trainer=trainer, class_added_by=added_by, class_added_on=added_on)
+                        new_class.save()
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\class\\"+picture, 'wb')
+                        image_result.write(image_64_decode)
+                        params["success"] = 1
+                        params["successmessage"] = "Class added successfully."
+                    except Exception:
+                        params["error"] = 1
+                        params["errormessage"] = "Something went wrong. Try again later."
+
+        # delete trainer logic
+        if "deleteclass" in request.POST:
+            del_id = request.POST["id"]
+            class_delete = ClassData.objects.filter(class_id = del_id).delete()
+            if class_delete[0] == 1:
+                try:
+                    os.remove("media\\adminportal\\class\\"+del_id+".jpg")
+                    params["success"] = 1
+                    params["successmessage"] = "Class successfully deleted."
+                except Exception:
+                    pass
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+        
+
+        #main page logic
+        trainers = TrainerData.objects.all() #for trainers on html5 select
+        params["trainers"] = trainers
+
+        classes = {}
+        class_count = ClassData.objects.all().order_by('class_id')
+        for classSingle in class_count:
+            classes[classSingle.class_id] = {
+                "id": classSingle.class_id, 
+                "name": classSingle.class_name, 
+                "desc": classSingle.class_desc, 
+                "trainer": trainers.filter(trainer_id=classSingle.class_trainer)[0].trainer_name,
+                "days": classSingle.class_days,
+                "stime": classSingle.class_stime,
+                "etime": classSingle.class_etime,
+                "added_by": classSingle.class_added_by,
+                "added_on": classSingle.class_added_on,    
+            }
+            
+        params["classes"] = classes
+        return render(request, 'adminportal/classes.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -548,9 +635,67 @@ def classes(request):
 
 
 
-def classesedit(request):
+def classesedit(request, classid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/editclass.html')
+        params={"error":0, "errormessage":""}
+        
+        if "updateclass" in request.POST:
+            try:
+                file = request.FILES['picture']
+            except MultiValueDictKeyError:
+                file = False
+            if file != False:
+                if imghdr.what(file) == None:
+                    params["error"] = 1
+                    params["errormessage"] = "Select a suitable image file type"
+                else:
+                    try:
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\class\\"+classid+".jpg", 'wb')
+                        image_result.write(image_64_decode)
+                    except Exception:
+                        params["error"] = 1
+                        params["errormessage"] = "Something went wrong while uploading imaging. Try again later."
+            
+            
+            try:
+                name = request.POST["name"].title()
+                desc = request.POST.get("desc","")
+                days = " ".join(request.POST.getlist("days[]",""))
+                if days == "":
+                    days = request.POST.get("cdays","")     
+                stime = request.POST.get("stime","")
+                etime = request.POST.get("etime","")
+                trainer = request.POST.get("trainer","")
+                if trainer == "0":
+                    trainer = request.POST.get("currentinstructor","")
+                update = ClassData.objects.filter(class_id=classid).update(class_name=name, class_desc=desc, class_days=days, class_stime=stime, class_etime=etime, class_trainer=trainer)
+                if update == 0:
+                    params["error"] = 1
+                    params["errormessage"] = "Something went wrong while updating the data. Try again later."
+            except Exception:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong while updating the data. Try again later."
+
+                    
+
+        #main page logic
+        trainers = TrainerData.objects.all() #for trainers on html5 select
+        params["trainers"] = trainers
+
+        classSingle = ClassData.objects.filter(class_id=classid)[0]
+        params["class"] = {
+            "id": classSingle.class_id,
+            "name": classSingle.class_name,
+            "desc": classSingle.class_desc,
+            "days": classSingle.class_days,
+            "trid": classSingle.class_trainer,
+            "trname": trainers.filter(trainer_id = classSingle.class_trainer)[0].trainer_name,
+            "stime": classSingle.class_stime,
+            "etime": classSingle.class_etime
+        }
+        return render(request, 'adminportal/editclass.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -630,7 +775,13 @@ def packages(request):
         packages = {}
         for package in package_count:
             features = [feature.lstrip().rstrip() for feature in package.package_features.split(",")]
-            packages[package.package_id] = {"id":package.package_id, "name": package.package_name, "desc": package.package_desc, "features": features, "price": '{:,}'.format(package.package_price)}
+            packages[package.package_id] = {
+                "id":package.package_id, 
+                "name": package.package_name, 
+                "desc": package.package_desc, 
+                "features": features, 
+                "price": '{:,}'.format(package.package_price)
+            }
         params["package_list"] = packages 
         return render(request, 'adminportal/packages.html', params)
     else:
@@ -656,6 +807,8 @@ def packagesedit(request, pkgid):
                 if update == 0:
                     params["dataerror"] = 1
                     params["message"] = "Something went wrong. Try again later."
+                else:
+                    return redirect('/adminportal/packages/')
             except Exception:
                 params["dataerror"] = 1
                 params["message"] = "Cant change the name to '"+name+"'. It already exists."
@@ -736,6 +889,8 @@ def equipmentsedit(request, eqid):
                 if update == 0:
                     params["dataerror"] = 1
                     params["message"] = "Something went wrong. Try again later."
+                else:
+                    return redirect('/adminportal/equipments/')
             except Exception:
                 params["dataerror"] = 1
                 params["message"] = "Something went wrong while updating. Try again later."

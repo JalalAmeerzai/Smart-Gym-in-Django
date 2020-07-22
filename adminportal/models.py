@@ -55,3 +55,16 @@ class EquipmentData(models.Model):
     equipment_total = models.IntegerField(max_length=20, default=0)
     equipment_added_by = models.CharField(max_length=10, default="")
     equipment_added_on = models.CharField(max_length=12, default="")
+
+
+class ClassData(models.Model):
+    class_id = models.CharField(max_length=10, primary_key=True, default="")
+    class_name = models.CharField(max_length=40, default="")
+    class_desc = models.CharField(max_length=200, default="")
+    class_img_name = models.CharField(max_length=10, default="cls.jpg")
+    class_days = models.CharField(max_length=70, default="")
+    class_stime = models.CharField(max_length=20, default="")
+    class_etime = models.CharField(max_length=20, default="")
+    class_trainer = models.CharField(max_length=10, default="")
+    class_added_by = models.CharField(max_length=10, default="")
+    class_added_on = models.CharField(max_length=12, default="")

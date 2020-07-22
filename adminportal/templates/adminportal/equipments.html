@@ -256,7 +256,7 @@
                                                         <th title="quantity" style="font-size: 12px; text-align: center;"><i class="fa fa-sort-amount-desc"> </i> Quantity</th>
                                                         <th title="price" style="font-size: 12px; text-align: center;"><i class="fa fa-dollar"> </i> Price/Equipment</th>
                                                         <th title="total price" style="font-size: 12px; text-align: center;"><i class="fa fa-money"> </i> Total</th>
-                                                        <th title="added by" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Added by</th>
+                                                        <th title="added by" style="font-size: 12px; text-align: center;"><i class="fa fa-group"> </i> Added by</th>
                                                         <th title="add date" style="font-size: 12px; text-align: center;"><i class="fa fa-calendar"> </i> Added on</th>
                                                         
                                                         <th title="Edit" class="tableedit" style=" font-size: 12px; text-align: center;"><i class="l-software-pathfinder-subtract"> </i> Options</th>
@@ -275,10 +275,10 @@
                                                         <td>Rs. {{equipment.equipment_price}}</td>
                                                         <td>Rs. {{equipment.equipment_total}}</td>
                                                         
-                                                        <td>{{equipment.equipment_added_by}}</td>
+                                                        <td><a title="View Profile" href="/adminportal/staffprofile/{{equipment.equipment_added_by}}"><i class="fa fa-user" id="tablebtns" style="font-size: 14px; background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target="">  {{equipment.equipment_added_by}}</i></a>
                                                         <td>{{equipment.equipment_added_on}}</td>
                                                         <td> 
-                                                            <a title="edit" href="/adminportal/equipmentsedit/{{equipment.equipment_id}}"><i class="fa fa-edit" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
+                                                            <a title="edit" href="/adminportal/equipmentsedit/{{equipment.equipment_id}}"><i class="fa fa-edit" id="tablebtns" style="background-color: #51bf87; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
                                                             <a title="delete" id="{{equipment.equipment_id}}" onclick="del(this.id)"><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target="#modal-style3"></i></a>
                                                         </td>
                                                     </tr>
