@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData
+from django.http import HttpResponse, JsonResponse
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -8,6 +8,7 @@ import datetime
 import os
 import re #regex
 from django.core.mail import send_mail
+import json 
 
 
 
@@ -756,7 +757,7 @@ def expenses(request):
                 params["errormessage"] = "Something went wrong. Try again later."
 
         #page logic
-        params["expense"] = expense_count = ExpenseData.objects.all().order_by('expense_id')
+        params["expense"] = ExpenseData.objects.all().order_by('expense_id')
         return render(request, 'adminportal/expenses.html', params)
     else:
         return redirect('/adminportal/login/')
@@ -1118,7 +1119,44 @@ def routinesview(request):
 
 def diet(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/diet.html')
+
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        diet_count = DietData.objects.all().order_by('diet_id')
+
+        # add diet logic
+        if "adddiet" in request.POST:
+            if len(diet_count) == 0:
+                new_id = "dt1"
+            else:
+                new_id = "dt" + str((int(diet_count[len(diet_count)-1].diet_id[-1])+1))
+            try:
+                name = request.POST["name"].title()
+                desc = request.POST.get("desc","")
+                json = request.POST.get("dietjson","")
+                added_by = request.session["userid"]
+                added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                new_diet = DietData(diet_id=new_id, diet_name=name, diet_desc=desc, diet_json=json, diet_added_by=added_by, diet_added_on=added_on)
+                new_diet.save()
+                params["success"] = 1
+                params["successmessage"] = "Diet added successfully."
+            except Exception:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+
+        # delete expense logic
+        if "deletediet" in request.POST:
+            del_id = request.POST["id"]
+            diet_delete = DietData.objects.filter(diet_id = del_id).delete()
+            if diet_delete[0] == 1:
+                params["success"] = 1
+                params["successmessage"] = "Diet successfully deleted."
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+
+        #page logic
+        params["diets"] = DietData.objects.all().order_by('diet_id')
+        return render(request, 'adminportal/diet.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1127,9 +1165,14 @@ def diet(request):
 
 
 
-def dietview(request):
+def dietview(request, dtid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/dietview.html')
+        params={}
+        diet = DietData.objects.filter(diet_id=dtid)[0]
+        params["name"] = diet.diet_name
+        params["desc"] = diet.diet_desc
+        params["plan"] = json.loads(diet.diet_json)
+        return render(request, 'adminportal/dietview.html', params)
     else:
         return redirect('/adminportal/login/')
     

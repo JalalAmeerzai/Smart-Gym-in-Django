@@ -94,3 +94,12 @@ class ExerciseData(models.Model):
     exercise_tutorial = models.CharField(max_length=500, default="")
     exercise_added_by = models.CharField(max_length=10, default="")
     exercise_added_on = models.CharField(max_length=12, default="")
+
+
+class DietData(models.Model):
+    diet_id = models.CharField(max_length=10, primary_key=True, default="")
+    diet_name = models.CharField(max_length=40, default="")
+    diet_desc = models.CharField(max_length=200, default="")
+    diet_json = models.TextField(default="")
+    diet_added_by = models.CharField(max_length=10, default="")
+    diet_added_on = models.CharField(max_length=12, default="")

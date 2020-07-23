@@ -202,7 +202,7 @@
                             
                         </div>
                         <!-- Start .row -->
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 60px;">
                             <div class="col-lg-12">
                                 <!-- col-lg-12 start here -->
                                 <div class="panel panel-default plain panelRefresh">
@@ -211,6 +211,25 @@
                                     
                                   
                                     <div class="panel-body">
+
+
+                                            {% if error == 1 %}
+                                                <div class="alert alert-danger fade in">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                    <strong>Input Error!</strong> <br>{{errormessage}}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if success == 1 %}
+                                                <div class="alert alert-success fade in">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <i class="fa fa-check alert-icon "></i>
+                                                    <strong>Success!</strong> <br>{{successmessage}}
+                                                </div>
+                                            {% endif %}
+
+
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-4"></div>
                                         <div style="col-lg-4">
@@ -243,108 +262,20 @@
                                             </thead>
                                             
                                             <tbody>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/dietview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1</td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/dietview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1</td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/dietview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1</td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/dietview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1</td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/dietview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1</td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/dietview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1</td>
-                                                    <td>Fat Burner Diet 2</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/dietview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1</td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/dietview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                 
-                                                
-                                                
-                                                
-                                                
-                                               
+                                                {% for diet in diets %}
+                                                    <tr>
+                                                        
+                                                        <td>{{diet.diet_id}}</td>
+                                                        <td>{{diet.diet_name}}</td>
+                                                        <td>{{diet.diet_desc}}</td>
+                                                        <td><a title="View Profile" href="/adminportal/staffprofile/{{diet.diet_added_by}}"><i class="fa fa-user" id="tablebtns" style="font-size: 14px; background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target="">  {{diet.diet_added_by}}</i></a>
+                                                        <td>{{diet.diet_added_on}}</td>
+                                                        <td> 
+                                                            <a title="view" href="/adminportal/dietview/{{diet.diet_id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
+                                                            <a title="delete" id="{{diet.diet_id}}" onclick="del(this.id)"><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target="#modal-style3"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                     
@@ -356,44 +287,39 @@
 
                                         <!--DELETE MODAL-->
                                         <div class="modal fade modal-style2" id="modal-style3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        
                                             <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background-color:#404040; color: #e2d34d">
-                                        <button type="button" class="close" data-dismiss="modal" style="color: #e2d34d">
-                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                                        </button>
-                                        <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Diet Plan</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class=" group-border stripped" role="form">
-                                            
-                                            <div class="form-group">
-                                                <div class="col-lg-12">
-                                                    
-                                                        <button type="submit" class="btn btn-default col-lg-4" id="delgreen" style="width:100%">Yes, Remove The Diet Plan</button>
-                                               
+                                                <div class="modal-content">
+                                                    <div class="modal-header" style="background-color:#404040; color: #e2d34d">
+                                                        <button type="button" class="close" data-dismiss="modal" style="color: #e2d34d">
+                                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                                        </button>
+                                                        <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Exercise</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form class=" group-border stripped" role="form" method="POST" action="/adminportal/diet/" enctype="multipart/form-data">{% csrf_token %}
+                                                            
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                        <input type="hidden" name="id" id="id"/>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                        <button type="submit" class="btn btn-default col-lg-4" id="delgreen" style="width:100%" name="deletediet">Yes, Remove The Diet</button>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                        <button type="submit" class="btn btn-default col-lg-4" id="delred" style="width:100%" data-dismiss="modal">Cancel</button>
+                                                                </div>
+                                                            </div>        
+                                                        </form>
+                                                    </div>
+                                                            
                                                 </div>
-                                            </div>
-                                            
-                                             <div class="form-group">
-                                                <div class="col-lg-12">
-                                                    
-                                                        <button type="submit" class="btn btn-default col-lg-4" id="delred" style="width:100%" data-dismiss="modal">Cancel</button>
-                                               
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                            
-                                                        
-                                                    
-                                        </form>
-                                    </div>
-                                            
                                         </div>
                                     </div>
-                                </div>
 
 
 
@@ -412,7 +338,7 @@
                                                     <h4 class="modal-title" id="mySmallModalLabel" style="color:#e2d34d; text-align: center">Add Diet Plan</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form class="form-horizontal group-border stripped" role="form">
+                                                    <form class="form-horizontal group-border stripped" role="form" id="form" method="POST" action="/adminportal/diet/" enctype="multipart/form-data">{% csrf_token %}
                                                         
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
@@ -421,7 +347,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Name</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="dietname" placeholder="Diet Name">
+                                                                            <input type="text" class="form-control" id="dietname" placeholder="Diet Name" name="name" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -435,8 +361,23 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Description</label>
                                                                         <div class="col-sm-12">
-                                                                            <textarea class="form-control" id='dietdesc' placeholder="Describe your diet" rows="5" style="resize: none;" value=""></textarea>
+                                                                            <textarea class="form-control" id='dietdesc' placeholder="Describe your diet" rows="5" style="resize: none;" required name="desc" maxlength="200"></textarea>
                                                                             
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="col-lg-12">
+                                                                <div class="col-lg-12">
+                                                                    
+                                                                    <div class="form-group">
+                                                                        
+                                                                        <div class="col-sm-12">
+                                                                            <input type="hidden" class="form-control" id="dietjson" placeholder="Diet Name" name="dietjson">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -454,7 +395,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Meal</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input class="form-control mondaymeal" id="mondaymeal" placeholder="dish1, dish2, dish3"/>
+                                                                                    <input class="form-control mondaymeal" id="mondaymeal" placeholder="dish1, dish2, dish3" required/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -462,7 +403,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Time</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="time" class="form-control mondaytime" id="mondaytime" placeholder="Enter Meal Time">
+                                                                                    <input type="time" class="form-control mondaytime" id="mondaytime" placeholder="Enter Meal Time" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -486,7 +427,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Meal</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input class="form-control tuesdaymeal" id="tuesdaymeal" placeholder="dish1, dish2, dish3"/>
+                                                                                    <input class="form-control tuesdaymeal" id="tuesdaymeal" placeholder="dish1, dish2, dish3" required/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -494,7 +435,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Time</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="time" class="form-control tuesdaytime" id="tuesdaytime" placeholder="Enter Meal Time">
+                                                                                    <input type="time" class="form-control tuesdaytime" id="tuesdaytime" placeholder="Enter Meal Time" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -502,7 +443,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addTuesday('tuesdayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -518,7 +459,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Meal</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input class="form-control wednesdaymeal" id="wednesdaymeal" placeholder="dish1, dish2, dish3"/>
+                                                                                    <input class="form-control wednesdaymeal" id="wednesdaymeal" placeholder="dish1, dish2, dish3" required/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -526,14 +467,14 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Time</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="time" class="form-control wednesdaytime" id="wednesdaytime" placeholder="Enter Meal Time">
+                                                                                    <input type="time" class="form-control wednesdaytime" id="wednesdaytime" placeholder="Enter Meal Time" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                         
                                                                     </div>
                                                                 </div>
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addWednesday('wednesdayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -549,7 +490,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Meal</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input class="form-control thursdaymeal" id="thursdaymeal" placeholder="dish1, dish2, dish3"/>
+                                                                                    <input class="form-control thursdaymeal" id="thursdaymeal" placeholder="dish1, dish2, dish3" required/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -557,7 +498,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Time</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="time" class="form-control thursdaytime" id="thursdaytime" placeholder="Enter Meal Time">
+                                                                                    <input type="time" class="form-control thursdaytime" id="thursdaytime" placeholder="Enter Meal Time" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -565,7 +506,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addThursday('thursdayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -581,7 +522,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Meal</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input class="form-control fridaymeal" id="fridaymeal" placeholder="dish1, dish2, dish3"/>
+                                                                                    <input class="form-control fridaymeal" id="fridaymeal" placeholder="dish1, dish2, dish3" required/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -589,7 +530,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Time</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="time" class="form-control fridaytime" id="fridaytime" placeholder="Enter Meal Time">
+                                                                                    <input type="time" class="form-control fridaytime" id="fridaytime" placeholder="Enter Meal Time" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -597,7 +538,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addFriday('fridayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -613,7 +554,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Meal</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input class="form-control saturdaymeal" id="saturdaymeal" placeholder="dish1, dish2, dish3"/>
+                                                                                    <input class="form-control saturdaymeal" id="saturdaymeal" placeholder="dish1, dish2, dish3" required/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -621,7 +562,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Time</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="time" class="form-control saturdaytime" id="saturdaytime" placeholder="Enter Meal Time">
+                                                                                    <input type="time" class="form-control saturdaytime" id="saturdaytime" placeholder="Enter Meal Time" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -629,7 +570,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addSaturday('saturdayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -646,7 +587,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Meal</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input class="form-control sundaymeal" id="sundaymeal" placeholder="dish1, dish2, dish3"/>
+                                                                                    <input class="form-control sundaymeal" id="sundaymeal" placeholder="dish1, dish2, dish3" required/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -654,7 +595,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Time</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="time" class="form-control sundaytime" id="sundaytime" placeholder="Enter Meal Time">
+                                                                                    <input type="time" class="form-control sundaytime" id="sundaytime" placeholder="Enter Meal Time" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -662,7 +603,7 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addSunday('sundayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -680,7 +621,7 @@
                                                         <div class="form-group">
                                                             <div class="col-sm-offset-4 col-sm-4">
                                                                 <br><br>
-                                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save</button>
+                                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="adddiet">Save</button>
                                                             </div>
                                                         </div>
                                                         
@@ -703,437 +644,6 @@
 
 
 
-                        <!--ADD MODAL-->
-                        <div class="modal fade modal-style2" id="modal-style4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header" style="background-color:#404040">
-                                    <button type="button" class="close" data-dismiss="modal" style="color:#e2d34d">
-                                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                                    </button>
-                                    <h4 class="modal-title" id="mySmallModalLabel" style="color:#e2d34d; text-align: center">Add Wizard</h4>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                    <form class="form-horizontal group-border stripped" role="form">
-                                        
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        
-                                                        <label for="" class="col-sm-12 control-label">Name</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="" placeholder="Routine Name">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label for="" class="col-sm-12 control-label" id="">Name</label>
-                                                        <div class="col-sm-12">
-                                                            <textarea class="form-control" id="" placeholder="Describe your routine" rows="5" style="resize: none;" value=""></textarea>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Monday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control " id="">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Notes">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Tuesday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control " id="">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Notes">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Wednesday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Thursday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Friday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Saturday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Sunday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-4 col-sm-4">
-                                                <br><br>
-                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save</button>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                                    
-                                                    
-                                                
-                                                    
-                                                    
-                                        </form>
-                                </div>
-                                </div>
-                                        
-                                    </div>
-                                </div>
                             </div>    
                                 </div>
                                 <!-- End .panel -->
@@ -1235,45 +745,166 @@
 
 
         <script>
+
+
+            function del(id){
+                document.getElementById("id").value = ""+id
+            }
+            
+
+
+
             function addMonday(divName){
                 var newdiv = document.createElement('div');
                 newdiv.id = "row";
                 newdiv.className = "row";
-                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Meal</label><div class='col-sm-12'><input class='form-control modaymeal' id='mondaymeal' placeholder='dish1, dish2, dish3'/></div></div></div><div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Time</label><div class='col-sm-12'><input type='time' class='form-control mondaytime' id='mondaytime' placeholder='Enter Meal Time'></div></div></div>";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Meal</label><div class='col-sm-12'><input class='form-control mondaymeal' id='mondaymeal' placeholder='dish1, dish2, dish3' required/></div></div></div><div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Time</label><div class='col-sm-12'><input type='time' class='form-control mondaytime' id='mondaytime' placeholder='Enter Meal Time' required></div></div></div>";
                 document.getElementById(divName).appendChild(newdiv); 
 
             }
 
-            function getData(){
-                routine = {}
-                routine['name'] = document.getElementById('exname').value;
-                routine['desc'] = document.getElementById('exdesc').value;
+            function addTuesday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Meal</label><div class='col-sm-12'><input class='form-control tuesdaymeal' id='tuesdaymeal' placeholder='dish1, dish2, dish3' required /></div></div></div><div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Time</label><div class='col-sm-12'><input type='time' class='form-control tuesdaytime' id='tuesdaytime' placeholder='Enter Meal Time' required></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
 
-                mondayex = document.getElementsByClassName('mondayex');
-                mondaysets = document.getElementsByClassName('mondaysets');
-                mondayreps = document.getElementsByClassName('mondayreps');
-                mondaynote = document.getElementsByClassName('mondaynote');
+            }
 
+
+            function addWednesday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Meal</label><div class='col-sm-12'><input class='form-control wednesdaymeal' id='wednesdaymeal' placeholder='dish1, dish2, dish3' required /></div></div></div><div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Time</label><div class='col-sm-12'><input type='time' class='form-control wednesdaytime' id='wednesdaytime' placeholder='Enter Meal Time' required></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+            function addThursday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Meal</label><div class='col-sm-12'><input class='form-control thursdaymeal' id='thursdaymeal' placeholder='dish1, dish2, dish3' required /></div></div></div><div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Time</label><div class='col-sm-12'><input type='time' class='form-control thursdaytime' id='thursdaytime' placeholder='Enter Meal Time' required></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+            function addFriday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Meal</label><div class='col-sm-12'><input class='form-control fridaymeal' id='fridaymeal' placeholder='dish1, dish2, dish3' required /></div></div></div><div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Time</label><div class='col-sm-12'><input type='time' class='form-control fridaytime' id='fridaytime' placeholder='Enter Meal Time' required></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+            function addSaturday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Meal</label><div class='col-sm-12'><input class='form-control saturdaymeal' id='saturdaymeal' placeholder='dish1, dish2, dish3' required /></div></div></div><div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Time</label><div class='col-sm-12'><input type='time' class='form-control saturdaytime' id='saturdaytime' placeholder='Enter Meal Time' required></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+            function addSunday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Meal</label><div class='col-sm-12'><input class='form-control sundaymeal' id='sundaymeal' placeholder='dish1, dish2, dish3' required /></div></div></div><div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Time</label><div class='col-sm-12'><input type='time' class='form-control sundaytime' id='sundaytime' placeholder='Enter Meal Time' required></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+
+
+
+
+
+            $('#form').submit(function (evt) {
+                //evt.preventDefault();
+                
+                //monday
+                monday = {};
+                mondaymeal = document.getElementsByClassName('mondaymeal');
+                mondaytime = document.getElementsByClassName('mondaytime');
+                for(i=0; i<mondaymeal.length; i++){
+                    monday['Meal '+(i+1)] = {"name": "Meal "+(i+1), "meal": mondaymeal[i].value, "time": mondaytime[i].value}
+                }
+
+                //tuesday
+                tuesday = {};
+                tuesdaymeal = document.getElementsByClassName('tuesdaymeal');
+                tuesdaytime = document.getElementsByClassName('tuesdaytime');
+                for(i=0; i<tuesdaymeal.length; i++){
+                    tuesday['Meal '+(i+1)] = {"name": "Meal "+(i+1), "meal": tuesdaymeal[i].value, "time": tuesdaytime[i].value}
+                }
+
+                //wednesday
+                wednesday = {};
+                wednesdaymeal = document.getElementsByClassName('wednesdaymeal');
+                wednesdaytime = document.getElementsByClassName('wednesdaytime');
+                for(i=0; i<wednesdaymeal.length; i++){
+                    wednesday['Meal '+(i+1)] = {"name": "Meal "+(i+1), "meal": wednesdaymeal[i].value, "time": wednesdaytime[i].value}
+                }
+
+                //thursday
+                thursday = {};
+                thursdaymeal = document.getElementsByClassName('thursdaymeal');
+                thursdaytime = document.getElementsByClassName('thursdaytime');
+                for(i=0; i<thursdaymeal.length; i++){
+                    thursday['Meal '+(i+1)] = {"name": "Meal "+(i+1), "meal": thursdaymeal[i].value, "time": thursdaytime[i].value}
+                }
+
+                //friday
+                friday = {};
+                fridaymeal = document.getElementsByClassName('fridaymeal');
+                fridaytime = document.getElementsByClassName('fridaytime');
+                for(i=0; i<fridaymeal.length; i++){
+                    friday['Meal '+(i+1)] = {"name": "Meal "+(i+1), "meal": fridaymeal[i].value, "time": fridaytime[i].value}
+                }
+
+                //saturday
+                saturday = {};
+                saturdaymeal = document.getElementsByClassName('saturdaymeal');
+                saturdaytime = document.getElementsByClassName('saturdaytime');
+                for(i=0; i<saturdaymeal.length; i++){
+                    saturday['Meal '+(i+1)] = {"name": "Meal "+(i+1), "meal": saturdaymeal[i].value, "time": saturdaytime[i].value}
+                }
+
+                //sunday
+                sunday = {};
+                sundaymeal = document.getElementsByClassName('sundaymeal');
+                sundaytime = document.getElementsByClassName('sundaytime');
+                for(i=0; i<sundaymeal.length; i++){
+                    sunday['Meal '+(i+1)] = {"name": "Meal "+(i+1), "meal": sundaymeal[i].value, "time": sundaytime[i].value}
+                }
+
+
+                //weekplan
                 weekplan = {
-                    "monday" : {},
-                    "tuesday" : {},
-                    "wednesday" : {},
-                    "thursday" : {},
-                    "friday" : {},
-                    "saturday" : {},
-                    "sunday" : {}
+                    "monday" : monday,
+                    "tuesday" : tuesday,
+                    "wednesday" : wednesday,
+                    "thursday" : thursday,
+                    "friday" : friday,
+                    "saturday" : saturday,
+                    "sunday" : sunday
                 };
 
-                monday = {};
-                for(i=0; i<mondayex.length; i++){
-                    monday['ex'+(i+1)] = {"name" : mondayex[i].value, "sets" : mondaysets[i].value, "reps": mondayreps[i].value, "notes" : mondaynote[i].value};
-                }
-                weekplan["monday"] = monday;
-                routine['plan'] = weekplan;
 
-                //document.getElementById('exname').value = JSON.stringify(routine);
+                document.getElementById('dietjson').value = JSON.stringify(weekplan);
                 //JSON.parse(String)
-            }
+
+
+                
+
+            });
+
+
+            
             
         </script>
     </body>
