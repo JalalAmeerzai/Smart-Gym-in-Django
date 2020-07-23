@@ -68,3 +68,16 @@ class ClassData(models.Model):
     class_trainer = models.CharField(max_length=10, default="")
     class_added_by = models.CharField(max_length=10, default="")
     class_added_on = models.CharField(max_length=12, default="")
+
+
+class ExpenseData(models.Model):
+    class Meta:
+        unique_together = (('expense_name', 'expense_month', 'expense_year'),)
+
+    expense_id = models.CharField(max_length=10, primary_key=True, default="")
+    expense_name = models.CharField(max_length=200, default="")
+    expense_price = models.IntegerField(max_length=20, default=0)
+    expense_month = models.CharField(max_length=40, default="")
+    expense_year = models.IntegerField(max_length=20, default=0)
+    expense_added_by = models.CharField(max_length=10, default="")
+    expense_added_on = models.CharField(max_length=12, default="")

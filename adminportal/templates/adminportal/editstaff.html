@@ -309,12 +309,7 @@
                                                         <input type="date" class="form-control" id="" placeholder="Your Birth Date Comes Here.." name="dob"  required value="{{admin.admin_dob}}" >
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="inputAddress" class="col-sm-2 control-label">Currett Status</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="" placeholder="" name="" value="{{admin.admin_status}}" disabled>
-                                                    </div>
-                                                </div>
+                                                
                                                 {% if admin.admin_added_by != "superuser" %}
                                                     <div class="form-group">
                                                         <label for="inputAddress" class="col-sm-2 control-label">Status</label>
@@ -445,5 +440,17 @@
         <script src="{% static 'adminportal/plugins/forms/dropzone/dropzone.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/forms-advanced.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/tabs.js'%}"></script>
+
+            <script>
+                 //SELECT CHANGE LOGIC
+                status = "{{admin.admin_status}}"
+                for(i=0; i< document.getElementById("status").length; i++){
+                    document.getElementById("status").selectedIndex = i
+                    if(document.getElementById("status").value === status){
+                        break
+                    }
+                }
+            </script>
+
     </body>
 </html>

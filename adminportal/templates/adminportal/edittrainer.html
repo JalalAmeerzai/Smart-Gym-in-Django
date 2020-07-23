@@ -317,18 +317,13 @@
                                                             <input type="date" class="form-control" id="" placeholder="Your Birth Date Comes Here.." name="dob" required value="{{trainer.trainer_dob}}">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="inputAddress" class="col-sm-2 control-label">Current Height</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="" placeholder="Your Current Address.." required value="{{trainer.trainer_height}}" disabled>
-                                                        </div>
-                                                    </div>
+                                                    
 
                                                     <div class="form-group">
                                                         <label for="inputHeight" class="col-sm-2 control-label">Height</label>
                                                         <div class="col-sm-4">
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="" placeholder="5" name="height1" required min="0">
+                                                                <input type="number" class="form-control" id="h1" placeholder="5" name="height1" required min="1">
                                                             </div>
                                                             <label for="inputhfts" class="col-sm-2 control-label">Feets</label>
                                                         </div>
@@ -337,7 +332,7 @@
 
                                                         <div class="col-sm-4">
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="" placeholder="10" name="height2" required min="0">
+                                                                <input type="number" class="form-control" id="h2" placeholder="10" name="height2" required min="0" max="12">
                                                             </div>
                                                             <label for="inputhinches" class="col-sm-2 control-label">Inches</label>
                                                         </div>
@@ -369,12 +364,7 @@
                                                             <input type="text" class="form-control" id="ig" placeholder="www.ig.com/profile" rows="4" style="resize: none;" name="ig" required value="{{trainer.trainer_ig}}"/>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="inputAddress" class="col-sm-2 control-label">Current Status</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="" placeholder=""  required value="{{trainer.trainer_status}}" disabled>
-                                                        </div>
-                                                    </div>
+                                                    
 
                                                     <div class="form-group">
                                                         <label for="inputAddress" class="col-sm-2 control-label">Status</label>
@@ -502,5 +492,23 @@
         <script src="{% static 'adminportal/plugins/forms/dropzone/dropzone.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/forms-advanced.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/tabs.js'%}"></script>
+
+
+        <script>
+                // change select status
+                status = "{{trainer.trainer_status}}"
+                for(i=0; i< document.getElementById("status").length; i++){
+                    document.getElementById("status").selectedIndex = i
+                    if(document.getElementById("status").value === status){
+                        break
+                    }
+                }
+
+                //change height values
+                var heightarray = "{{trainer.trainer_height}}".split(",")
+                document.getElementById("h1").value  = parseInt(heightarray[0])
+                document.getElementById("h2").value  = parseInt(heightarray[1])
+
+        </script>
     </body>
 </html>

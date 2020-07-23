@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -335,7 +335,7 @@ def trainers(request):
                             address = request.POST["address"]
                             dob = request.POST.get("dob","")
                             status = request.POST.get("status","Active")
-                            height = request.POST["height1"]+"' "+request.POST["height2"]+"''"
+                            height = request.POST["height1"]+","+request.POST["height2"]
                             weight = request.POST["weight"]
                             fb = request.POST["fb"]
                             ig = request.POST["ig"]
@@ -369,7 +369,7 @@ def trainers(request):
                 params["error"] = 1
                 params["errormessage"] = "Something went wrong. Try again later."
 
-        trainer_count = TrainerData.objects.all().order_by('trainer_id')
+        trainer_count = TrainerData.objects.all().reverse()
         params["trainers"] = trainer_count
         return render(request, 'adminportal/trainers.html', params)
     else:
@@ -425,7 +425,7 @@ def trainersprofileedit(request, trainerid):
                 address = request.POST["address"]
                 dob = request.POST.get("dob","")
                 status = request.POST.get("status","Active")
-                height = request.POST["height1"]+"' "+request.POST["height2"]+"''"
+                height = request.POST["height1"]+","+request.POST["height2"]
                 weight = request.POST["weight"]
                 fb = request.POST["fb"]
                 ig = request.POST["ig"]
@@ -668,8 +668,6 @@ def classesedit(request, classid):
                 stime = request.POST.get("stime","")
                 etime = request.POST.get("etime","")
                 trainer = request.POST.get("trainer","")
-                if trainer == "0":
-                    trainer = request.POST.get("currentinstructor","")
                 update = ClassData.objects.filter(class_id=classid).update(class_name=name, class_desc=desc, class_days=days, class_stime=stime, class_etime=etime, class_trainer=trainer)
                 if update == 0:
                     params["error"] = 1
@@ -706,7 +704,45 @@ def classesedit(request, classid):
 
 def expenses(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/expenses.html')
+
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        expense_count = ExpenseData.objects.all().order_by('expense_id')
+
+        # add expense logic
+        if "addexpense" in request.POST:
+            if len(expense_count) == 0:
+                new_id = "exp1"
+            else:
+                new_id = "exp" + str((int(expense_count[len(expense_count)-1].expense_id[-1])+1))
+            try:
+                name = request.POST["name"].title()
+                price = request.POST.get("price","")
+                month = request.POST.get("month","")
+                year = request.POST.get("year","")
+                added_by = request.session["userid"]
+                added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                new_expense = ExpenseData(expense_id=new_id, expense_name=name, expense_price=price, expense_month=month, expense_year=year, expense_added_by=added_by, expense_added_on=added_on)
+                new_expense.save()
+                params["success"] = 1
+                params["successmessage"] = "Expense entry added successfully."
+            except Exception:
+                params["error"] = 1
+                params["errormessage"] = "Entry '"+name+"' already exists for "+month+" "+year+". Try changing the name."
+
+        # delete expense logic
+        if "deleteexpense" in request.POST:
+            del_id = request.POST["id"]
+            expense_delete = ExpenseData.objects.filter(expense_id = del_id).delete()
+            if expense_delete[0] == 1:
+                params["success"] = 1
+                params["successmessage"] = "Expense entry successfully deleted."
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+
+        #page logic
+        params["expense"] = expense_count = ExpenseData.objects.all().order_by('expense_id')
+        return render(request, 'adminportal/expenses.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -715,9 +751,26 @@ def expenses(request):
 
 
 
-def expensesedit(request):
+def expensesedit(request, expid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/editexpense.html')
+        params={"error":0, "errormessage":""}
+
+        if "updateexpense" in request.POST:
+            try:
+                name = request.POST["name"].title()
+                price = request.POST.get("price","")
+                month = request.POST.get("month","")
+                year = request.POST.get("year","")
+                update = ExpenseData.objects.filter(expense_id=expid).update(expense_name=name, expense_price=price, expense_month=month, expense_year=year)
+                if update == 0:
+                    params["error"] = 1
+                    params["errormessage"] = "Something went wrong while updating the data. Try again later."
+            except Exception:
+                params["error"] = 1
+                params["errormessage"] = "Can't update to '"+name+" for "+month+", "+year+"' because it already exists"
+
+        params["expense"] = ExpenseData.objects.filter(expense_id=expid)[0]
+        return render(request, 'adminportal/editexpense.html', params)
     else:
         return redirect('/adminportal/login/')
     
