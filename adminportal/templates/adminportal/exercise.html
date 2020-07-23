@@ -202,7 +202,7 @@
                             
                         </div>
                         <!-- Start .row -->
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 60px;">
                             <div class="col-lg-12">
                                 <!-- col-lg-12 start here -->
                                 <div class="panel panel-default plain panelRefresh">
@@ -211,6 +211,23 @@
                                     
                                   
                                     <div class="panel-body">
+
+                                            {% if error == 1 %}
+                                                <div class="alert alert-danger fade in">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                    <strong>Input Error!</strong> <br>{{errormessage}}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if success == 1 %}
+                                                <div class="alert alert-success fade in">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <i class="fa fa-check alert-icon "></i>
+                                                    <strong>Success!</strong> <br>{{successmessage}}
+                                                </div>
+                                            {% endif %}
+
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-4"></div>
                                         <div style="col-lg-4">
@@ -245,89 +262,24 @@
                                             </thead>
                                             
                                             <tbody>
+                                                {% for exercise in exercises %}
                                                 <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Butterfly</td>
-                                                    <td>chest, triceps, shoulders</td>
-                                                    <td>3 x 12</td>
-                                                    <td><button class="btn btn-default " id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="padding:2px 2px 2px 2px; padding-bottom: 0;" ><i class="fa fa-youtube-play"></i></button></td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
+                                                    <td>{{exercise.exercise_id}}</td>
+                                                    <td><img src="/media/adminportal/exercise/{{exercise.exercise_img_name}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
+                                                    <td>{{exercise.exercise_name}}</td>
+                                                    <td>{{exercise.exercise_desc}}</td>
+                                                    <td>{{exercise.exercise_equipment}}</td>
+                                                    <td>{{exercise.exercise_muscle}}</td>
+                                                    <td>{{exercise.exercise_sets}}</td>
+                                                    <td><a style="border-radius: 5px;" id="tablebtns" data-toggle="modal"  data-target="#videoModal" data-theVideo="{{exercise.exercise_tutorial}}"><i class="fa fa-youtube-play" style="background-color: #d9534f; color: white; padding-left: 4px; padding-right: 4px; padding-top: 2px; padding-bottom: 2px; border-radius: 4px;"></i></a></td>
+                                                    <td><a title="View Profile" href="/adminportal/staffprofile/{{exercise.exercise_added_by}}"><i class="fa fa-user" id="tablebtns" style="font-size: 14px; background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target="">  {{exercise.exercise_added_by}}</i></a>
+                                                    <td>{{exercise.exercise_added_on}}</td>
                                                     <td> 
-                                                        <a title="edit" href="/adminportal/exercisesedit"><i class="fa fa-edit" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
+                                                        <a title="edit" href="/adminportal/exercisesedit/{{exercise.exercise_id}}"><i class="fa fa-edit" id="tablebtns" style="background-color: #51bf87; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
+                                                        <a title="delete" id="{{exercise.exercise_id}}" onclick="del(this.id)"><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target="#modal-style3"></i></a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Butterfly</td>
-                                                    <td>chest, triceps, shoulders</td>
-                                                    <td>3 x 12</td>
-                                                    <td><button class="btn btn-default " id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="padding:2px 2px 2px 2px; padding-bottom: 0;" ><i class="fa fa-youtube-play"></i></button></td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="edit" href="/adminportal/exercisesedit"><i class="fa fa-edit" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Butterfly</td>
-                                                    <td>chest, triceps, shoulders</td>
-                                                    <td>3 x 12</td>
-                                                    <td><button class="btn btn-default " id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="padding:2px 2px 2px 2px; padding-bottom: 0;" ><i class="fa fa-youtube-play"></i></button></td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="edit" href="/adminportal/exercisesedit"><i class="fa fa-edit" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Butterfly</td>
-                                                    <td>chest, triceps, shoulders</td>
-                                                    <td>3 x 12</td>
-                                                    <td><button class="btn btn-default " id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="padding:2px 2px 2px 2px; padding-bottom: 0;" ><i class="fa fa-youtube-play"></i></button></td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="edit" href="/adminportal/exercisesedit"><i class="fa fa-edit" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Butterfly</td>
-                                                    <td>chest, triceps, shoulders</td>
-                                                    <td>3 x 12</td>
-                                                    <td><button class="btn btn-default " id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="padding:2px 2px 2px 2px; padding-bottom: 0;" ><i class="fa fa-youtube-play"></i></button></td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="edit" href="/adminportal/exercisesedit"><i class="fa fa-edit" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
+                                                {% endfor %}
                                                
                                             </tbody>
                                         </table>
@@ -367,37 +319,34 @@
                                         <button type="button" class="close" data-dismiss="modal" style="color: #e2d34d">
                                             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                                         </button>
-                                        <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Routine</h4>
+                                        <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Exercise</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form class=" group-border stripped" role="form">
+                                        <form class=" group-border stripped" role="form" method="POST" action="/adminportal/exercises/" enctype="multipart/form-data">{% csrf_token %}
                                             
                                             <div class="form-group">
                                                 <div class="col-lg-12">
-                                                    
-                                                        <button type="submit" class="btn btn-default col-lg-4" id="delgreen" style="width:100%">Yes, Remove The Routine</button>
-                                               
+                                                        <input type="hidden" name="id" id="id"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-lg-12">
+                                                        <button type="submit" class="btn btn-default col-lg-4" id="delgreen" style="width:100%" name="deleteexercise">Yes, Remove The Exercise</button>
                                                 </div>
                                             </div>
                                             
                                              <div class="form-group">
                                                 <div class="col-lg-12">
-                                                    
                                                         <button type="submit" class="btn btn-default col-lg-4" id="delred" style="width:100%" data-dismiss="modal">Cancel</button>
-                                               
                                                 </div>
-                                            </div>
-                                            
-                                            
-                                            
-                                                        
-                                                    
+                                            </div>        
                                         </form>
                                     </div>
                                             
                                         </div>
                                     </div>
                                 </div>
+
 
 
 
@@ -416,7 +365,7 @@
                                                     <h4 class="modal-title" id="mySmallModalLabel" style="color:#e2d34d; text-align: center">Add Exercise</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form class="form-horizontal group-border stripped" role="form">
+                                                    <form class="form-horizontal group-border stripped" role="form" method="POST" action="/adminportal/exercises/" enctype="multipart/form-data">{% csrf_token %}
                                                         
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
@@ -425,7 +374,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Name</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="exname" placeholder="Exercise Name">
+                                                                            <input type="text" class="form-control" id="exname" placeholder="Exercise Name" name="name" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -439,7 +388,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Description</label>
                                                                         <div class="col-sm-12">
-                                                                            <textarea class="form-control" id='exdesc' placeholder="Describe your exercise" rows="5" style="resize: none;" value=""></textarea>
+                                                                            <textarea class="form-control" id='exdesc' placeholder="Describe your exercise" rows="5" style="resize: none;" name="desc" required maxlength="200"></textarea>
                                                                             
                                                                         </div>
                                                                     </div>
@@ -454,7 +403,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Image</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="file" class="form-control" name="eximage"/>
+                                                                            <input type="file" class="form-control"  required name="picture"/>
                                                                             
                                                                             
                                                                         </div>
@@ -472,7 +421,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Equipment</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="exequipment" placeholder="Eg: Smith Machine">
+                                                                            <input type="text" class="form-control" id="exequipment" placeholder="Eg: Smith Machine" required name="equipment">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -487,7 +436,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Target Muscles</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="extargetmuscle" placeholder="quads, hips, back">
+                                                                            <input type="text" class="form-control" id="extargetmuscle" placeholder="quads, hips, back" required name="muscle">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -503,7 +452,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Sets/Reps</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="exsetrep" placeholder="eg: 3 x 15">
+                                                                            <input type="text" class="form-control" id="exsetrep" placeholder="eg: 3 x 15" required name="sets">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -518,7 +467,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Tutorial</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="extutorial" placeholder="eg: www.youtube.com/videoplayback=45/v/5">
+                                                                            <input type="text" class="form-control" id="extutorial" placeholder="eg: www.youtube.com/videoplayback=45/v/5" name="tutorial" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -529,7 +478,7 @@
                                                         <div class="form-group">
                                                             <div class="col-sm-offset-4 col-sm-4">
                                                                 <br><br>
-                                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save</button>
+                                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="addexercise">Save</button>
                                                             </div>
                                                         </div>
                                                                     
@@ -1077,7 +1026,11 @@
         <script src="{% static 'adminportal/js/main.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/modals.js'%}"></script>
         
-
+            <script>
+                function del(id){
+                    document.getElementById("id").value = ""+id
+                }
+            </script>
         
     </body>
 </html>

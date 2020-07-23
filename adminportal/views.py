@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -206,7 +206,7 @@ def staff(request):
                             try:
                                 send_mail(
                                     'Welcome to SmartGym - This Email Contains your Account Credentials',
-                                    '\n<b>Hello '+name+',\nYour account credenatials for smartgym are: \n<b>Account: '+email+'\nPassword: '+password+"<br>\n\nStay Fit.\n\n\nRegards\n"+request.session["username"]+"\n"+request.session["userid"],
+                                    '\nHello '+name+',\nYour account credenatials for smartgym are: \nAccount: '+email+'\nPassword: '+password+"\n\nStay Fit.\n\n\nRegards\n"+request.session["username"]+"\n"+request.session["userid"],
                                     'SmartGym',
                                     [email], 
                                 )
@@ -605,7 +605,7 @@ def classes(request):
                         params["error"] = 1
                         params["errormessage"] = "Something went wrong. Try again later."
 
-        # delete trainer logic
+        # delete class logic
         if "deleteclass" in request.POST:
             del_id = request.POST["id"]
             class_delete = ClassData.objects.filter(class_id = del_id).delete()
@@ -977,7 +977,66 @@ def equipmentsedit(request, eqid):
 
 def exercises(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/exercise.html')
+        
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        exercise_count = ExerciseData.objects.all().order_by('exercise_id')
+
+        # add exercise logic
+        if "addexercise" in request.POST:
+            if len(exercise_count) == 0:
+                new_id = "exr1"
+            else:
+                new_id = "exr" + str((int(exercise_count[len(exercise_count)-1].exercise_id[-1])+1))
+            
+            try:
+                file = request.FILES['picture']
+            except MultiValueDictKeyError:
+                file = False
+        
+            if file != False:
+                if imghdr.what(file) == None:
+                    params["error"] = 1
+                    params["errormessage"] = "Select a suitable image file type"
+                else:
+                    try:
+                        name = request.POST["name"].title()
+                        desc = request.POST.get("desc","")
+                        equipment = request.POST.get("equipment","").title()
+                        muscle = request.POST.get("muscle","")
+                        sets = request.POST.get("sets","")
+                        tutorial = request.POST.get("tutorial","")
+                        picture = new_id+".jpg"
+                        added_by = request.session["userid"]
+                        added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                        new_exercise = ExerciseData(exercise_id=new_id, exercise_name=name, exercise_desc=desc, exercise_img_name=picture, exercise_equipment=equipment, exercise_muscle=muscle, exercise_tutorial=tutorial, exercise_sets=sets, exercise_added_by=added_by, exercise_added_on=added_on)
+                        new_exercise.save()
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\exercise\\"+picture, 'wb')
+                        image_result.write(image_64_decode)
+                        params["success"] = 1
+                        params["successmessage"] = "Exercise added successfully."
+                    except Exception:
+                        params["error"] = 1
+                        params["errormessage"] = "Something went wrong. Try again later."
+
+        # delete trainer logic
+        if "deleteexercise" in request.POST:
+            del_id = request.POST["id"]
+            exercise_delete = ExerciseData.objects.filter(exercise_id = del_id).delete()
+            if exercise_delete[0] == 1:
+                try:
+                    os.remove("media\\adminportal\\exercise\\"+del_id+".jpg")
+                    params["success"] = 1
+                    params["successmessage"] = "Class successfully deleted."
+                except Exception:
+                    pass
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+
+        params["exercises"] =  ExerciseData.objects.all().order_by('exercise_id')
+        return render(request, 'adminportal/exercise.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -986,9 +1045,47 @@ def exercises(request):
 
 
 
-def exercisesedit(request):
+def exercisesedit(request, exrid):
+    params={"error":0, "errormessage":""}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/editexercise.html')
+        if "updateexercise" in request.POST:
+            try:
+                file = request.FILES['picture']
+            except MultiValueDictKeyError:
+                file = False
+            if file != False:
+                if imghdr.what(file) == None:
+                    params["error"] = 1
+                    params["errormessage"] = "Select a suitable image file type"
+                else:
+                    try:
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\exercise\\"+exrid+".jpg", 'wb')
+                        image_result.write(image_64_decode)
+                    except Exception:
+                        params["error"] = 1
+                        params["errormessage"] = "Something went wrong while uploading imaging. Try again later."
+            
+            
+            try:
+                name = request.POST["name"].title()
+                desc = request.POST.get("desc","")
+                equipment = request.POST.get("equipment","").title()
+                muscle = request.POST.get("muscle","")
+                sets = request.POST.get("sets","")
+                tutorial = request.POST.get("tutorial","")
+                update = ExerciseData.objects.filter(exercise_id=exrid).update(exercise_name=name, exercise_desc=desc, exercise_equipment=equipment, exercise_muscle=muscle, exercise_tutorial=tutorial, exercise_sets=sets)
+                if update == 0:
+                    params["error"] = 1
+                    params["errormessage"] = "Something went wrong while updating the data. Try again later."
+            except Exception:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong while updating the data. Try again later."
+
+        
+        params["exercise"] = ExerciseData.objects.filter(exercise_id = exrid)[0]
+        return render(request, 'adminportal/editexercise.html', params)
     else:
         return redirect('/adminportal/login/')
     

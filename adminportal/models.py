@@ -81,3 +81,16 @@ class ExpenseData(models.Model):
     expense_year = models.IntegerField(max_length=20, default=0)
     expense_added_by = models.CharField(max_length=10, default="")
     expense_added_on = models.CharField(max_length=12, default="")
+
+
+class ExerciseData(models.Model):
+    exercise_id = models.CharField(max_length=10, primary_key=True, default="")
+    exercise_name = models.CharField(max_length=40, default="")
+    exercise_desc = models.CharField(max_length=200, default="")
+    exercise_img_name = models.CharField(max_length=10, default="exr.jpg")
+    exercise_equipment = models.CharField(max_length=50, default="")
+    exercise_muscle = models.CharField(max_length=200, default="")
+    exercise_sets = models.CharField(max_length=40, default="")
+    exercise_tutorial = models.CharField(max_length=500, default="")
+    exercise_added_by = models.CharField(max_length=10, default="")
+    exercise_added_on = models.CharField(max_length=12, default="")
