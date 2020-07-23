@@ -7,6 +7,10 @@ import imghdr
 import datetime
 import os
 import re #regex
+from django.core.mail import send_mail
+
+
+
 
 def login(request):
     params = {"error": 0, "errormessage": ""} 
@@ -199,11 +203,22 @@ def staff(request):
                             image_64_decode = base64.decodebytes(image_64_encode)
                             image_result = open("media\\adminportal\\admin\\"+picture, 'wb')
                             image_result.write(image_64_decode)
-                            params["success"] = 1
-                            params["successmessage"] = "Staff member added successfully."
+                            try:
+                                send_mail(
+                                    'Welcome to SmartGym - This Email Contains your Account Credentials',
+                                    '\n<b>Hello '+name+',\nYour account credenatials for smartgym are: \n<b>Account: '+email+'\nPassword: '+password+"<br>\n\nStay Fit.\n\n\nRegards\n"+request.session["username"]+"\n"+request.session["userid"],
+                                    'SmartGym',
+                                    [email], 
+                                )
+                                params["success"] = 1
+                                params["successmessage"] = "Staff member added successfully."
+                            except Exception:
+                                params["success"] = 1
+                                params["successmessage"] = "Staff member added successfully. But Email failed to deliver"
                         except Exception:
                             params["error"] = 1
                             params["errormessage"] = "Something went wrong. Try again later."
+                        
 
         # delete admin logic
         if "deleteadmin" in request.POST:
