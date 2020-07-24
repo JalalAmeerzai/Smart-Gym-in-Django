@@ -4,7 +4,7 @@
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <title>Full Body Workout Routine | The Smart GYM</title>
+        <title>{{name}} Workout Routine | The Smart GYM</title>
         <!-- Mobile specific metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no">
         <!-- Force IE9 to render in normal mode -->
@@ -198,8 +198,8 @@
                         <div id="page-header" class="clearfix">
                             
                             <div class="page-header">
-                                <h2>Full Body Workout Routine</h2>
-                                <span class="txt">Below is the breakdown of routine according to different exercises on daily basis</span>
+                                <h2>Routine: {{name}}</h2>
+                                <span class="txt">{{desc}}</span>
                             </div>
                             
                         </div>
@@ -210,7 +210,7 @@
 
 
 
-                        <div class="row" style="margin-bottom: 40px;">
+                        <div class="row" style="margin-bottom: 80px;">
                             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                 <div class="tabs mb20" class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                     <ul id="myTab2" class="nav nav-tabs nav-justified">
@@ -240,732 +240,212 @@
                                         <div class="tab-pane fade active in" id="monday">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Exercise 1</h3>
+                                                    {% for plan in plan.monday.values %}
+                                                        <div class="col-lg-3 col-md-3">
+                                                            <!-- col-lg-6 start here -->
+                                                            <div class="panel panel-default">
+                                                                <!-- Start .panel -->
+                                                                <div class="panel-heading" style="background-color: #404040;">
+                                                                    <h3 class="" style="color: #e2d34d; text-align: center;">Exercise {{forloop.counter }}</h3>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <h4 style="text-align: center;">{{plan.exname}}</h4>
+                                                                    <img src="/media/adminportal/exercise/{{plan.exercise}}.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Sets: <strong>{{plan.sets}}</strong></h5></div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Reps: <strong>{{plan.reps}}</strong></h5></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <h5 ><strong>Note:</strong> {{plan.notes}}</h5>
+                                                                    </div>
+                                                                    
+                                                                </div>
                                                             </div>
-                                                            <div class="panel-body">
-                                                                <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
-                                                                <ul>
-                                                                    <h5><li>Sets: <strong>4</strong></li></h5>
-                                                                    <h5><li>Reps: <strong>12</strong></li></h5>
-                                                                </ul>
-                                                                <h5>Note: Take 15 seconds rest after each set.</h5>
-                                                            </div>
+                                                            <!-- End .panel -->
                                                         </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Exercise 1</h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
-                                                                <ul>
-                                                                    <h5><li>Sets: <strong>4</strong></li></h5>
-                                                                    <h5><li>Reps: <strong>12</strong></li></h5>
-                                                                </ul>
-                                                                <h5>Note: Take 15 seconds rest after each set.</h5>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Exercise 1</h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
-                                                                <ul>
-                                                                    <h5><li>Sets: <strong>4</strong></li></h5>
-                                                                    <h5><li>Reps: <strong>12</strong></li></h5>
-                                                                </ul>
-                                                                <h5>Note: Take 15 seconds rest after each set.</h5>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Exercise 1</h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
-                                                                <ul>
-                                                                    <h5><li>Sets: <strong>4</strong></li></h5>
-                                                                    <h5><li>Reps: <strong>12</strong></li></h5>
-                                                                </ul>
-                                                                <h5>Note: Take 15 seconds rest after each set.</h5>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Exercise 1</h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
-                                                                <ul>
-                                                                    <h5><li>Sets: <strong>4</strong></li></h5>
-                                                                    <h5><li>Reps: <strong>12</strong></li></h5>
-                                                                </ul>
-                                                                <h5>Note: Take 15 seconds rest after each set.</h5>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Exercise 1</h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <h4 style="text-align: center;">Butterfly</h4>
-                                                                <img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
-                                                                <ul>
-                                                                    <h5><li>Sets: <strong>4</strong></li></h5>
-                                                                    <h5><li>Reps: <strong>12</strong></li></h5>
-                                                                </ul>
-                                                                <h5>Note: Take 15 seconds rest after each set.</h5>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
+                                                    {% endfor %}
+                                                   
+                                                    
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="tuesday">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 1 - <strong> 11:00 am</strong></h3>
+                                                    {% for plan in plan.tuesday.values %}
+                                                        <div class="col-lg-3 col-md-3">
+                                                            <!-- col-lg-6 start here -->
+                                                            <div class="panel panel-default">
+                                                                <!-- Start .panel -->
+                                                                <div class="panel-heading" style="background-color: #404040;">
+                                                                    <h3 class="" style="color: #e2d34d; text-align: center;">Exercise {{forloop.counter }}</h3>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <h4 style="text-align: center;">{{plan.exname}}</h4>
+                                                                    <img src="/media/adminportal/exercise/{{plan.exercise}}.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Sets: <strong>{{plan.sets}}</strong></h5></div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Reps: <strong>{{plan.reps}}</strong></h5></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <h5 ><strong>Note:</strong> {{plan.notes}}</h5>
+                                                                    </div>
+                                                                    
+                                                                </div>
                                                             </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
+                                                            <!-- End .panel -->
                                                         </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 2 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 3 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 4 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 5 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 6 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="wednesday">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 1 - <strong> 11:00 am</strong></h3>
+                                                    {% for plan in plan.wednesday.values %}
+                                                        <div class="col-lg-3 col-md-3">
+                                                            <!-- col-lg-6 start here -->
+                                                            <div class="panel panel-default">
+                                                                <!-- Start .panel -->
+                                                                <div class="panel-heading" style="background-color: #404040;">
+                                                                    <h3 class="" style="color: #e2d34d; text-align: center;">Exercise {{forloop.counter }}</h3>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <h4 style="text-align: center;">{{plan.exname}}</h4>
+                                                                    <img src="/media/adminportal/exercise/{{plan.exercise}}.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Sets: <strong>{{plan.sets}}</strong></h5></div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Reps: <strong>{{plan.reps}}</strong></h5></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <h5 ><strong>Note:</strong> {{plan.notes}}</h5>
+                                                                    </div>
+                                                                    
+                                                                </div>
                                                             </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
+                                                            <!-- End .panel -->
                                                         </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 2 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 3 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 4 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 5 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 6 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="thursday">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 1 - <strong> 11:00 am</strong></h3>
+                                                    {% for plan in plan.thursday.values %}
+                                                        <div class="col-lg-3 col-md-3">
+                                                            <!-- col-lg-6 start here -->
+                                                            <div class="panel panel-default">
+                                                                <!-- Start .panel -->
+                                                                <div class="panel-heading" style="background-color: #404040;">
+                                                                    <h3 class="" style="color: #e2d34d; text-align: center;">Exercise {{forloop.counter }}</h3>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <h4 style="text-align: center;">{{plan.exname}}</h4>
+                                                                    <img src="/media/adminportal/exercise/{{plan.exercise}}.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Sets: <strong>{{plan.sets}}</strong></h5></div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Reps: <strong>{{plan.reps}}</strong></h5></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <h5 ><strong>Note:</strong> {{plan.notes}}</h5>
+                                                                    </div>
+                                                                    
+                                                                </div>
                                                             </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
+                                                            <!-- End .panel -->
                                                         </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 2 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 3 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 4 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 5 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 6 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="friday">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 1 - <strong> 11:00 am</strong></h3>
+                                                    {% for plan in plan.friday.values %}
+                                                        <div class="col-lg-3 col-md-3">
+                                                            <!-- col-lg-6 start here -->
+                                                            <div class="panel panel-default">
+                                                                <!-- Start .panel -->
+                                                                <div class="panel-heading" style="background-color: #404040;">
+                                                                    <h3 class="" style="color: #e2d34d; text-align: center;">Exercise {{forloop.counter }}</h3>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <h4 style="text-align: center;">{{plan.exname}}</h4>
+                                                                    <img src="/media/adminportal/exercise/{{plan.exercise}}.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Sets: <strong>{{plan.sets}}</strong></h5></div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Reps: <strong>{{plan.reps}}</strong></h5></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <h5 ><strong>Note:</strong> {{plan.notes}}</h5>
+                                                                    </div>
+                                                                    
+                                                                </div>
                                                             </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
+                                                            <!-- End .panel -->
                                                         </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 2 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 3 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 4 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 5 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 6 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="saturday">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 1 - <strong> 11:00 am</strong></h3>
+                                                    {% for plan in plan.saturday.values %}
+                                                        <div class="col-lg-3 col-md-3">
+                                                            <!-- col-lg-6 start here -->
+                                                            <div class="panel panel-default">
+                                                                <!-- Start .panel -->
+                                                                <div class="panel-heading" style="background-color: #404040;">
+                                                                    <h3 class="" style="color: #e2d34d; text-align: center;">Exercise {{forloop.counter }}</h3>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <h4 style="text-align: center;">{{plan.exname}}</h4>
+                                                                    <img src="/media/adminportal/exercise/{{plan.exercise}}.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Sets: <strong>{{plan.sets}}</strong></h5></div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Reps: <strong>{{plan.reps}}</strong></h5></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <h5 ><strong>Note:</strong> {{plan.notes}}</h5>
+                                                                    </div>
+                                                                    
+                                                                </div>
                                                             </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
+                                                            <!-- End .panel -->
                                                         </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 2 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 3 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 4 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 5 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 6 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="sunday">
                                             <div class="row">
                                                 <div class="col-lg-12">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 1 - <strong> 11:00 am</strong></h3>
+                                                    {% for plan in plan.sunday.values %}
+                                                        <div class="col-lg-3 col-md-3">
+                                                            <!-- col-lg-6 start here -->
+                                                            <div class="panel panel-default">
+                                                                <!-- Start .panel -->
+                                                                <div class="panel-heading" style="background-color: #404040;">
+                                                                    <h3 class="" style="color: #e2d34d; text-align: center;">Exercise {{forloop.counter }}</h3>
+                                                                </div>
+                                                                <div class="panel-body">
+                                                                    <h4 style="text-align: center;">{{plan.exname}}</h4>
+                                                                    <img src="/media/adminportal/exercise/{{plan.exercise}}.jpg" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Sets: <strong>{{plan.sets}}</strong></h5></div>
+                                                                        <div class="col-lg-6 col-md-6 col-sm6"><h5 style="text-align: center;">Reps: <strong>{{plan.reps}}</strong></h5></div>
+                                                                    </div>
+                                                                    <div class="col-lg-12 col-md-12 colsm-12">
+                                                                        <h5 ><strong>Note:</strong> {{plan.notes}}</h5>
+                                                                    </div>
+                                                                    
+                                                                </div>
                                                             </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
+                                                            <!-- End .panel -->
                                                         </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 2 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 3 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 4 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 5 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- col-lg-6 start here -->
-                                                        <div class="panel panel-default">
-                                                            <!-- Start .panel -->
-                                                            <div class="panel-heading" style="background-color: #404040;">
-                                                                <h3 class="" style="color: #e2d34d;">Meal 6 - <strong> 11:00 am</strong></h3>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <ul>
-                                                                    <h4><li>Scrambled eggs with mushrooms and oatmeal.</li></h4>
-                                                                    <h4><li>Salmon, quinoa and asparagus.</li></h4>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <!-- End .panel -->
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                         </div>

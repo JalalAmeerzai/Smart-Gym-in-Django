@@ -202,7 +202,7 @@
                             
                         </div>
                         <!-- Start .row -->
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 80px;">
                             <div class="col-lg-12">
                                 <!-- col-lg-12 start here -->
                                 <div class="panel panel-default plain panelRefresh">
@@ -211,6 +211,21 @@
                                     
                                   
                                     <div class="panel-body">
+                                            {% if error == 1 %}
+                                                <div class="alert alert-danger fade in">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                    <strong>Input Error!</strong> <br>{{errormessage}}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if success == 1 %}
+                                                <div class="alert alert-success fade in">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                    <i class="fa fa-check alert-icon "></i>
+                                                    <strong>Success!</strong> <br>{{successmessage}}
+                                                </div>
+                                            {% endif %}
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-4"></div>
                                         <div style="col-lg-4">
@@ -241,106 +256,20 @@
                                             </thead>
                                             
                                             <tbody>
+                                                {% for routine in routines %}
                                                 <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
+                                                    <td>{{routine.routine_id}}</td>
+                                                    <td><img src="/media/adminportal/routine/{{routine.routine_img_name}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
+                                                    <td>{{routine.routine_name}}</td>
+                                                    <td>{{routine.routine_desc}}</td>
+                                                    <td><a title="View Profile" href="/adminportal/staffprofile/{{routine.routine_added_by}}"><i class="fa fa-user" id="tablebtns" style="font-size: 14px; background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target="">  {{routine.routine_added_by}}</i></a>
+                                                    <td>{{routine.routine_added_on}}</td>
                                                     <td> 
-                                                        <a title="view" href="/adminportal/routinesview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
+                                                        <a title="view" href="/adminportal/routinesview/{{routine.routine_id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #51bf87; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
+                                                        <a title="delete" id="{{routine.routine_id}}" onclick="del(this.id)"><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target="#modal-style3"></i></a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/routinesview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/routinesview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/routinesview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/routinesview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/routinesview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/routinesview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td><img src="{% static 'adminportal/img/exr1.jpg' %}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/></td>
-                                                    <td>Fat Burner Diet</td>
-                                                    <td>This diet is to be followed when you are into extreme workout and fat burn. This diet is to be followed when you are into extreme workout and fat burn.</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>2011/04/25</td>
-                                                    <td> 
-                                                        <a title="view" href="/adminportal/routinesview"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
-                                                        <a title="delete" href=""><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""></i></a>
-                                                    </td>
-                                                </tr>
-                                                 
-                                                
-                                                
-                                                
+                                                {% endfor %}
                                                 
                                                
                                             </tbody>
@@ -352,44 +281,39 @@
                                         
 
 
-                                        <!--DELETE MODAL-->
-                                        <div class="modal fade modal-style2" id="modal-style3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        
-                                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="background-color:#404040; color: #e2d34d">
-                                        <button type="button" class="close" data-dismiss="modal" style="color: #e2d34d">
-                                            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                                        </button>
-                                        <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Routine</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form class=" group-border stripped" role="form">
-                                            
-                                            <div class="form-group">
-                                                <div class="col-lg-12">
-                                                    
-                                                        <button type="submit" class="btn btn-default col-lg-4" id="delgreen" style="width:100%">Yes, Remove The Routine</button>
-                                               
+                                      <!--DELETE MODAL-->
+                                      <div class="modal fade modal-style2" id="modal-style3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="background-color:#404040; color: #e2d34d">
+                                                    <button type="button" class="close" data-dismiss="modal" style="color: #e2d34d">
+                                                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                                                    </button>
+                                                    <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Routine</h4>
                                                 </div>
-                                            </div>
-                                            
-                                             <div class="form-group">
-                                                <div class="col-lg-12">
-                                                    
-                                                        <button type="submit" class="btn btn-default col-lg-4" id="delred" style="width:100%" data-dismiss="modal">Cancel</button>
-                                               
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                            
+                                                <div class="modal-body">
+                                                    <form class=" group-border stripped" role="form" method="POST" action="/adminportal/routines/" enctype="multipart/form-data">{% csrf_token %}
                                                         
-                                                    
-                                        </form>
-                                    </div>
-                                            
-                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-lg-12">
+                                                                    <input type="hidden" name="id" id="id"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-lg-12">
+                                                                    <button type="submit" class="btn btn-default col-lg-4" id="delgreen" style="width:100%" name="deleteroutine">Yes, Remove The Routine</button>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <div class="col-lg-12">
+                                                                    <button type="submit" class="btn btn-default col-lg-4" id="delred" style="width:100%" data-dismiss="modal">Cancel</button>
+                                                            </div>
+                                                        </div>        
+                                                    </form>
+                                                </div>
+                                                        
+                                            </div>
                                     </div>
                                 </div>
 
@@ -410,7 +334,7 @@
                                                     <h4 class="modal-title" id="mySmallModalLabel" style="color:#e2d34d; text-align: center">Add Routine</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form class="form-horizontal group-border stripped" role="form">
+                                                    <form class="form-horizontal group-border stripped" role="form" id="form" method="POST" action="/adminportal/routines/" enctype="multipart/form-data">{% csrf_token %}
                                                         
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
@@ -419,7 +343,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Name</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="text" class="form-control" id="exname" placeholder="Routine Name">
+                                                                            <input type="text" class="form-control" id="exname" placeholder="Routine Name" required name="name">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -433,8 +357,24 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Description</label>
                                                                         <div class="col-sm-12">
-                                                                            <textarea class="form-control" id='exdesc' placeholder="Describe your routine" rows="5" style="resize: none;" value=""></textarea>
+                                                                            <textarea class="form-control" id='exdesc' placeholder="Describe your routine" rows="5" style="resize: none;" name="desc" required maxlength="200"></textarea>
                                                                             
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+                                                            <div class="col-lg-12">
+                                                                <div class="col-lg-12">
+                                                                    
+                                                                    <div class="form-group">
+                                                                        
+                                                                        <div class="col-sm-12">
+                                                                            <input type="hidden" class="form-control" id="routinejson" placeholder="" name="routinejson">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -448,9 +388,7 @@
                                                                     <div class="form-group">
                                                                         <label for="" class="col-sm-12 control-label">Image</label>
                                                                         <div class="col-sm-12">
-                                                                            <input type="file" class="form-control"/>
-                                                                            
-                                                                            
+                                                                            <input type="file" class="form-control" name="picture" required/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -468,10 +406,10 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Exercise</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <select class="form-control  mondayex" id='mondayex'>
-                                                                                            <option >Butterfly</option>
-                                                                                            <option >DB Curl</option>
-                                                                                            <option >Smith Press</option>   
+                                                                                    <select class="form-control  mondayex" id='mondayex' required>
+                                                                                            {% for exercise in exercises %}
+                                                                                                <option value="{{ exercise.exercise_id }}">{{ exercise.exercise_name }}</option>
+                                                                                            {% endfor %}   
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
@@ -481,7 +419,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Sets</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="number" class="form-control mondaysets" id="mondaysets" placeholder="Enter Sets">
+                                                                                    <input type="number" class="form-control mondaysets" id="mondaysets" placeholder="Enter Sets" required min="1">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -490,7 +428,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Reps</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="number" class="form-control mondayreps" id="mondayreps" placeholder="Enter Reps">
+                                                                                    <input type="number" class="form-control mondayreps" id="mondayreps" placeholder="Enter Reps" required min="1">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -498,7 +436,7 @@
                                                                             <div class="form-group">
                                                                                 <label for="" class="col-sm-12 control-label">Note</label>
                                                                                 <div class="col-sm-12">
-                                                                                    <input type="text" class="form-control mondaynote" id="mondaynote" placeholder="Enter Reps">
+                                                                                    <input type="text" class="form-control mondaynote" id="mondaynote" placeholder="Enter Note" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -515,48 +453,50 @@
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
                                                                 <h3>Tuesday</h3>
-                                                                <div class="col-md-12 col-lg-12">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select class="form-control  tuesdayex" id='tuesdayex'>
-                                                                                        <option value="Butterfly">Butterfly</option>
-                                                                                        <option value="DB Curl">DB Curl</option>
-                                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                                </select>
+                                                                <div class="col-md-12 col-lg-12" id="tuesdayDiv">
+                                                                    <div class="row" id="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Exercise</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <select class="form-control  tuesdayex" id='tuesdayex'>
+                                                                                            {% for exercise in exercises %}
+                                                                                                <option value="{{ exercise.exercise_id }}">{{ exercise.exercise_name }}</option>
+                                                                                            {% endfor %}   
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control tuesdaysets" id="tuesdaysets" placeholder="Enter Sets">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Sets</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control tuesdaysets" id="tuesdaysets" placeholder="Enter Sets" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control tuesdayreps" id="tuesdayreps" placeholder="Enter Reps">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Reps</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control tuesdayreps" id="tuesdayreps" placeholder="Enter Reps" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="text" class="form-control tuesdaynote" id="tuesdaynote" placeholder="Enter Reps">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Note</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="text" class="form-control tuesdaynote" id="tuesdaynote" placeholder="Enter Note" required>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addTuesday('tuesdayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -566,48 +506,50 @@
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
                                                                 <h3>Wednesday</h3>
-                                                                <div class="col-md-12 col-lg-12">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select class="form-control ">
-                                                                                        <option value="Butterfly">Butterfly</option>
-                                                                                        <option value="DB Curl">DB Curl</option>
-                                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                                </select>
+                                                                <div class="col-md-12 col-lg-12" id="wednesdayDiv">
+                                                                    <div class="row" id="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Exercise</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <select class="form-control  wednesdayex" id='wednesdayex'>
+                                                                                            {% for exercise in exercises %}
+                                                                                                <option value="{{ exercise.exercise_id }}">{{ exercise.exercise_name }}</option>
+                                                                                            {% endfor %}   
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Sets</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control wednesdaysets" id="wednesdaysets" placeholder="Enter Sets" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Reps</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control wednesdayreps" id="wednesdayreps" placeholder="Enter Reps" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Note</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="text" class="form-control wednesdaynote" id="wednesdaynote" placeholder="Enter Note" required>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addWednesday('wednesdayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -617,48 +559,50 @@
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
                                                                 <h3>Thursday</h3>
-                                                                <div class="col-md-12 col-lg-12">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select class="form-control ">
-                                                                                        <option value="Butterfly">Butterfly</option>
-                                                                                        <option value="DB Curl">DB Curl</option>
-                                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                                </select>
+                                                                <div class="col-md-12 col-lg-12" id="thursdayDiv">
+                                                                    <div class="row" id="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Exercise</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <select class="form-control  thursdayex" id='thursdayex'>
+                                                                                            {% for exercise in exercises %}
+                                                                                                <option value="{{ exercise.exercise_id }}">{{ exercise.exercise_name }}</option>
+                                                                                            {% endfor %}   
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Sets</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control thursdaysets" id="thursdaysets" placeholder="Enter Sets" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Reps</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control thursdayreps" id="thursdayreps" placeholder="Enter Reps" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Note</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="text" class="form-control thursdaynote" id="thursdaynote" placeholder="Enter Note" required>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addThursday('thursdayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -668,48 +612,50 @@
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
                                                                 <h3>Friday</h3>
-                                                                <div class="col-md-12 col-lg-12">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select class="form-control ">
-                                                                                        <option value="Butterfly">Butterfly</option>
-                                                                                        <option value="DB Curl">DB Curl</option>
-                                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                                </select>
+                                                                <div class="col-md-12 col-lg-12" id="fridayDiv">
+                                                                    <div class="row" id="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Exercise</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <select class="form-control  fridayex" id='fridayex'>
+                                                                                            {% for exercise in exercises %}
+                                                                                                <option value="{{ exercise.exercise_id }}">{{ exercise.exercise_name }}</option>
+                                                                                            {% endfor %}   
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Sets</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control fridaysets" id="fridaysets" placeholder="Enter Sets" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Reps</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control fridayreps" id="fridayreps" placeholder="Enter Reps" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Note</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="text" class="form-control fridaynote" id="fridaynote" placeholder="Enter Note" required>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addFriday('fridayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -719,48 +665,50 @@
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
                                                                 <h3>Saturday</h3>
-                                                                <div class="col-md-12 col-lg-12">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select class="form-control ">
-                                                                                        <option value="Butterfly">Butterfly</option>
-                                                                                        <option value="DB Curl">DB Curl</option>
-                                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                                </select>
+                                                                <div class="col-md-12 col-lg-12" id="saturdayDiv">
+                                                                    <div class="row" id="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Exercise</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <select class="form-control  saturdayex" id='saturdayex'>
+                                                                                            {% for exercise in exercises %}
+                                                                                                <option value="{{ exercise.exercise_id }}">{{ exercise.exercise_name }}</option>
+                                                                                            {% endfor %}   
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Sets</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control saturdaysets" id="saturdaysets" placeholder="Enter Sets" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Reps</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control saturdayreps" id="saturdayreps" placeholder="Enter Reps" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Note</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="text" class="form-control saturdaynote" id="saturdaynote" placeholder="Enter Note" required>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addSaturday('saturdayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
@@ -771,76 +719,61 @@
                                                         <div class="form-group">
                                                             <div class="col-lg-12">
                                                                 <h3>Sunday</h3>
-                                                                <div class="col-md-12 col-lg-12">
-                                                                    <div class="col-lg-6">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                                            <div class="col-sm-12">
-                                                                                <select class="form-control ">
-                                                                                        <option value="Butterfly">Butterfly</option>
-                                                                                        <option value="DB Curl">DB Curl</option>
-                                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                                </select>
+                                                                <div class="col-md-12 col-lg-12" id="sundayDiv">
+                                                                    <div class="row" id="row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Exercise</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <select class="form-control  sundayex" id='sundayex'>
+                                                                                            {% for exercise in exercises %}
+                                                                                                <option value="{{ exercise.exercise_id }}">{{ exercise.exercise_name }}</option>
+                                                                                            {% endfor %}   
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Sets</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control sundaysets" id="sundaysets" placeholder="Enter Sets" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="col-lg-3">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
+                                                                        
+                                                                        <div class="col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Reps</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="number" class="form-control sundayreps" id="sundayreps" placeholder="Enter Reps" required min="1">
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="col-lg-12">
-                                                                        <div class="form-group">
-                                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                                            <div class="col-sm-12">
-                                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <label for="" class="col-sm-12 control-label">Note</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="text" class="form-control sundaynote" id="sundaynote" placeholder="Enter Note" required>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
 
-                                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
+                                                                <span class="" id="subcbtn" style="font-size: 12px;" onclick="addSunday('sundayDiv')">Add More</span>
                                                                 
                                                             </div>
                                                         </div>
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
                                                         
                                                         <div class="form-group">
                                                             <div class="col-sm-offset-4 col-sm-4">
                                                                 <br><br>
-                                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save</button>
+                                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="addroutine">Save</button>
                                                             </div>
                                                         </div>
-                                                        
-                                                        
-                                                                    
-                                                                    
-                                                                
-                                                                    
-                                                                    
-                                                        </form>
+                                                    </form>
                                                 </div>
                                             
                                         </div>
@@ -848,442 +781,6 @@
                                 </div>
 
 
-
-
-
-
-
-                        <!--ADD MODAL-->
-                        <div class="modal fade modal-style2" id="modal-style4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header" style="background-color:#404040">
-                                    <button type="button" class="close" data-dismiss="modal" style="color:#e2d34d">
-                                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                                    </button>
-                                    <h4 class="modal-title" id="mySmallModalLabel" style="color:#e2d34d; text-align: center">Add Wizard</h4>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                    <form class="form-horizontal group-border stripped" role="form">
-                                        
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        
-                                                        <label for="" class="col-sm-12 control-label">Name</label>
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="" placeholder="Routine Name">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label for="" class="col-sm-12 control-label" id="">Name</label>
-                                                        <div class="col-sm-12">
-                                                            <textarea class="form-control" id="" placeholder="Describe your routine" rows="5" style="resize: none;" value=""></textarea>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                        
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Monday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control " id="">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Notes">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Tuesday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control " id="">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Notes">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Wednesday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Thursday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Friday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Saturday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-
-
-
-
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <h3>Sunday</h3>
-                                                <div class="col-md-12 col-lg-12">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Exercise</label>
-                                                            <div class="col-sm-12">
-                                                                <select class="form-control ">
-                                                                        <option value="Butterfly">Butterfly</option>
-                                                                        <option value="DB Curl">DB Curl</option>
-                                                                        <option value="Smith Press">Smith Press</option>   
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Sets</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Sets">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-3">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Reps</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="number" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="form-group">
-                                                            <label for="" class="col-sm-12 control-label">Note</label>
-                                                            <div class="col-sm-12">
-                                                                <input type="text" class="form-control" id="" placeholder="Enter Reps">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <span class="" id="subcbtn" style="font-size: 12px;">Add More</span>
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-4 col-sm-4">
-                                                <br><br>
-                                                <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save</button>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                                    
-                                                    
-                                                
-                                                    
-                                                    
-                                        </form>
-                                </div>
-                                </div>
-                                        
-                                    </div>
-                                </div>
                             </div>    
                                 </div>
                                 <!-- End .panel -->
@@ -1385,45 +882,174 @@
 
 
         <script>
+
+            function del(id){
+                document.getElementById("id").value = ""+id
+            }
+
             function addMonday(divName){
                 var newdiv = document.createElement('div');
                 newdiv.id = "row";
                 newdiv.className = "row";
-                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Exercise</label><div class='col-sm-12'><select class='form-control mondayex' id='mondayex'><option value='Butterfly'>Butterfly</option><option value='DB Curl'>DB Curl</option><option value='Smith Press'>Smith Press</option></select></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Sets</label><div class='col-sm-12'><input type='number' class='form-control mondaysets' id='mondaysets' placeholder='Enter Sets'></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Reps</label><div class='col-sm-12'><input type='number' class='form-control mondayreps' id='mondayreps' placeholder='Enter Reps'></div></div></div><div class='col-lg-12'><div class='form-group'><label for='' class='col-sm-12 control-label'>Note</label><div class='col-sm-12'><input type='text' class='form-control mondaynote' id='mondaynote' placeholder='Enter Reps'></div></div></div></div>";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Exercise</label><div class='col-sm-12'><select class='form-control mondayex' id='mondayex' required>{% for exercise in exercises %}<option value='{{ exercise.exercise_id }}'>{{ exercise.exercise_name }}</option>{% endfor %}</select></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Sets</label><div class='col-sm-12'><input type='number' class='form-control mondaysets' id='mondaysets' placeholder='Enter Sets' required></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Reps</label><div class='col-sm-12'><input type='number' class='form-control mondayreps' id='mondayreps' placeholder='Enter Reps' required></div></div></div><div class='col-lg-12'><div class='form-group'><label for='' class='col-sm-12 control-label'>Note</label><div class='col-sm-12'><input type='text' class='form-control mondaynote' id='mondaynote' placeholder='Enter Notes' required></div></div></div></div>";
                 document.getElementById(divName).appendChild(newdiv); 
 
             }
 
-            function getData(){
-                routine = {}
-                routine['name'] = document.getElementById('exname').value;
-                routine['desc'] = document.getElementById('exdesc').value;
+            function addTuesday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Exercise</label><div class='col-sm-12'><select class='form-control tuesdayex' id='tuesdayex' required>{% for exercise in exercises %}<option value='{{ exercise.exercise_id }}'>{{ exercise.exercise_name }}</option>{% endfor %}</select></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Sets</label><div class='col-sm-12'><input type='number' class='form-control tuesdaysets' id='tuesdaysets' placeholder='Enter Sets' required></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Reps</label><div class='col-sm-12'><input type='number' class='form-control tuesdayreps' id='tuesdayreps' placeholder='Enter Reps' required></div></div></div><div class='col-lg-12'><div class='form-group'><label for='' class='col-sm-12 control-label'>Note</label><div class='col-sm-12'><input type='text' class='form-control tuesdaynote' id='tuesdaynote' placeholder='Enter Notes' required></div></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
 
+            }
+
+            function addWednesday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Exercise</label><div class='col-sm-12'><select class='form-control wednesdayex' id='wednesdayex' required>{% for exercise in exercises %}<option value='{{ exercise.exercise_id }}'>{{ exercise.exercise_name }}</option>{% endfor %}</select></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Sets</label><div class='col-sm-12'><input type='number' class='form-control wednesdaysets' id='wednesdaysets' placeholder='Enter Sets' required></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Reps</label><div class='col-sm-12'><input type='number' class='form-control wednesdayreps' id='wednesdayreps' placeholder='Enter Reps' required></div></div></div><div class='col-lg-12'><div class='form-group'><label for='' class='col-sm-12 control-label'>Note</label><div class='col-sm-12'><input type='text' class='form-control wednesdaynote' id='wednesdaynote' placeholder='Enter Notes' required></div></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+            function addThursday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Exercise</label><div class='col-sm-12'><select class='form-control thursdayex' id='thursdayex' required>{% for exercise in exercises %}<option value='{{ exercise.exercise_id }}'>{{ exercise.exercise_name }}</option>{% endfor %}</select></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Sets</label><div class='col-sm-12'><input type='number' class='form-control thursdaysets' id='thursdaysets' placeholder='Enter Sets' required></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Reps</label><div class='col-sm-12'><input type='number' class='form-control thursdayreps' id='thursdayreps' placeholder='Enter Reps' required></div></div></div><div class='col-lg-12'><div class='form-group'><label for='' class='col-sm-12 control-label'>Note</label><div class='col-sm-12'><input type='text' class='form-control thursdaynote' id='thursdaynote' placeholder='Enter Notes' required></div></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+            function addFriday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Exercise</label><div class='col-sm-12'><select class='form-control fridayex' id='fridayex' required>{% for exercise in exercises %}<option value='{{ exercise.exercise_id }}'>{{ exercise.exercise_name }}</option>{% endfor %}</select></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Sets</label><div class='col-sm-12'><input type='number' class='form-control fridaysets' id='fridaysets' placeholder='Enter Sets' required></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Reps</label><div class='col-sm-12'><input type='number' class='form-control fridayreps' id='fridayreps' placeholder='Enter Reps' required></div></div></div><div class='col-lg-12'><div class='form-group'><label for='' class='col-sm-12 control-label'>Note</label><div class='col-sm-12'><input type='text' class='form-control fridaynote' id='fridaynote' placeholder='Enter Notes' required></div></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+            function addSaturday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Exercise</label><div class='col-sm-12'><select class='form-control saturdayex' id='saturdayex' required>{% for exercise in exercises %}<option value='{{ exercise.exercise_id }}'>{{ exercise.exercise_name }}</option>{% endfor %}</select></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Sets</label><div class='col-sm-12'><input type='number' class='form-control saturdaysets' id='saturdaysets' placeholder='Enter Sets' required></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Reps</label><div class='col-sm-12'><input type='number' class='form-control saturdayreps' id='saturdayreps' placeholder='Enter Reps' required></div></div></div><div class='col-lg-12'><div class='form-group'><label for='' class='col-sm-12 control-label'>Note</label><div class='col-sm-12'><input type='text' class='form-control saturdaynote' id='saturdaynote' placeholder='Enter Notes' required></div></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+            function addSunday(divName){
+                var newdiv = document.createElement('div');
+                newdiv.id = "row";
+                newdiv.className = "row";
+                newdiv.innerHTML = "<div class='col-lg-6'><div class='form-group'><label for='' class='col-sm-12 control-label'>Exercise</label><div class='col-sm-12'><select class='form-control sundayex' id='sundayex' required>{% for exercise in exercises %}<option value='{{ exercise.exercise_id }}'>{{ exercise.exercise_name }}</option>{% endfor %}</select></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Sets</label><div class='col-sm-12'><input type='number' class='form-control sundaysets' id='sundaysets' placeholder='Enter Sets' required></div></div></div><div class='col-lg-3'><div class='form-group'><label for='' class='col-sm-12 control-label'>Reps</label><div class='col-sm-12'><input type='number' class='form-control sundayreps' id='sundayreps' placeholder='Enter Reps' required></div></div></div><div class='col-lg-12'><div class='form-group'><label for='' class='col-sm-12 control-label'>Note</label><div class='col-sm-12'><input type='text' class='form-control sundaynote' id='sundaynote' placeholder='Enter Notes' required></div></div></div></div>";
+                document.getElementById(divName).appendChild(newdiv); 
+
+            }
+
+
+            $('#form').submit(function (evt) {
+                //evt.preventDefault();
+                
+                // monday
+                monday={}
                 mondayex = document.getElementsByClassName('mondayex');
                 mondaysets = document.getElementsByClassName('mondaysets');
                 mondayreps = document.getElementsByClassName('mondayreps');
                 mondaynote = document.getElementsByClassName('mondaynote');
+                for(i=0; i<mondayex.length; i++){
+                    monday['ex'+(i+1)] = {"exercise" : mondayex[i].value, "sets" : mondaysets[i].value, "reps": mondayreps[i].value, "notes" : mondaynote[i].value};
+                }
 
+
+                // tuesday
+                tuesday={}
+                tuesdayex = document.getElementsByClassName('tuesdayex');
+                tuesdaysets = document.getElementsByClassName('tuesdaysets');
+                tuesdayreps = document.getElementsByClassName('tuesdayreps');
+                tuesdaynote = document.getElementsByClassName('tuesdaynote');
+                for(i=0; i<tuesdayex.length; i++){
+                    tuesday['ex'+(i+1)] = {"exercise" : tuesdayex[i].value, "sets" : tuesdaysets[i].value, "reps": tuesdayreps[i].value, "notes" : tuesdaynote[i].value};
+                }
+
+
+                // wednesday
+                wednesday={}
+                wednesdayex = document.getElementsByClassName('wednesdayex');
+                wednesdaysets = document.getElementsByClassName('wednesdaysets');
+                wednesdayreps = document.getElementsByClassName('wednesdayreps');
+                wednesdaynote = document.getElementsByClassName('wednesdaynote');
+                for(i=0; i<wednesdayex.length; i++){
+                    wednesday['ex'+(i+1)] = {"exercise" : wednesdayex[i].value, "sets" : wednesdaysets[i].value, "reps": wednesdayreps[i].value, "notes" : wednesdaynote[i].value};
+                }
+
+
+                // thursday
+                thursday={}
+                thursdayex = document.getElementsByClassName('thursdayex');
+                thursdaysets = document.getElementsByClassName('thursdaysets');
+                thursdayreps = document.getElementsByClassName('thursdayreps');
+                thursdaynote = document.getElementsByClassName('thursdaynote');
+                for(i=0; i<thursdayex.length; i++){
+                    thursday['ex'+(i+1)] = {"exercise" : thursdayex[i].value, "sets" : thursdaysets[i].value, "reps": thursdayreps[i].value, "notes" : thursdaynote[i].value};
+                }
+
+
+                // friday
+                friday={}
+                fridayex = document.getElementsByClassName('fridayex');
+                fridaysets = document.getElementsByClassName('fridaysets');
+                fridayreps = document.getElementsByClassName('fridayreps');
+                fridaynote = document.getElementsByClassName('fridaynote');
+                for(i=0; i<fridayex.length; i++){
+                    friday['ex'+(i+1)] = {"exercise" : fridayex[i].value, "sets" : fridaysets[i].value, "reps": fridayreps[i].value, "notes" : fridaynote[i].value};
+                }
+
+
+                // saturday
+                saturday={}
+                saturdayex = document.getElementsByClassName('saturdayex');
+                saturdaysets = document.getElementsByClassName('saturdaysets');
+                saturdayreps = document.getElementsByClassName('saturdayreps');
+                saturdaynote = document.getElementsByClassName('saturdaynote');
+                for(i=0; i<saturdayex.length; i++){
+                    saturday['ex'+(i+1)] = {"exercise" : saturdayex[i].value, "sets" : saturdaysets[i].value, "reps": saturdayreps[i].value, "notes" : saturdaynote[i].value};
+                }
+
+
+                // sunday
+                sunday={}
+                sundayex = document.getElementsByClassName('sundayex');
+                sundaysets = document.getElementsByClassName('sundaysets');
+                sundayreps = document.getElementsByClassName('sundayreps');
+                sundaynote = document.getElementsByClassName('sundaynote');
+                for(i=0; i<sundayex.length; i++){
+                    sunday['ex'+(i+1)] = {"exercise" : sundayex[i].value, "sets" : sundaysets[i].value, "reps": sundayreps[i].value, "notes" : sundaynote[i].value};
+                }
+
+                //weekplan
                 weekplan = {
-                    "monday" : {},
-                    "tuesday" : {},
-                    "wednesday" : {},
-                    "thursday" : {},
-                    "friday" : {},
-                    "saturday" : {},
-                    "sunday" : {}
+                    "monday" : monday,
+                    "tuesday" : tuesday,
+                    "wednesday" : wednesday,
+                    "thursday" : thursday,
+                    "friday" : friday,
+                    "saturday" : saturday,
+                    "sunday" : sunday
                 };
 
-                monday = {};
-                for(i=0; i<mondayex.length; i++){
-                    monday['ex'+(i+1)] = {"name" : mondayex[i].value, "sets" : mondaysets[i].value, "reps": mondayreps[i].value, "notes" : mondaynote[i].value};
-                }
-                weekplan["monday"] = monday;
-                routine['plan'] = weekplan;
 
-                //document.getElementById('exname').value = JSON.stringify(routine);
+                document.getElementById('routinejson').value = JSON.stringify(weekplan);
                 //JSON.parse(String)
-            }
+
+                //alert(document.getElementById('routinejson').value)
+
+            });
+
+            
             
         </script>
     </body>

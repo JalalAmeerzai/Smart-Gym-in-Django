@@ -352,8 +352,9 @@
                                                             <label for="inputAddress" class="col-sm-12 control-label">Package</label>
                                                             <div class="col-sm-12">
                                                                 <select class="form-control" id="package">
-                                                                    <option value="1">Silver</option>
-                                                                    <option value="2">Platinum</option>
+                                                                    {% for package in packages %}
+                                                                        <option value="{{package.package_id}}">{{package.package_name}}</option>
+                                                                    {% endfor %}
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -437,8 +438,9 @@
                                                             <label for="inputAddress" class="col-sm-12 control-label">Routine</label>
                                                             <div class="col-sm-12">
                                                                 <select class="form-control" id="Routine">
-                                                                    <option value="1">30 DC</option>
-                                                                    <option value="2">42 DC</option>
+                                                                    {% for routine in routines %}
+                                                                        <option value="{{routine.routine_id}}">{{routine.routine_name}}</option>
+                                                                    {% endfor %}
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -447,8 +449,9 @@
                                                             <label for="inputAddress" class="col-sm-12 control-label">Diet Plan</label>
                                                             <div class="col-sm-12">
                                                                 <select class="form-control" id="Diet">
-                                                                    <option value="1">Fat Loss</option>
-                                                                    <option value="2">Gain</option>
+                                                                    {% for diet in diets %}
+                                                                        <option value="{{diet.diet_id}}">{{diet.diet_name}}</option>
+                                                                    {% endfor %}
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -576,9 +579,7 @@
         <script src="{% static 'adminportal/js/main.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/modals.js'%}"></script>
         
-            <script>
-                alert(document.getElementById("Routine").value)
-            </script>
+            
         
     </body>
 </html>

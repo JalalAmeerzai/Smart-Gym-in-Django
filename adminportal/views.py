@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -464,7 +464,12 @@ def trainersprofileedit(request, trainerid):
 
 def members(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/members.html')
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        
+        params["packages"] = PackageData.objects.all().order_by('package_id')
+        params["diets"] = DietData.objects.all().order_by('diet_id')
+        params["routines"] = RoutineData.objects.all().order_by('routine_id')
+        return render(request, 'adminportal/members.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1097,7 +1102,65 @@ def exercisesedit(request, exrid):
 
 def routines(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/routine.html')
+
+        params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        
+        # add routine logic
+        routine_count = RoutineData.objects.all().order_by('routine_id')
+        if "addroutine" in request.POST:
+            if len(routine_count) == 0:
+                new_id = "rtn1"
+            else:
+                new_id = "rtn" + str((int(routine_count[len(routine_count)-1].routine_id[-1])+1))
+            
+            try:
+                file = request.FILES['picture']
+            except MultiValueDictKeyError:
+                file = False
+        
+            if file != False:
+                if imghdr.what(file) == None:
+                    params["error"] = 1
+                    params["errormessage"] = "Select a suitable image file type"
+                else:
+                    try:
+                        name = request.POST["name"].title()
+                        desc = request.POST.get("desc","")
+                        json = request.POST.get("routinejson","")
+                        picture = new_id+".jpg"
+                        added_by = request.session["userid"]
+                        added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                        new_routine = RoutineData(routine_id=new_id, routine_name=name, routine_desc=desc, routine_json=json, routine_img_name=picture, routine_added_by=added_by, routine_added_on=added_on)
+                        new_routine.save()
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\routine\\"+picture, 'wb')
+                        image_result.write(image_64_decode)
+                        params["success"] = 1
+                        params["successmessage"] = "Routine added successfully."
+                    except Exception:
+                        params["error"] = 1
+                        params["errormessage"] = "Something went wrong. Try again later."
+
+        # delete routine logic
+        if "deleteroutine" in request.POST:
+            del_id = request.POST["id"]
+            routine_delete = RoutineData.objects.filter(routine_id = del_id).delete()
+            if routine_delete[0] == 1:
+                try:
+                    os.remove("media\\adminportal\\routine\\"+del_id+".jpg")
+                    params["success"] = 1
+                    params["successmessage"] = "Routine successfully deleted."
+                except Exception:
+                    pass
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+
+        #for exercises to show  in the form
+        params["exercises"] = ExerciseData.objects.all().order_by('exercise_id')
+        params["routines"] = RoutineData.objects.all().order_by('routine_id')
+        return render(request, 'adminportal/routine.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1106,9 +1169,22 @@ def routines(request):
 
 
 
-def routinesview(request):
+def routinesview(request,rtid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/routineview.html')
+        params={}
+        try:
+            routine = RoutineData.objects.filter(routine_id=rtid)[0]
+        except Exception:
+            return redirect("/adminportal/routines/")
+        
+        params["name"] = routine.routine_name
+        params["desc"] = routine.routine_desc
+        params["plan"] = json.loads(routine.routine_json)
+        exercise_count = ExerciseData.objects.all().order_by('exercise_id')
+        for day in params["plan"]:
+            for exercise in params["plan"][day]:
+                params["plan"][day][exercise]["exname"] = exercise_count.filter(exercise_id=params["plan"][day][exercise]["exercise"])[0].exercise_name
+        return render(request, 'adminportal/routineview.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1143,7 +1219,7 @@ def diet(request):
                 params["error"] = 1
                 params["errormessage"] = "Something went wrong. Try again later."
 
-        # delete expense logic
+        # delete diet logic
         if "deletediet" in request.POST:
             del_id = request.POST["id"]
             diet_delete = DietData.objects.filter(diet_id = del_id).delete()
@@ -1168,7 +1244,10 @@ def diet(request):
 def dietview(request, dtid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
         params={}
-        diet = DietData.objects.filter(diet_id=dtid)[0]
+        try:
+            diet = DietData.objects.filter(diet_id=dtid)[0]
+        except Exception:
+            return redirect("/adminportal/diet/")
         params["name"] = diet.diet_name
         params["desc"] = diet.diet_desc
         params["plan"] = json.loads(diet.diet_json)

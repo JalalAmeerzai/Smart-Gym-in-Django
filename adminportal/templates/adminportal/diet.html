@@ -271,7 +271,7 @@
                                                         <td><a title="View Profile" href="/adminportal/staffprofile/{{diet.diet_added_by}}"><i class="fa fa-user" id="tablebtns" style="font-size: 14px; background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target="">  {{diet.diet_added_by}}</i></a>
                                                         <td>{{diet.diet_added_on}}</td>
                                                         <td> 
-                                                            <a title="view" href="/adminportal/dietview/{{diet.diet_id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
+                                                            <a title="view" href="/adminportal/dietview/{{diet.diet_id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #51bf87; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
                                                             <a title="delete" id="{{diet.diet_id}}" onclick="del(this.id)"><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target="#modal-style3"></i></a>
                                                         </td>
                                                     </tr>
@@ -293,7 +293,7 @@
                                                         <button type="button" class="close" data-dismiss="modal" style="color: #e2d34d">
                                                             <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                                                         </button>
-                                                        <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Exercise</h4>
+                                                        <h4 class="modal-title" id="mySmallModalLabel" style="color: #e2d34d; text-align: center">Delete Diet</h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <form class=" group-border stripped" role="form" method="POST" action="/adminportal/diet/" enctype="multipart/form-data">{% csrf_token %}
@@ -820,9 +820,6 @@
 
 
 
-
-
-
             $('#form').submit(function (evt) {
                 //evt.preventDefault();
                 
@@ -897,10 +894,6 @@
 
                 document.getElementById('dietjson').value = JSON.stringify(weekplan);
                 //JSON.parse(String)
-
-
-                
-
             });
 
 

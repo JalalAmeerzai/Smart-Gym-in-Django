@@ -103,3 +103,13 @@ class DietData(models.Model):
     diet_json = models.TextField(default="")
     diet_added_by = models.CharField(max_length=10, default="")
     diet_added_on = models.CharField(max_length=12, default="")
+
+
+class RoutineData(models.Model):
+    routine_id = models.CharField(max_length=10, primary_key=True, default="")
+    routine_name = models.CharField(max_length=40, default="")
+    routine_img_name = models.CharField(max_length=10, default="rt.jpg")
+    routine_desc = models.CharField(max_length=200, default="")
+    routine_json = models.TextField(default="")
+    routine_added_by = models.CharField(max_length=10, default="")
+    routine_added_on = models.CharField(max_length=12, default="")
