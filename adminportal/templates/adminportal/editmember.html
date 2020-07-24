@@ -234,13 +234,30 @@
                                             <div class="bs-callout bs-callout-info mt0">
                                                 <p> <i class="fa fa-file-picture-o" style="font-size:20px;">  </i> Display Picture</p>
                                             </div>
-                                            <form class="form-horizontal group-border stripped" role="form" class="col-lg-offset-4">
+                                            <form class="form-horizontal group-border stripped" role="form" class="col-lg-offset-4" method="POST" action="/adminportal/membersprofileedit/{{member.member_id}}" enctype="multipart/form-data">{% csrf_token %}
+                                                
+                                                {% if imageerror == 1 %}
+                                                    <div class="alert alert-danger fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                        <strong>Input Error!</strong> <br>Please select a correct file format.
+                                                    </div>
+                                                {% endif %}
+                                                <!--DATA ERROR MESSAGE-->
+                                                {% if dataerror == 1 %}
+                                                    <div class="alert alert-danger fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                        <strong>Update Error!</strong> <br>Something went wrong. Try again later.
+                                                    </div>
+                                                {% endif %}
+
                                                 <div class="form-group">
                                                     <div class="col-sm-3">
-                                                        <img src="{% static 'adminportal/img/T1.jpg'%}" class="col-sm-12 col-lg-12 col-sx-12 col-md-12" />
+                                                        <img src="/media/adminportal/member/{{member.member_img_name}}" class="col-sm-12 col-lg-12 col-sx-12 col-md-12" />
                                                         <br>
                                                         <div class="col-sm-12 col-lg-12 col-sx-12 col-md-12">
-                                                            <input type="file" class="form-control" id="picture" placeholder="Your Picture" style="margin-top: 20px;">
+                                                            <input type="file" class="form-control" id="picture" placeholder="Your Picture" style="margin-top: 20px;" required name="picture">
                                                         </div>
                                                         
                                                     </div>
@@ -250,7 +267,7 @@
                                                 
                                                 <div class="form-group">
                                                      <div class="col-sm-offset-4 col-sm-4">
-                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Upload</button>
+                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="uploadpicture">Upload</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -260,41 +277,36 @@
                                                 <div class="bs-callout bs-callout-info mt0">
                                                     <p> <i class="fa fa-user" style="font-size:20px;">  </i> Account Details</p>
                                                 </div>
-                                                <form class="form-horizontal group-border stripped" role="form">
+                                                <form class="form-horizontal group-border stripped" role="form" method="POST" action="/adminportal/membersprofileedit/{{member.member_id}}" >{% csrf_token %}
                                                     <div class="form-group">
                                                         <label for="inputEmail4" class="col-sm-2 control-label">Email</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" disabled value="{{member.member_email}}">
                                                         </div>
                                                     </div>
+                                                    
                                                     <div class="form-group">
-                                                        <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
+                                                        <label for="inputLastName" class="col-sm-2 control-label">Full Name</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="fname" placeholder="First Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="lname" placeholder="Last Name">
+                                                            <input type="text" class="form-control" id="lname" placeholder="Full Name" required name="name" value="{{member.member_name}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputContact" class="col-sm-2 control-label">Contact</label>
                                                         <div class="col-sm-10">
-                                                            <input type="tel" class="form-control" id="" placeholder="Contact No.">
+                                                            <input type="tel" class="form-control" id="" placeholder="Contact No." name="contact" required value="{{member.member_contact}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputAddress" class="col-sm-2 control-label">Address</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="" placeholder="Your Current Address..">
+                                                            <input type="text" class="form-control" id="" placeholder="Your Current Address.." name="address" required value="{{member.member_address}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputAddress" class="col-sm-2 control-label">Date of Birth</label>
                                                         <div class="col-sm-10">
-                                                            <input type="date" class="form-control" id="" placeholder="Your Birth Date Comes Here..">
+                                                            <input type="date" class="form-control" id="" placeholder="Your Birth Date Comes Here.." name="dob" value="{{member.member_dob}}" required>
                                                         </div>
                                                     </div>
 
@@ -302,7 +314,7 @@
                                                         <label for="inputHeight" class="col-sm-2 control-label">Height</label>
                                                         <div class="col-sm-3">
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="" placeholder="5">
+                                                                <input type="number" class="form-control" id="" placeholder="5" value="{{height.h1}}" min="1" name="height1">
                                                             </div>
                                                             <label for="inputhfts" class="col-sm-2 control-label">Feets</label>
                                                         </div>
@@ -311,7 +323,7 @@
 
                                                         <div class="col-sm-3">
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="" placeholder="10">
+                                                                <input type="number" class="form-control" id="" placeholder="10" max="12" min="0" value="{{height.h2}}" name="height2">
                                                             </div>
                                                             <label for="inputhinches" class="col-sm-2 control-label">Inches</label>
                                                         </div>
@@ -322,7 +334,7 @@
                                                         <label for="inputWeight" class="col-sm-2 control-label">Weight</label>
                                                         <div class="col-sm-4">
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="" placeholder="87">
+                                                                <input type="number" class="form-control" id="" placeholder="87" name="weight" value="{{member.member_weight}}">
                                                             </div>
                                                             <label for="inputWeight" class="col-sm-2 control-label">Kgs</label>
                                                         </div>
@@ -332,9 +344,9 @@
                                                         <label for="inputnpass" class="col-sm-2 control-label">Status</label>
                                                         <div class="col-sm-10">
                                                             <div class="col-sm-12">
-                                                                <select class="form-control" id="status">
-                                                                    <option value="1">Active</option>
-                                                                    <option value="2">Inactive</option>
+                                                                <select class="form-control" id="status" name="status" required>
+                                                                    <option value="Active">Active</option>
+                                                                    <option value="Inactive">Inactive</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -342,7 +354,7 @@
                                                     
                                                     <div class="form-group">
                                                          <div class="col-sm-offset-4 col-sm-4">
-                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save Changes</button>
+                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="uploaddata">Save Changes</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -362,20 +374,16 @@
                                             <div class="bs-callout bs-callout-info mt0" id="subscriptionupdate">
                                                     <p> <i class="fa  fa-dropbox" style="font-size:20px;">  </i> Change Subscription</p>
                                             </div>
-                                                <form class="form-horizontal group-border stripped" role="form">
-                                                    <div class="form-group">
-                                                        <label for="inputcpass" class="col-sm-2 control-label">Current Package</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputnpass" placeholder="Silver" disabled>
-                                                        </div>
-                                                    </div>
+                                                <form class="form-horizontal group-border stripped" role="form" method="POST" action="/adminportal/membersprofileedit/{{member.member_id}}" >{% csrf_token %}
+                                                    
                                                     <div class="form-group">
                                                         <label for="inputnpass" class="col-sm-2 control-label">Packages</label>
                                                         <div class="col-sm-10">
                                                             <div class="col-sm-12">
-                                                                <select class="form-control" id="package">
-                                                                    <option value="1">Silver</option>
-                                                                    <option value="2">Platinum</option>
+                                                                <select class="form-control" id="package" name="package">
+                                                                    {% for package in packages %}
+                                                                        <option value="{{package.package_id}}">{{package.package_name}}</option>
+                                                                    {% endfor %}
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -385,7 +393,7 @@
                                                     
                                                     <div class="form-group">
                                                          <div class="col-sm-offset-4 col-sm-4">
-                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Change Package</button>
+                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="uploadpackage">Change Package</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -394,37 +402,31 @@
                                                 <div class="bs-callout bs-callout-info mt0" id="subscriptionupdate">
                                                     <p> <i class="fa  fa-anchor" style="font-size:20px;">  </i> Change Diet and Routine</p>
                                             </div>
-                                                <form class="form-horizontal group-border stripped" role="form">
-                                                    <div class="form-group">
-                                                        <label for="inputcpass" class="col-sm-2 control-label">Current Diet</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputnpass" placeholder="Fat Loss" disabled>
-                                                        </div>
-                                                    </div>
+                                                <form class="form-horizontal group-border stripped" role="form" method="POST" action="/adminportal/membersprofileedit/{{member.member_id}}" >{% csrf_token %}
+                                                    
                                                     <div class="form-group">
                                                         <label for="inputnpass" class="col-sm-2 control-label">Diet Plans</label>
                                                         <div class="col-sm-10">
                                                             <div class="col-sm-12">
-                                                                <select class="form-control" id="diet">
-                                                                    <option value="1">Fat Loss</option>
-                                                                    <option value="2">Gain</option>
+                                                                <select class="form-control" id="diet" name="diet">
+                                                                    <option value="">--- Select Diet ---</option>
+                                                                    {% for diet in diets %}
+                                                                        <option value="{{diet.diet_id}}">{{diet.diet_name}}</option>
+                                                                    {% endfor %}
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="inputcpass" class="col-sm-2 control-label">Current Routine</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputnpass" placeholder="30 DC" disabled>
-                                                        </div>
-                                                    </div>
+                                                    
                                                     <div class="form-group">
                                                         <label for="inputnpass" class="col-sm-2 control-label">Workout Plans</label>
                                                         <div class="col-sm-10">
                                                             <div class="col-sm-12">
-                                                                <select class="form-control" id="routine">
-                                                                    <option value="1">30 DC</option>
-                                                                    <option value="2">Crossfit</option>
+                                                                <select class="form-control" id="routine" name="routine">
+                                                                    <option value="">--- Select Routine ---</option>
+                                                                    {% for routine in routines %}
+                                                                        <option value="{{routine.routine_id}}">{{routine.routine_name}}</option>
+                                                                    {% endfor %}
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -434,7 +436,7 @@
                                                     
                                                     <div class="form-group">
                                                          <div class="col-sm-offset-4 col-sm-4">
-                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Change Package</button>
+                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="uploadplan">Change Package</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -579,5 +581,44 @@
         <script src="{% static 'adminportal/plugins/forms/dropzone/dropzone.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/forms-advanced.js'%}"></script>
         <script src="{% static 'adminportal/js/pages/tabs.js'%}"></script>
+            
+            <script>
+                // change select status
+                status = "{{member.member_status}}"
+                for(i=0; i< document.getElementById("status").length; i++){
+                    document.getElementById("status").selectedIndex = i
+                    if(document.getElementById("status").value === status){
+                        break
+                    }
+                }
+
+                // change select package
+                status = "{{member.member_package}}"
+                for(i=0; i< document.getElementById("package").length; i++){
+                    document.getElementById("package").selectedIndex = i
+                    if(document.getElementById("package").value === status){
+                        break
+                    }
+                }
+
+                // change select diet
+                status = "{{member.member_diet}}"
+                for(i=0; i< document.getElementById("diet").length; i++){
+                    document.getElementById("diet").selectedIndex = i
+                    if(document.getElementById("diet").value === status){
+                        break
+                    }
+                }
+
+                // change select routine
+                status = "{{member.member_routine}}"
+                for(i=0; i< document.getElementById("routine").length; i++){
+                    document.getElementById("routine").selectedIndex = i
+                    if(document.getElementById("routine").value === status){
+                        break
+                    }
+                }
+            </script>
+
     </body>
 </html>

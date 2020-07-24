@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -465,7 +465,87 @@ def trainersprofileedit(request, trainerid):
 def members(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
         params={"error":0, "errormessage":"", "success":0, "successmessage":""}
+        member_count = MemberData.objects.all().order_by('member_id')
+
+        # add member logic
+        if "addmember" in request.POST:
+            if len(member_count) == 0:
+                new_id = "mem1"
+            else:
+                new_id = "mem" + str((int(member_count[len(member_count)-1].member_id[-1])+1))
+
+            try:
+                file = request.FILES['picture']
+            except MultiValueDictKeyError:
+                file = False
+            if file != False:
+                if imghdr.what(file) == None:
+                    params["error"] = 1
+                    params["errormessage"] = "Select a suitable image file type"
+                else:
+                    email = request.POST["email"].lower()
+                    if member_count.filter(member_email=email).exists():
+                        params["error"] = 1
+                        params["errormessage"] = "Account with email address '"+email+"' already exists!"
+                    else:
+                        try:
+                            name = request.POST["name"].title()
+                            password = "smartgym_"+email
+                            package = request.POST["package"]
+                            contact = request.POST["contact"]
+                            address = request.POST["address"]
+                            dob = request.POST.get("dob","")
+                            status = request.POST.get("status","Active")
+                            if request.POST["height1"] == "":
+                                height = ""
+                            else:
+                                height = request.POST["height1"]+","+request.POST["height2"]
+                            weight = request.POST["weight"]
+                            routine = request.POST.get("routine","")
+                            diet = request.POST.get("diet","")
+                            added_by = request.session["userid"]
+                            added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                            picture = new_id+".jpg"
+                            new_member= MemberData(member_id = new_id,member_package = package,member_img_name = picture,member_name =name,member_email = email, member_password=password ,member_contact =  contact,member_address = address,member_dob = dob,member_height = height,member_weight = weight,member_routine = routine,member_diet = diet,member_status = status,member_added_by= added_by,member_added_on = added_on)
+                            new_member.save()
+                            image_64_encode = base64.encodebytes(file.read())
+                            image_64_decode = base64.decodebytes(image_64_encode)
+                            image_result = open("media\\adminportal\\member\\"+picture, 'wb')
+                            image_result.write(image_64_decode)
+                            try:
+                                send_mail(
+                                    'Welcome to SmartGym - This Email Contains your Account Credentials',
+                                    '\nHello '+name+',\nYour account credenatials for smartgym are: \nAccount: '+email+'\nPassword: '+password+"\n\nStay Fit.\n\n\nRegards\n"+request.session["username"]+"\n"+request.session["userid"],
+                                    'SmartGym',
+                                    [email], 
+                                )
+                                params["success"] = 1
+                                params["successmessage"] = "Member added successfully."
+                            except Exception:
+                                params["success"] = 1
+                                params["successmessage"] = "Member added successfully. But Email failed to deliver"
+                        except Exception:
+                            params["error"] = 1
+                            params["errormessage"] = "Something went wrong. Try again later."
+
+        # delete member logic
+        if "deletemember" in request.POST:
+            del_id = request.POST["id"]
+            member_delete = MemberData.objects.filter(member_id = del_id).delete()
+            if member_delete[0] == 1:
+                try:
+                    os.remove("media\\adminportal\\member\\"+del_id+".jpg")
+                    params["success"] = 1
+                    params["successmessage"] = "Member successfully deleted."
+                except Exception:
+                    pass
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Try again later."
+
         
+        # page logic
+        params["members"] = MemberData.objects.all().order_by('member_id')
         params["packages"] = PackageData.objects.all().order_by('package_id')
         params["diets"] = DietData.objects.all().order_by('diet_id')
         params["routines"] = RoutineData.objects.all().order_by('routine_id')
@@ -478,9 +558,45 @@ def members(request):
 
 
 
-def membersprofile(request):
+def membersprofile(request, memid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/memberprofile.html')
+        
+        params={"nodietexist":0, "noroutineexist":0}
+        
+        try:
+            params["member"] = MemberData.objects.filter(member_id=memid)[0]
+        except Exception:
+            return redirect("/adminportal/members/")
+        
+        days = ("monday","tuesday","wednesday","thursday","friday","saturday","sunday")
+        
+        if params["member"].member_diet == "":
+            params["nodietexist"] = 1
+        else:
+            diet = json.loads(DietData.objects.filter(diet_id = params["member"].member_diet)[0].diet_json)
+            params["diet"] = diet[days[datetime.datetime.now().weekday()]]
+            
+
+        if params["member"].member_routine == "":
+            params["noroutineexist"] = 1
+        else:
+            routine = json.loads(RoutineData.objects.filter(routine_id = params["member"].member_routine)[0].routine_json)
+            params["routine"] = routine[days[datetime.datetime.now().weekday()]]
+
+            for exercise in params["routine"]:
+                params["routine"][exercise]["exname"] = ExerciseData.objects.filter(exercise_id = params["routine"][exercise]["exercise"])[0].exercise_name
+
+
+        #for package
+        package = PackageData.objects.filter(package_id = params["member"].member_package)[0]
+        package_dict = {
+            "name": package.package_name,
+            "admission": '{:,}'.format(package.package_admission),
+            "price": '{:,}'.format(package.package_price)
+        }        
+        params["package"] = package_dict
+
+        return render(request, 'adminportal/memberprofile.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -489,9 +605,82 @@ def membersprofile(request):
 
 
 
-def membersprofileedit(request):
+def membersprofileedit(request, memid):
+    params = {"imageerror":0, "dataerror":0}
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/editmember.html')
+        if request.method == "POST":
+
+            #upload image logic
+            if "uploadpicture" in request.POST:
+                try:
+                    file = request.FILES['picture']
+                except MultiValueDictKeyError:
+                    file = False
+                if file != False:
+                    if imghdr.what(file) == None:
+                        params["imageerror"] = 1
+                    else:
+                        image_64_encode = base64.encodebytes(file.read())
+                        image_64_decode = base64.decodebytes(image_64_encode)
+                        image_result = open("media\\adminportal\\member\\"+memid+".jpg", 'wb')
+                        image_result.write(image_64_decode)
+                        return redirect('/adminportal/membersprofile/'+memid)
+            
+            #upload data logic
+            if "uploaddata" in request.POST:
+                name = request.POST["name"].title()
+                contact = request.POST["contact"]
+                address = request.POST["address"]
+                dob = request.POST.get("dob","")
+                status = request.POST.get("status","Active")
+                if request.POST["height1"] == "":
+                    height = ""
+                else:
+                    height = request.POST["height1"]+","+request.POST["height2"]
+                weight = request.POST["weight"]
+                update = MemberData.objects.filter(member_id=memid).update(member_name=name, member_contact=contact, member_address=address, member_height=height, member_weight=weight, member_dob=dob, member_status=status)
+                if update == 0:
+                    params["dataerror"] = 1
+                else:
+                    return redirect('/adminportal/membersprofile/'+memid)
+            
+            #upload package logic
+            if "uploadpackage" in request.POST:
+                package = request.POST.get("package", "")
+                update = MemberData.objects.filter(member_id=memid).update(member_package=package)
+                if update == 0:
+                    params["dataerror"] = 1
+                else:
+                    return redirect('/adminportal/membersprofile/'+memid)
+            
+            #upload palns logic
+            if "uploadplan" in request.POST:
+                diet = request.POST.get("diet", "")
+                routine = request.POST.get("routine", "")
+                update = MemberData.objects.filter(member_id=memid).update(member_diet=diet, member_routine=routine)
+                if update == 0:
+                    params["dataerror"] = 1
+                else:
+                    return redirect('/adminportal/membersprofile/'+memid)
+                
+
+
+        # page logic
+        member = MemberData.objects.filter(member_id = memid)[0]
+        params["member"] = member
+        height = member.member_height
+        if height == "":
+            params["height"] = {"h1": "", "h2":""}
+        else:
+            h1 = height.split(",")[0]
+            h2 = height.split(",")[1]
+            params["height"] = {"h1": int(h1), "h2": int(h2)}
+
+        params["packages"] = PackageData.objects.all().order_by('package_id')
+        params["routines"] = RoutineData.objects.all().order_by('routine_id')
+        params["diets"] = DietData.objects.all().order_by('diet_id')
+
+        return render(request, 'adminportal/editmember.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -822,9 +1011,10 @@ def packages(request):
                     desc = request.POST["desc"]
                     features = request.POST["features"]
                     price = request.POST["price"]
+                    admission = request.POST["admission"]
                     added_by = request.session["userid"]
                     added_on = datetime.datetime.now().strftime("%Y-%m-%d")
-                    new_package = PackageData(package_id=new_id, package_name=name, package_desc=desc, package_price=price, package_features=features, package_added_by=added_by, package_added_on=added_on)
+                    new_package = PackageData(package_id=new_id, package_name=name, package_desc=desc, package_price=price, package_admission=admission, package_features=features, package_added_by=added_by, package_added_on=added_on)
                     new_package.save()
                     params["success"] = 1
                     params["successmessage"] = "Package added successfully."
@@ -854,7 +1044,8 @@ def packages(request):
                 "name": package.package_name, 
                 "desc": package.package_desc, 
                 "features": features, 
-                "price": '{:,}'.format(package.package_price)
+                "price": '{:,}'.format(package.package_price),
+                "admission": '{:,}'.format(package.package_admission)
             }
         params["package_list"] = packages 
         return render(request, 'adminportal/packages.html', params)
@@ -876,8 +1067,9 @@ def packagesedit(request, pkgid):
             desc = request.POST["desc"]
             features = request.POST["features"]
             price = request.POST["price"]
+            admission = request.POST["admission"]
             try:
-                update = PackageData.objects.filter(package_id=pkgid).update(package_name=name, package_price=price, package_desc=desc, package_features=features)
+                update = PackageData.objects.filter(package_id=pkgid).update(package_name=name, package_price=price, package_admission=admission, package_desc=desc, package_features=features)
                 if update == 0:
                     params["dataerror"] = 1
                     params["message"] = "Something went wrong. Try again later."

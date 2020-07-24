@@ -41,6 +41,7 @@ class PackageData(models.Model):
     package_desc = models.CharField(max_length=200, default="")
     package_features = models.TextField(default="")
     package_price = models.IntegerField(max_length=20, default=0)
+    package_admission = models.IntegerField(max_length=20, default=0)
     package_added_by = models.CharField(max_length=10, default="")
     package_added_on = models.CharField(max_length=12, default="")
 
@@ -113,3 +114,22 @@ class RoutineData(models.Model):
     routine_json = models.TextField(default="")
     routine_added_by = models.CharField(max_length=10, default="")
     routine_added_on = models.CharField(max_length=12, default="")
+
+
+class MemberData(models.Model):
+    member_id = models.CharField(max_length=10, primary_key=True, default="")
+    member_package = models.CharField(max_length=10, default="pkg")
+    member_img_name = models.CharField(max_length=10, default="mem.jpg")
+    member_name = models.CharField(max_length=40, default="")
+    member_email = models.CharField(max_length=40, unique=True, default="")
+    member_password = models.CharField(max_length=200, default="admin123")
+    member_contact = models.CharField(max_length=20, default="")
+    member_address = models.CharField(max_length=100, default="")
+    member_dob = models.CharField(max_length=12, default="")
+    member_height = models.CharField(max_length=15, default="")
+    member_weight = models.CharField(max_length=10, default="")
+    member_routine = models.CharField(max_length=10, default="rtn")
+    member_diet = models.CharField(max_length=10, default="dt")
+    member_status = models.CharField(max_length=10, default="Active")
+    member_added_by = models.CharField(max_length=10, default="")
+    member_added_on = models.CharField(max_length=12, default="")
