@@ -170,3 +170,16 @@ class ReplyMessageData(models.Model):
     msg_reciever_time = models.CharField(max_length=500, default="")
     msg_reciever_date = models.CharField(max_length=500, default="")
     msg_reciever_mail = models.TextField(default="")
+
+
+
+
+class AttendanceData(models.Model):
+    attendance_id = models.AutoField(primary_key=True)
+    attendance_member_id = models.CharField(max_length=500, default="")
+    attendance_member_name = models.CharField(max_length=500, default="")
+    attendance_in_time = models.CharField(max_length=500, default="")
+    attendance_out_time = models.CharField(max_length=500, default="")
+    attendance_day = models.CharField(max_length=500, default="")
+    attendance_date = models.CharField(max_length=500, default="")
+    

@@ -204,7 +204,7 @@
                         <!-- Start .row -->
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <form class="form-horizontal group-border stripped" role="form">
+                                <form class="form-horizontal group-border " role="form" method="POST" action="/adminportal/attendancehistory/"/> {% csrf_token %} 
                                                         
                                     <div class="form-group">
                                         <div class="col-lg-12">
@@ -213,10 +213,11 @@
                                                 <div class="form-group">
                                                     
                                                     <div class="col-sm-10">
-                                                        <input type="date" class="form-control" id="historydate" placeholder="">
+                                                        <input type="date" class="form-control" id="historydate" placeholder="" name="date"  value="{{date}}" required>
+                                                        
                                                     </div>
                                                     <div class="col-sm-2">
-                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%; padding-top: 2px; padding-bottom: 2px; padding-right: 3px; padding-left: 3px; font-size: 19px;"><i class="fa fa-search"></i> Filter</button>
+                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%; padding-top: 2px; padding-bottom: 2px; padding-right: 3px; padding-left: 3px; font-size: 19px;" name="filter"><i class="fa fa-search"></i> Filter</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -239,10 +240,13 @@
                                             <thead >
                                                 <tr style="background-color: #404040; color: #e2d34d;">
                                                    
-                                                    <th title="ID" style="font-size: 12px; text-align: center; width: 12%"><i class="fa fa-sort-numeric-asc"> </i> ID</th>
-                                                    <th title="name" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Name</th>
+                                                    <th title="S. No" style="font-size: 12px; text-align: center; width: 10%"><i class="fa fa-sort-numeric-asc"> </i> S. No.</th>
+                                                    <th title="name" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Member Name</th>
+                                                    <th title="member id" style="font-size: 12px; text-align: center; width: 15%;"><i class="l-basic-postcard-multiple"> </i> Member ID</th>
                                                     <th title="in time" style="font-size: 12px; text-align: center; width: 15%;"><i class="fa l-basic-clockwise"> </i> In Time</th>
-                                                    <th title="out time" style="font-size: 12px; text-align: center; width: 15%;"><i class="fa l-basic-anticlockwise"> </i> out Time</th>
+                                                    <th title="out time" style="font-size: 12px; text-align: center; width: 15%;"><i class="l-basic-postcard-multiple"> </i> Member ID</th>
+                                                    <th title="day" style="font-size: 12px; text-align: center; width: 15%;"><i class="l-basic-elaboration-calendar-plus"> </i> Day</th>
+                                                    <th title="date" style="font-size: 12px; text-align: center; width: 15%;"><i class="l-basic-elaboration-calendar-search"> </i> Date</th>
                                                     
                                                     
                                                     
@@ -250,51 +254,19 @@
                                             </thead>
                                             
                                             <tbody>
+                                                {% for member in members %}
                                                 <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    <td>02:00 PM</td>
-                                                    <td>04:00 PM</td>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{member.attendance_member_name}}</td>
+                                                    <td>{{member.attendance_member_id}}</td>
+                                                    <td>{{member.attendance_in_time}}</td>
+                                                    <td>{{member.attendance_out_time}}</td>
+                                                    <td>{{member.attendance_day}}</td>
+                                                    <td>{{member.attendance_date}}</td>
                                                 </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    <td>02:00 PM</td>
-                                                    <td>04:00 PM</td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    <td>02:00 PM</td>
-                                                    <td>04:00 PM</td>
-                                                </tr>
-                                               
+                                                {% endfor %}
                                             </tbody>
                                         </table>
-                                    
-                                    
-                                    
-                             
-                                        
-
-
-                                        
-                                            
-                                            
-                                            
-                                       
-
-
-
-
-
-
-
-
-
 
                             </div>    
                                 </div>

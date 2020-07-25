@@ -196,13 +196,13 @@
                         <!-- Start .page-content-inner -->
                         <div id="page-header" class="clearfix">
                             <div class="page-header">
-                                <h2>07/14/2020 - Member Attendance</h2>
+                                <h2>{{date}} - {{day}}'s Member Attendance</h2>
                                 <span class="txt">Below is the list of members that are to be marked for attendance</span>
                             </div>
                             
                         </div>
                         <!-- Start .row -->
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 80px;">
                             <div class="col-lg-12">
                                 <!-- col-lg-12 start here -->
                                 <div class="panel panel-default plain panelRefresh">
@@ -220,8 +220,10 @@
                                             <thead >
                                                 <tr style="background-color: #404040; color: #e2d34d;">
                                                    
-                                                    <th title="ID" style="font-size: 12px; text-align: center; width: 12%"><i class="fa fa-sort-numeric-asc"> </i> ID</th>
-                                                    <th title="name" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Name</th>
+                                                    <th title="S. No" style="font-size: 12px; text-align: center; width: 10%"><i class="fa fa-sort-numeric-asc"> </i> S. No</th>
+                                                    
+                                                    <th title="name" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Member Name</th>
+                                                    <th title="member id" style="font-size: 12px; text-align: center; width: 15%;"><i class="l-basic-postcard-multiple"> </i> Member ID</th>
                                                     <th title="in time" style="font-size: 12px; text-align: center; width: 15%;"><i class="fa l-basic-clockwise"> </i> In Time</th>
                                                     <th title="out time" style="font-size: 12px; text-align: center; width: 15%;"><i class="fa l-basic-anticlockwise"> </i> out Time</th>
                                                     
@@ -231,46 +233,28 @@
                                             </thead>
                                             
                                             <tbody>
+                                                {% for member in members %}
                                                 <tr>
                                                      
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{member.attendance_member_name}}</td>
+                                                    <td>{{member.attendance_member_id}}</td>
                                                     <td>
-                                                        <a title="intime" href="#"><i class="fa  fa-sign-in" id="tablebtns" style="background-color: #5cb85c; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""> Mark In</i></a></td>
+                                                        {% if member.attendance_in_time == "" %}
+                                                            <a title="intime" href="/adminportal/attendance/?type=in&id={{member.attendance_member_id}}"><i class="fa  fa-sign-in" id="tablebtns" style="background-color: #5cb85c; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""> Mark In</i></a></td>
+                                                        {% else %}
+                                                            {{member.attendance_in_time}}
+                                                        {% endif %}
                                                     <td>
-                                                        <a title="outtime" href=""><i class="fa fa-sign-out" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""> Mark Out</i></a>
+                                                        {% if member.attendance_out_time == "" %}
+                                                            <a title="outtime" href="/adminportal/attendance/?type=out&id={{member.attendance_member_id}}"><i class="fa fa-sign-out" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""> Mark Out</i></a>
+                                                        {% else %}
+                                                            {{member.attendance_out_time}}
+                                                        {% endif %}
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    <td>
-                                                        <a title="intime" href="#"><i class="fa  fa-sign-in" id="tablebtns" style="background-color: #5cb85c; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""> Mark In</i></a></td>
-                                                    <td>
-                                                        <a title="outtime" href=""><i class="fa fa-sign-out" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""> Mark Out</i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    <td>
-                                                        <a title="intime" href="#"><i class="fa  fa-sign-in" id="tablebtns" style="background-color: #5cb85c; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""> Mark In</i></a></td>
-                                                    <td>
-                                                        <a title="outtime" href=""><i class="fa fa-sign-out" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""> Mark Out</i></a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    <td>
-                                                        <a title="intime" href="#"><i class="fa  fa-sign-in" id="tablebtns" style="background-color: #5cb85c; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""> Mark In</i></a></td>
-                                                    <td>
-                                                        <a title="outtime" href=""><i class="fa fa-sign-out" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target=""> Mark Out</i></a>
-                                                    </td>
-                                                </tr>
+                                                {% endfor %}
+                                                
                                                
                                             </tbody>
                                         </table>

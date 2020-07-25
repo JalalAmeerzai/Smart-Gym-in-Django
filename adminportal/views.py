@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData, MessageData, ArchivedMessageData, ReplyMessageData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData, MessageData, ArchivedMessageData, ReplyMessageData, AttendanceData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -534,6 +534,8 @@ def members(request):
                             image_64_decode = base64.decodebytes(image_64_encode)
                             image_result = open("media\\adminportal\\member\\"+picture, 'wb')
                             image_result.write(image_64_decode)
+                            #for attendance
+                            days = ("monday","tuesday","wednesday","thursday","friday","saturday","sunday")
                             try:
                                 send_mail(
                                     'Welcome to SmartGym - This Email Contains your Account Credentials',
@@ -543,9 +545,13 @@ def members(request):
                                 )
                                 params["success"] = 1
                                 params["successmessage"] = "Member added successfully."
+                                add_attendance = AttendanceData(attendance_member_id=new_id, attendance_member_name=name,  attendance_in_time="", attendance_out_time="", attendance_date=datetime.datetime.now().strftime("%Y-%m-%d"), attendance_day=days[datetime.datetime.now().weekday()])
+                                add_attendance.save()
                             except Exception:
                                 params["success"] = 1
                                 params["successmessage"] = "Member added successfully. But Email failed to deliver"
+                                add_attendance = AttendanceData(attendance_member_id=new_id, attendance_member_name=name,  attendance_in_time="", attendance_out_time="", attendance_date=datetime.datetime.now().strftime("%Y-%m-%d"), attendance_day=days[datetime.datetime.now().weekday()])
+                                add_attendance.save()
                         except Exception:
                             params["error"] = 1
                             params["errormessage"] = "Something went wrong. Try again later."
@@ -664,6 +670,7 @@ def membersprofileedit(request, memid):
                 if update == 0:
                     params["dataerror"] = 1
                 else:
+                    update_attendance_name = AttendanceData.objects.filter(attendance_member_id=memid).update(attendance_member_name=name)
                     return redirect('/adminportal/membersprofile/'+memid)
             
             #upload package logic
@@ -713,7 +720,56 @@ def membersprofileedit(request, memid):
 
 def attendance(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/todayattendance.html')
+        params = {}
+        days = ("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+        #params["today"] = datetime.datetime.now().strftime("%Y-%m-%d")
+
+
+        #out attendance logic
+        if request.GET.get("type","") == "out":
+            out_time = dt.now().time().strftime("%H:%M")
+            today = datetime.datetime.now().strftime("%Y-%m-%d")
+            memberid = request.GET.get("id","")
+            try:
+                member = AttendanceData.objects.filter(attendance_date=today, attendance_out_time="", attendance_member_id=memberid)
+                if len(member) == 1:
+                    #return HttpResponse(memberid)
+                    out_time_update = AttendanceData.objects.filter(attendance_member_id=memberid).update(attendance_out_time=out_time)
+            except Exception:
+                pass
+            return redirect("/adminportal/attendance")
+        
+
+        #in attendance logic
+        if request.GET.get("type","") == "in":
+            in_time = dt.now().time().strftime("%H:%M")
+            today = datetime.datetime.now().strftime("%Y-%m-%d")
+            memberid = request.GET.get("id","")
+            try:
+                member = AttendanceData.objects.filter(attendance_date=today, attendance_in_time="", attendance_member_id=memberid)
+                if len(member) == 1:
+                    #return HttpResponse(memberid)
+                    in_time_update = AttendanceData.objects.filter(attendance_member_id=memberid).update(attendance_in_time=in_time)
+            except Exception:
+                pass
+            return redirect("/adminportal/attendance")
+        
+        
+        
+        #add today logic
+        today_attendance = AttendanceData.objects.all().filter(attendance_date=datetime.datetime.now().strftime("%Y-%m-%d"))
+        if len(today_attendance) == 0:
+            members = MemberData.objects.all()
+            for member in members:
+                add_attendance = AttendanceData(attendance_member_id=member.member_id, attendance_member_name=member.member_name,  attendance_in_time="", attendance_out_time="", attendance_date=datetime.datetime.now().strftime("%Y-%m-%d"), attendance_day=days[datetime.datetime.now().weekday()])
+                add_attendance.save()
+        
+
+        #page logic
+        params["members"] = AttendanceData.objects.all().filter(attendance_date=datetime.datetime.now().strftime("%Y-%m-%d")).order_by("attendance_member_name")
+        params["date"] = datetime.datetime.now().strftime("%d/%m/%Y")
+        params["day"]  = days[datetime.datetime.now().weekday()]
+        return render(request, 'adminportal/todayattendance.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -724,7 +780,14 @@ def attendance(request):
 
 def attendancehistory(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/historyattendance.html')
+        params={"date":"0000-00-00"}
+
+        if request.method == "POST":
+            if "filter" in request.POST:
+                params["date"] = request.POST.get("date","")
+
+        params["members"] = AttendanceData.objects.filter(attendance_date=params["date"]).order_by("attendance_member_name")
+        return render(request, 'adminportal/historyattendance.html', params)
     else:
         return redirect('/adminportal/login/')
     
