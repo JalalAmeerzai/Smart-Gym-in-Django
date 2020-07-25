@@ -562,6 +562,7 @@ def members(request):
             member_delete = MemberData.objects.filter(member_id = del_id).delete()
             if member_delete[0] == 1:
                 try:
+                    attendance_delete = AttendanceData.objects.filter(attendance_member_id=del_id, attendance_date=datetime.datetime.now().strftime("%Y-%m-%d")).delete()
                     os.remove("media\\adminportal\\member\\"+del_id+".jpg")
                     params["success"] = 1
                     params["successmessage"] = "Member successfully deleted."
@@ -734,7 +735,8 @@ def attendance(request):
                 member = AttendanceData.objects.filter(attendance_date=today, attendance_out_time="", attendance_member_id=memberid)
                 if len(member) == 1:
                     #return HttpResponse(memberid)
-                    out_time_update = AttendanceData.objects.filter(attendance_member_id=memberid).update(attendance_out_time=out_time)
+                    if member[0].attendance_in_time != "":
+                        out_time_update = AttendanceData.objects.filter(attendance_member_id=memberid).update(attendance_out_time=out_time)
             except Exception:
                 pass
             return redirect("/adminportal/attendance")
