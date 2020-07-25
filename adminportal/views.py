@@ -55,7 +55,28 @@ def logout(request):
 
 
 def passwordlost(request):
-    return render(request, 'adminportal/lost-password.html')
+    params = {"error":0, "errormessage":"", "success":0, "successmessage": ""}
+    if request.method == "POST":
+        email = request.POST.get("email","").lower()
+        admin = AdminData.objects.filter(admin_email=email)
+        if len(admin) > 0:
+            password = admin[0].admin_password
+            try:
+                send_mail(
+                    'Password Lost Request - This Email Contains your Account Credentials',
+                    '\nHello '+admin[0].admin_name+',\nYour account credenatials for smartgym are: \nAccount: '+email+'\nPassword: '+password+"\n\n\nStay Fit.",
+                    'SmartGym',
+                    [email], 
+                )
+                params["success"] =1
+                params["successmessage"] = "Your credentials have been sent to your email address. Please check."
+            except Exception:
+                params["error"] = 1
+                params["errormessage"] = "Something went wrong. Please try again later."
+        else:
+            params["error"] = 1
+            params["errormessage"] = "'"+email+"' doesnt exist. please type in a correct email address."
+    return render(request, 'adminportal/lost-password.html', params)
 
 
 
@@ -1548,18 +1569,18 @@ def messageswrite(request):
                 message = request.POST.get("message","")
                 time = dt.now().time().strftime("%H:%M")
                 date = datetime.datetime.now().strftime("%Y-%m-%d")
-                reply = ReplyMessageData(msg_sender_name=fromname, msg_sender_email=fromemail, msg_sender_time=time, msg_sender_date = date, msg_sender_subject= subject, msg_sender_mail=message, msg_reciever_name="", msg_reciever_email=to, msg_reciever_time="", msg_reciever_date = "", msg_reciever_mail="")
-                reply.save()
                 send_mail(
                     ''+subject,
                     '\n'+message+'\n\n\n\nRegards\n'+fromname+'\n'+fromemail,
                     'SmartGym',
                     [to], 
                 )
-                
+                reply = ReplyMessageData(msg_sender_name=fromname, msg_sender_email=fromemail, msg_sender_time=time, msg_sender_date = date, msg_sender_subject= subject, msg_sender_mail=message, msg_reciever_name="", msg_reciever_email=to, msg_reciever_time="", msg_reciever_date = "", msg_reciever_mail="")
+                reply.save()
                 params["success"] = 1
                 params["successmessage"] = "Email Sent Successfully"
             except Exception:
+                
                 params["error"] = 1
                 params["errormessage"] = "Email Delivery Failed"
 
