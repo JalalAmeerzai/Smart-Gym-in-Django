@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData, MessageData, ArchivedMessageData, ReplyMessageData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
 import datetime
+from datetime import datetime as dt
 import os
 import re #regex
 from django.core.mail import send_mail
@@ -1454,7 +1455,14 @@ def dietview(request, dtid):
 
 def messages(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/messagecenter.html')
+        
+        params = {}
+        messages = MessageData.objects.all().order_by("-msg_id")
+        params["inboxlength"] = len(messages)
+        params["sentlength"] = len(ReplyMessageData.objects.all())
+        params["archivedlength"] = len(ArchivedMessageData.objects.all())
+        params["messages"] = messages
+        return render(request, 'adminportal/messagecenter.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1463,9 +1471,62 @@ def messages(request):
 
 
 
-def messagesreply(request):
+def messagesreply(request, msgid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/messagereply.html')
+        
+        if "reply" in request.POST:
+            sender_name = request.POST.get("sendname")
+            sender_email = request.POST.get("sendemail")
+            sender_time = request.POST.get("sendtime")
+            sender_date = request.POST.get("senddate")
+            sender_subject = request.POST.get("sendsubject")
+            sender_mail = request.POST.get("sendmail")
+            reciever_name = AdminData.objects.filter(admin_id = request.session["userid"])[0].admin_name
+            reciever_email = AdminData.objects.filter(admin_id = request.session["userid"])[0].admin_email
+            reciever_time = dt.now().time().strftime("%H:%M")
+            reciever_date = datetime.datetime.now().strftime("%Y-%m-%d")
+            reciever_mail = request.POST.get("replymail")
+            try:
+                reply = ReplyMessageData(msg_sender_name=sender_name, msg_sender_email=sender_email, msg_sender_time=sender_time, msg_sender_date = sender_date, msg_sender_subject= sender_subject, msg_sender_mail=sender_mail, msg_reciever_name=reciever_name, msg_reciever_email=reciever_email, msg_reciever_time=reciever_time, msg_reciever_date = reciever_date, msg_reciever_mail=reciever_mail)
+                reply.save()
+                send_mail(
+                    'SmartGym - '+sender_subject,
+                    'Your Message:\n'+sender_mail+'\n\n\nSmartGym Replied:\n'+reciever_mail+"\n\n\n\nRegards\n"+reciever_name+"\n"+reciever_email,
+                    'SmartGym',
+                    [sender_email], 
+                )
+                return redirect("/adminportal/messages/")
+            except Exception:
+                return redirect("/adminportal/messages/")
+            
+        
+        params = {}
+
+        try:
+            replymessage = MessageData.objects.all().filter(msg_id=msgid)[0]
+            params["message"] = replymessage
+        except Exception:
+            return redirect("/adminportal/messages/")
+
+
+
+        # moving message to archived
+        del_id = msgid
+        message_delete = MessageData.objects.filter(msg_id = del_id).delete()
+        if message_delete[0] == 1:
+            try:
+                archived_message = ArchivedMessageData(msg_sender_name=replymessage.msg_sender_name, msg_sender_email= replymessage.msg_sender_email, msg_sender_time=replymessage.msg_sender_time, msg_sender_date = replymessage.msg_sender_date, msg_sender_subject= replymessage.msg_sender_subject, msg_sender_mail=replymessage.msg_sender_mail)
+                archived_message.save()
+            except Exception:
+                pass
+
+        #page params logic
+        messages = MessageData.objects.all().order_by("-msg_id")
+        params["inboxlength"] = len(messages)
+        params["sentlength"] = len(ReplyMessageData.objects.all())
+        params["archivedlength"] = len(ArchivedMessageData.objects.all())
+
+        return render(request, 'adminportal/messagereply.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1476,7 +1537,36 @@ def messagesreply(request):
 
 def messageswrite(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/messagewrite.html')
+        params = {"error":0, "errormessage":"", "success":0, "successmessage":""}
+
+        if "send" in request.POST:
+            try:
+                to = request.POST.get("to","").lower()
+                fromemail = AdminData.objects.filter(admin_id=request.session["userid"])[0].admin_email
+                fromname = AdminData.objects.filter(admin_id=request.session["userid"])[0].admin_name
+                subject = request.POST.get("subject","")
+                message = request.POST.get("message","")
+                time = dt.now().time().strftime("%H:%M")
+                date = datetime.datetime.now().strftime("%Y-%m-%d")
+                reply = ReplyMessageData(msg_sender_name=fromname, msg_sender_email=fromemail, msg_sender_time=time, msg_sender_date = date, msg_sender_subject= subject, msg_sender_mail=message, msg_reciever_name="", msg_reciever_email=to, msg_reciever_time="", msg_reciever_date = "", msg_reciever_mail="")
+                reply.save()
+                send_mail(
+                    ''+subject,
+                    '\n'+message+'\n\n\n\nRegards\n'+fromname+'\n'+fromemail,
+                    'SmartGym',
+                    [to], 
+                )
+                
+                params["success"] = 1
+                params["successmessage"] = "Email Sent Successfully"
+            except Exception:
+                params["error"] = 1
+                params["errormessage"] = "Email Delivery Failed"
+
+        params["inboxlength"] = len(MessageData.objects.all())
+        params["sentlength"] = len(ReplyMessageData.objects.all())
+        params["archivedlength"] = len(ArchivedMessageData.objects.all())
+        return render(request, 'adminportal/messagewrite.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1487,7 +1577,12 @@ def messageswrite(request):
 
 def messagessent(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/messagesent.html')
+        params = {}
+        params["inboxlength"] = len(MessageData.objects.all())
+        params["sentlength"] = len(ReplyMessageData.objects.all())
+        params["archivedlength"] = len(ArchivedMessageData.objects.all())
+        params["messages"] = ReplyMessageData.objects.all().order_by("-msg_id")
+        return render(request, 'adminportal/messagesent.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1496,9 +1591,18 @@ def messagessent(request):
 
 
 
-def messagessentview(request):
+def messagessentview(request, msgid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/messagesentview.html')
+        params = {}
+        params["inboxlength"] = len(MessageData.objects.all())
+        params["sentlength"] = len(ReplyMessageData.objects.all())
+        params["archivedlength"] = len(ArchivedMessageData.objects.all())
+        
+        try:
+            params["message"] = ReplyMessageData.objects.filter(msg_id=msgid)[0]
+        except Exception:
+            return redirect("/adminportal/messagessent/")
+        return render(request, 'adminportal/messagesentview.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1509,7 +1613,12 @@ def messagessentview(request):
 
 def messagesarchived(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/messagearchived.html')
+        params = {}
+        params["inboxlength"] = len(MessageData.objects.all())
+        params["sentlength"] = len(ReplyMessageData.objects.all())
+        params["archivedlength"] = len(ArchivedMessageData.objects.all())
+        params["messages"] = ArchivedMessageData.objects.all().order_by("-msg_id")
+        return render(request, 'adminportal/messagearchived.html' , params)
     else:
         return redirect('/adminportal/login/')
     
@@ -1518,9 +1627,14 @@ def messagesarchived(request):
 
 
 
-def messagesarchivedview(request):
+def messagesarchivedview(request,msgid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/messagearchivedview.html')
+        params={}
+        params["inboxlength"] = len(MessageData.objects.all())
+        params["sentlength"] = len(ReplyMessageData.objects.all())
+        params["archivedlength"] = len(ArchivedMessageData.objects.all())
+        params["message"] = ArchivedMessageData.objects.all().filter(msg_id=msgid)[0]
+        return render(request, 'adminportal/messagearchivedview.html', params)
     else:
         return redirect('/adminportal/login/')
     

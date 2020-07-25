@@ -204,13 +204,13 @@
                                     <a id="write-email" href="/adminportal/messageswrite"><span id="subcbtn" class="btn subcbtn" style="width: 100%;">compose</span></a>
                                 </div>
                                 <ul id="email-nav" class="nav nav-pills nav-stacked">
-                                    <li><a href="/adminportal/messages"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">27</span></a>
+                                    <li><a href="/adminportal/messages"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">{{inboxlength}}</span></a>
                                     </li>
                                     
-                                    <li><a href="/adminportal/messagessent"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">14</span></a>
+                                    <li><a href="/adminportal/messagessent"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">{{sentlength}}</span></a>
                                     </li>
     
-                                    <li><a href="/adminportal/messagesarchived"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">3</span></a>
+                                    <li><a href="/adminportal/messagesarchived"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">{{archivedlength}}</span></a>
                                     </li>
                                     
                                 </ul>
@@ -237,156 +237,25 @@
                                             
                                             <div class="email-list col-lg-12">
                                                 <ul class="list-group">
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
+                                                    {% if sentlength == 0 %}
+                                                        <a class="list-group-item email-list-item clearfix" style="height: 200px; text-align: center; text-justify: center; color: #909090; font-size: 20px;">Empty</a>
+                                                    {% endif %}
+                                                    {% for message in messages %}
+                                                        <a href="/adminportal/messagessentview/{{message.msg_id}}" class="list-group-item email-list-item clearfix">
                                                             
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
+                                                            <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
+                                                            <p class="email-inbox-name">{{message.msg_sender_name}}</p>
                                                             
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
+                                                            <div class="email-inbox-info">
+                                                                
+                                                                <span class="email-inbox-date text-muted">{{message.msg_sender_date}} @ {{message.msg_sender_time}}</span>
+                                                                </p>
+                                                            </div>
+                                                            <p class="email-txt-preview">
+                                                                <span class="email-subject-preview"><span style="font-size: 20px;">{{message.msg_sender_subject}}:</span> {{message.msg_sender_mail|slice:"0:40"}}...
                                                             </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
-                                                            
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
-                                                            
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
-                                                            
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
-                                                            
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
-                                                            
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
-                                                            
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
-                                                            
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
-                                                    <a href="/adminportal/messagessentview" class="list-group-item email-list-item clearfix">
-                                                        
-                                                        <img class="email-inbox-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                        <p class="email-inbox-name">Shoun Paul</p>
-                                                        
-                                                        <div class="email-inbox-info">
-                                                            
-                                                            <span class="email-inbox-date text-muted">11 Dec</span>
-                                                            </p>
-                                                        </div>
-                                                        <p class="email-txt-preview">
-                                                            <span class="email-subject-preview"><span style="font-size: 20px;">Subject: </span> I need assistance</span> Doubtful two bed way pleasure confined followed. Shew up ye away no eyes life or were this. Perfectly did suspicion daughters but his
-                                                            intention. Started on society an brought it explain. Position two saw greatest stronger old. Pianoforte if at simplicity do estimating.
-                                                        </p>
-                                                    </a>
+                                                        </a>
+                                                    {% endfor %}
                                                 </ul>
                                             </div>
                                         </div>

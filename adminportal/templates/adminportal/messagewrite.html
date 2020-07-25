@@ -204,13 +204,13 @@
                                     <a id="write-email" href="/adminportal/messageswrite"><span id="subcbtn" class="btn subcbtn" style="width: 100%;">compose</span></a>
                                 </div>
                                 <ul id="email-nav" class="nav nav-pills nav-stacked">
-                                    <li><a href="/adminportal/messages"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">27</span></a>
+                                    <li><a href="/adminportal/messages"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">{{inboxlength}}</span></a>
                                     </li>
                                     
-                                    <li><a href="/adminportal/messagessent"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">14</span></a>
+                                    <li><a href="/adminportal/messagessent"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">{{sentlength}}</span></a>
                                     </li>
     
-                                    <li><a href="/adminportal/messagesarchived"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">3</span></a>
+                                    <li><a href="/adminportal/messagesarchived"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">{{archivedlength}}</span></a>
                                     </li>
                                     
                                 </ul>
@@ -234,21 +234,36 @@
                                                 </div>
                                             </div>
                                             <div class="email-write col-lg-12">
-                                                <form class="form-horizontal">
+                                                <form class="form-horizontal" role="form" method="POST" action="/adminportal/messageswrite/">{% csrf_token %}
+                                                    {% if error == 1 %}
+                                                        <div class="alert alert-danger fade in">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                            <strong>Input Error!</strong> <br>{{errormessage}}
+                                                        </div>
+                                                    {% endif %}
+
+                                                    {% if success == 1 %}
+                                                        <div class="alert alert-success fade in">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <i class="fa fa-check alert-icon "></i>
+                                                            <strong>Success!</strong> <br>{{successmessage}}
+                                                        </div>
+                                                    {% endif %}
                                                     <div class="form-group">
                                                         <div class="col-lg-12">
-                                                            <input class="form-control" type="text" placeholder="To">
+                                                            <input type="email" class="form-control"  placeholder="To" required name="to">
                                                         </div>
                                                     </div>
                                                     <!-- End .form-group  -->
                                                     <div class="form-group">
                                                         <div class="col-lg-12">
-                                                            <input class="form-control" type="text" placeholder="Subject">
+                                                            <input class="form-control" type="text" placeholder="Subject" required name="subject">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="col-lg-12">
-                                                            <textarea placeholder="your message here..." style="resize: none;" rows="10" class="form-control"></textarea>
+                                                            <textarea placeholder="your message here..." style="resize: none;" rows="10" class="form-control" name="message" required></textarea>
                                                         </div>
                                                     </div>
                                                     <!-- End .form-group  -->
@@ -256,9 +271,8 @@
                                                     <!-- End .form-group  -->
                                                     <div class="form-group">
                                                         <div class="col-lg-12">
-                                                            <div class="pull-left">
-                                                                <button class="btn btn-lg mr10">Send</button>
-                                                                
+                                                            <div class="col-lg-4 col-lg-offset-4">
+                                                                <button  type="submit" class="btn  btn-lg" id="subcbtn" style="width: 100%;" name="send">Send</button>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -204,13 +204,13 @@
                                     <a id="write-email" href="/adminportal/messageswrite"><span id="subcbtn" class="btn subcbtn" style="width: 100%;">compose</span></a>
                                 </div>
                                 <ul id="email-nav" class="nav nav-pills nav-stacked">
-                                    <li><a href="/adminportal/messages"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">27</span></a>
+                                    <li><a href="/adminportal/messages"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">{{inboxlength}}</span></a>
                                     </li>
                                     
-                                    <li><a href="/adminportal/messagessent"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">14</span></a>
+                                    <li><a href="/adminportal/messagessent"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">{{sentlength}}</span></a>
                                     </li>
     
-                                    <li><a href="/adminportal/messagesarchived"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">3</span></a>
+                                    <li><a href="/adminportal/messagesarchived"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">{{archivedlength}}</span></a>
                                     </li>
                                     
                                 </ul>
@@ -237,39 +237,40 @@
                                             <div class="email-read col-lg-12">
                                                 <div class="email-read-header">
                                                     <img class="email-read-avatar" src="{% static 'adminportal/img/avatars/128.jpg'%}" alt="avatar">
-                                                    <h2 class="email-read-name">Nicolas Cage</h2>
-                                                    <span class="sender-email">nicolasCage@gmail.com</span>
+                                                    <h2 class="email-read-name">{{message.msg_sender_name}}</h2>
+                                                    <span class="sender-email">{{message.msg_sender_email}}</span>
                                                 </div>
                                                 <div class="email-read-title">
-                                                    <h3>Check out this awesome pics</h3>
-                                                    <span class="email-read-date text-muted">3 Dec @ 22:16 </span>
+                                                    <h3>{{message.msg_sender_subject}}</h3>
+                                                    <span class="email-read-date text-muted">{{message.msg_sender_date}} @ {{message.msg_sender_time}} </span>
                                                 </div>
                                                 <div class="email-read-text">
                                                     <p>
-                                                        Promotion an ourselves up otherwise my. High what each snug rich far yet easy. In companions inhabiting mr principles at insensible do. Heard their sex hoped enjoy vexed child for. Prosperous so occasional assistance it discovered especially no. Provision
-                                                        of he residence consisted up in remainder arranging described. Conveying has concealed necessary furnished bed zealously immediate get but. Terminated as middletons or by instrument. Bred do four
-                                                        so your felt with. No shameless principle dependent household do.
+                                                        {{message.msg_sender_mail}}
                                                     </p>
-                                                    <p>
-                                                        Not him old music think his found enjoy merry. Listening acuteness dependent at or an. Apartments thoroughly unsatiable terminated sex how themselves. She are ten hours wrong walls stand early. Domestic perceive on an ladyship extended received do. Why
-                                                        jennings our whatever his learning gay perceive. Is against no he without subject. Bed connection unreserved preference partiality not unaffected. Years merit trees so think in hoped we as.
-                                                    </p>
+                                                    
                                                 </div>
                                                 <div class="email-read-attachment">
                                                     
                                                     
                                                 </div>
                                                 <div class="email-read-reply">
-                                                    <form class="form-horizontal">
+                                                    <form class="form-horizontal" role="form" method="POST" action="/adminportal/messagesreply/{{message.msg_id}}">{% csrf_token %}
                                                         <div class="form-group">
+                                                            <input type="hidden" name="sendname" value="{{message.msg_sender_name}}"/>
+                                                            <input type="hidden" name="sendemail" value="{{message.msg_sender_email}}"/>
+                                                            <input type="hidden" name="sendsubject" value="{{message.msg_sender_subject}}"/>
+                                                            <input type="hidden" name="sendmail" value="{{message.msg_sender_mail}}"/>
+                                                            <input type="hidden" name="senddate" value="{{message.msg_sender_date}}"/>
+                                                            <input type="hidden" name="sendtime" value="{{message.msg_sender_time}}"/>
                                                             <div class="col-lg-12">
-                                                                <textarea class="form-control" rows="10" style="resize: none;" placeholder="Your reply comes here..."></textarea>
+                                                                <textarea class="form-control" rows="10" style="resize: none;" placeholder="Your reply comes here..." required name="replymail"></textarea>
                                                             </div>
                                                         </div>
                                                         <!-- End .form-group  -->
                                                         <div class="form-group">
-                                                            <div class="col-lg-12">
-                                                                <button class="btn  btn-lg">Reply</button>
+                                                            <div class="col-lg-4 col-lg-offset-4">
+                                                                <button  type="submit" class="btn  btn-lg" id="subcbtn" style="width: 100%;" name="reply">Reply</button>
                                                             </div>
                                                         </div>
                                                         <!-- End .form-group  -->

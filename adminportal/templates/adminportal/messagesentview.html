@@ -196,7 +196,7 @@
                             </div>
                            
                         </div>
-                        <div id="email-app-wrapper">
+                        <div id="email-app-wrapper" style="margin-bottom: 80px;">
                             <!-- Start #email-app-wrapper -->
                             <div id="email-sidebar">
                                 <!-- Start #email-sidebar -->
@@ -204,13 +204,13 @@
                                     <a id="write-email" href="/adminportal/messageswrite"><span id="subcbtn" class="btn subcbtn" style="width: 100%;">compose</span></a>
                                 </div>
                                 <ul id="email-nav" class="nav nav-pills nav-stacked">
-                                    <li><a href="/adminportal/messages"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">27</span></a>
+                                    <li><a href="/adminportal/messages"><i class="glyphicon glyphicon-inbox"></i> Inbox <span class="label label-primary">{{inboxlength}}</span></a>
                                     </li>
                                     
-                                    <li><a href="/adminportal/messagessent"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">14</span></a>
+                                    <li><a href="/adminportal/messagessent"><i class="glyphicon glyphicon-send"></i> Sent <span class="label label-success">{{sentlength}}</span></a>
                                     </li>
     
-                                    <li><a href="/adminportal/messagesarchived"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">3</span></a>
+                                    <li><a href="/adminportal/messagesarchived"><i class="glyphicon glyphicon-trash"></i> Archived <span class="label label-danger">{{archivedlength}}</span></a>
                                     </li>
                                     
                                 </ul>
@@ -234,47 +234,69 @@
                                                 </div>
                                                 
                                             </div>
-                                            <div class="email-read col-lg-12">
-                                                <div class="email-read-header">
-                                                    <img class="email-read-avatar" src="{% static 'adminportal/img/avatars/3.jpg' %}" alt="avatar">
-                                                    <h2 class="email-read-name">Nicolas Cage</h2>
-                                                    <span class="sender-email">nicolasCage@gmail.com</span>
-                                                </div>
-                                                <div class="email-read-title">
-                                                    <h3>Check out this awesome pics</h3>
-                                                    <span class="email-read-date text-muted">3 Dec @ 22:16 </span>
-                                                </div>
-                                                <div class="email-read-text">
-                                                    <p>
-                                                        Promotion an ourselves up otherwise my. High what each snug rich far yet easy. In companions inhabiting mr principles at insensible do. Heard their sex hoped enjoy vexed child for. Prosperous so occasional assistance it discovered especially no. Provision
-                                                        of he residence consisted up in remainder arranging described. Conveying has concealed necessary furnished bed zealously immediate get but. Terminated as middletons or by instrument. Bred do four
-                                                        so your felt with. No shameless principle dependent household do.
-                                                    </p>
-                                                    <p>
-                                                        Not him old music think his found enjoy merry. Listening acuteness dependent at or an. Apartments thoroughly unsatiable terminated sex how themselves. She are ten hours wrong walls stand early. Domestic perceive on an ladyship extended received do. Why
-                                                        jennings our whatever his learning gay perceive. Is against no he without subject. Bed connection unreserved preference partiality not unaffected. Years merit trees so think in hoped we as.
-                                                    </p>
-                                                </div>
-                                                <div class="email-read-attachment">
-                                                    
-                                                    
-                                                </div>
-                                                <div class="email-read-text">
-                                                    <div class="email-read-title">
-                                                        <h3>You Replied</h3>
-                                                        <span class="email-read-date text-muted">3 Dec @ 22:16 </span>
+                                            {% if message.msg_reciever_name != "" %}
+                                                <div class="email-read col-lg-12">
+                                                    <div class="email-read-header">
+                                                        <img class="email-read-avatar" src="{% static 'adminportal/img/avatars/128.jpg' %}" alt="avatar">
+                                                        <h2 class="email-read-name">{{message.msg_sender_name}}</h2>
+                                                        <span class="sender-email">{{message.msg_sender_email}}</span>
                                                     </div>
-                                                    <p>
-                                                        Promotion an ourselves up otherwise my. High what each snug rich far yet easy. In companions inhabiting mr principles at insensible do. Heard their sex hoped enjoy vexed child for. Prosperous so occasional assistance it discovered especially no. Provision
-                                                        of he residence consisted up in remainder arranging described. Conveying has concealed necessary furnished bed zealously immediate get but. Terminated as middletons or by instrument. Bred do four
-                                                        so your felt with. No shameless principle dependent household do.
-                                                    </p>
-                                                    <p>
-                                                        Not him old music think his found enjoy merry. Listening acuteness dependent at or an. Apartments thoroughly unsatiable terminated sex how themselves. She are ten hours wrong walls stand early. Domestic perceive on an ladyship extended received do. Why
-                                                        jennings our whatever his learning gay perceive. Is against no he without subject. Bed connection unreserved preference partiality not unaffected. Years merit trees so think in hoped we as.
-                                                    </p>
+                                                    <div class="email-read-title">
+                                                        <h3>{{message.msg_sender_subject}}</h3>
+                                                        <span class="email-read-date text-muted">{{message.msg_sender_date}} @ {{message.msg_sender_time}} </span>
+                                                    </div>
+                                                    <div class="email-read-text">
+                                                        <p>
+                                                            {{message.msg_sender_mail}}
+                                                        </p>
+                                                        
+                                                    </div>
+                                                    <div class="email-read-attachment">
+                                                        
+                                                        
+                                                    </div>
+                                                    <div class="email-read-text">
+                                                        <h4 class="email-read-name">You Replied</h4>
+                                                        <div class="email-read-title">
+                                                            
+                                                            
+                                                            <span class="email-read-date text-muted">{{message.msg_reciever_date}} @ {{message.msg_reciever_time}} </span>
+                                                        </div>
+                                                        <p>
+                                                            {{message.msg_reciever_mail}}
+                                                        </p><br><br>
+                                                        <h5 class="email-read-name">Regards</h5>
+                                                        <h3 class="email-read-name">{{message.msg_reciever_name}}</h3>
+                                                        <h4 class="sender-email">{{message.msg_reciever_email}}</h4>
+                                                        <hr>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            {% else %}
+                                                <div class="email-read col-lg-12">
+                                                    <div class="email-read-header">
+                                                        <img class="email-read-avatar" src="{% static 'adminportal/img/avatars/128.jpg' %}" alt="avatar">
+                                                        <span class="sender-email">To</span>
+                                                        <h4 class="email-read-name">{{message.msg_reciever_email}}</h4>
+                                                        
+                                                    </div>
+                                                    <div class="email-read-title">
+                                                        <h3>{{message.msg_sender_subject}}</h3>
+                                                        <span class="email-read-date text-muted">{{message.msg_sender_date}} @ {{message.msg_sender_time}} </span>
+                                                    </div>
+                                                    <div class="email-read-text">
+                                                        <p>
+                                                            {{message.msg_sender_mail}} 
+                                                        </p>
+                                                        
+                                                    </div>
+                                                    <br><br><br>
+                                                    <h5 class="email-read-name">Regards</h5>
+                                                    <h3 class="email-read-name">{{message.msg_sender_name}}</h3>
+                                                    <h4 class="sender-email">{{message.msg_sender_email}}</h4>
+                                                    <hr>
+                                                    
+                                                </div>    
+                                            {% endif %}
                                         </div>
                                     </div>
                                     <!-- End .panel -->
