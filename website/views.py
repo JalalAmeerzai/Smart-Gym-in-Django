@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from adminportal.models import ClassData, TrainerData, PackageData, AdmissionData
+from adminportal.models import ClassData, TrainerData, PackageData, AdmissionData, MessageData
 import datetime
+from datetime import datetime as dt
 
 def index(request):
     return render(request, 'website/index.html')
@@ -43,7 +44,27 @@ def classes(request):
 
 
 def contact(request):
-    return render(request, 'website/contact.html')
+    params = {"error":0, "errormessage":"", "success":0, "successmessage": ""}
+
+
+    if "send" in request.POST:
+        name = request.POST.get("name","").title()
+        email = request.POST.get("email","").lower()
+        subject = request.POST.get("subject","")
+        message = request.POST.get("message","")
+        time = dt.now().time().strftime("%H:%M")
+        date = datetime.datetime.now().strftime("%Y-%m-%d")
+        try:
+            send_message = MessageData(msg_sender_name=name, msg_sender_email=email, msg_sender_subject=subject, msg_sender_mail=message, msg_sender_date=date, msg_sender_time=time)
+            send_message.save()
+            params["success"] = 1
+            params["successmessage"] = "We have recieved your query. Someone from our team will get back to you soon"
+        except Exception:
+            params["error"] = 1
+            params["errormessage"] = "Something went Wrong. PLease try again later."
+
+
+    return render(request, 'website/contact.html', params)
 
 
 

@@ -695,7 +695,13 @@ def membersprofile(request, memid):
             "price": '{:,}'.format(package.package_price)
         }        
         params["package"] = package_dict
+        due_payment = FinanceData.objects.filter(finance_member_id=memid)[0]
 
+        params["payment"] = {
+            "due": '{:,}'.format(due_payment.finance_due),
+            "balance": '{:,}'.format(due_payment.finance_balance)
+        } 
+        
         return render(request, 'adminportal/memberprofile.html', params)
     else:
         return redirect('/adminportal/login/')
