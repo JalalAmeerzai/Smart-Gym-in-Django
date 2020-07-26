@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData, MessageData, ArchivedMessageData, ReplyMessageData, AttendanceData, FinanceData, FinanceHistoryData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData, MessageData, ArchivedMessageData, ReplyMessageData, AttendanceData, FinanceData, FinanceHistoryData, AdmissionData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -10,6 +10,7 @@ import os
 import re #regex
 from django.core.mail import send_mail
 import json 
+from django.db.models import Avg, Count, Min, Sum
 
 
 
@@ -85,16 +86,79 @@ def passwordlost(request):
 
 def dashboard(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/dashboard.html',{"users":{"active": 100, "inactive": 2},"data":[4000, 6000, 8000, 10000, 14000, 20000, 12500]})
+        #{"users":{"active": 100, "inactive": 2},"data":[4000, 6000, 8000, 10000, 14000, 20000, 12500]}
+        params={}
+
+        #delete request logic
+        if "mode" in request.GET:
+            id_delete = request.GET["id"]
+            try:
+                delete = AdmissionData.objects.filter(ad_id=id_delete).delete()
+            except Exception:
+                pass
+
+        
+        # members logic
+        members = MemberData.objects.all()
+        params["user"] = {"total": len(members), "active": len(members.filter(member_status="Active")), "inactive": len(members.filter(member_status="Inactive"))}
+
+        # admission request data
+        params["requests"] = AdmissionData.objects.all().order_by("-ad_date")
+
+        #trainer logic
+        params["trainer"] = len(TrainerData.objects.all())
+
+        #equipment logic
+        params["equipment"] = len(EquipmentData.objects.all())
+
+        #diet logic
+        params["diet"] = len(DietData.objects.all())
+
+        #diet logic
+        params["routine"] = len(RoutineData.objects.all())
+
+        #diet logic
+        params["exercise"] = len(ExerciseData.objects.all())
+
+
+        #graph logic
+        months = ("January","February","March","April","May","June","July", "August", "September", "October", "November", "December")
+        previousMonth = months[dt.now().month-2]
+        currentYear = dt.now().year
+        monthlist = []
+        profitlist=[]
+        incomelist=[]
+        prev = 1
+        for i in range(1,8):
+            monthlist.append(months[dt.now().month-prev])
+            income = FinanceHistoryData.objects.filter(fh_month=months[dt.now().month-prev], fh_year=currentYear).aggregate(Sum('fh_recieved'))["fh_recieved__sum"]
+            if income == None:
+                incomelist.append(0)
+            else:
+                incomelist.append(income)
+            
+            spending = ExpenseData.objects.filter(expense_month=months[dt.now().month-prev], expense_year=currentYear).aggregate(Sum('expense_price'))["expense_price__sum"]
+            if spending == None:
+                if income == None: 
+                    profitlist.append(0)
+                else:
+                    profitlist.append(income)
+            else:
+                if income == None: 
+                    profitlist.append(spending)
+                else:
+                    profitlist.append(income-spending)
+            
+            prev = prev + 1
+
+        #data fetching logic
+        params["months"] = {"data": reversed(monthlist)}
+        params["profit"] = {"data": reversed(profitlist)}
+        params["income"] = {"data": reversed(incomelist)}
+        
+        return render(request, 'adminportal/dashboard.html',params)
     else:
         return redirect('/adminportal/login/')
-
-
-
-
-
-
-
 
 
 

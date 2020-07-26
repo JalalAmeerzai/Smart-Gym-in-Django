@@ -226,10 +226,10 @@
                                     <div class="progressbar-stats-1">
                                         <div class="stats">
                                             <i class="fa fa-group" style="color : white; font-size:30px;"></i> 
-                                            <div id="visitor_number" class="stats-number" data-from="0" data-to="76" style="color : white; font-size:30px;">0</div>
+                                            <div id="visitor_number" class="stats-number" data-from="0" data-to="{{user.total}}" style="color : white; font-size:30px;">0</div>
                                         </div>
                                         <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
-                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="76"></div>
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="{{user.total}}"></div>
                                         </div>
                                         
                                     </div>
@@ -249,10 +249,10 @@
                                     <div class="progressbar-stats-1">
                                         <div class="stats">
                                             <i class="fa fa-user" style="font-size:30px"></i> 
-                                            <div class="stats-number" data-from="0" data-to="45" style="font-size:30px">0</div>
+                                            <div class="stats-number" data-from="0" data-to="{{trainer}}" style="font-size:30px">0</div>
                                         </div>
                                         <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
-                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="86"></div>
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="{{trainer}}"></div>
                                         </div>
                                         
                                     </div>
@@ -272,10 +272,10 @@
                                     <div class="progressbar-stats-1">
                                         <div class="stats">
                                             <i class="fa fa-anchor" style="color : white; font-size:30px;"></i> 
-                                            <div class="stats-number" data-from="0" data-to="78" style="color : white; font-size:30px;">0</div>
+                                            <div class="stats-number" data-from="0" data-to="{{equipment}}" style="color : white; font-size:30px;">0</div>
                                         </div>
                                         <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
-                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="35"></div>
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="{{equipment}}"></div>
                                         </div>
                                         
                                     </div>
@@ -295,10 +295,10 @@
                                     <div class="progressbar-stats-1 dark">
                                         <div class="stats">
                                             <i class="fa  fa-apple" style="color : white; font-size:30px;"></i> 
-                                            <div class="stats-number money" data-from="0" data-to="245" style="color : white; font-size:30px;">0</div>
+                                            <div class="stats-number money" data-from="0" data-to="{{diet}}" style="color : white; font-size:30px;">0</div>
                                         </div>
                                         <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
-                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="{{diet}}"></div>
                                         </div>
                                        
                                     </div>
@@ -319,10 +319,10 @@
                                     <div class="progressbar-stats-1 dark">
                                         <div class="stats">
                                             <i class="fa fa-chain-broken" style="color : white; font-size:30px;"></i> 
-                                            <div class="stats-number money" data-from="0" data-to="245" style="color : white; font-size:30px;">0</div>
+                                            <div class="stats-number money" data-from="0" data-to="{{routine}}" style="color : white; font-size:30px;">0</div>
                                         </div>
                                         <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
-                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="{{routine}}"></div>
                                         </div>
                                         
                                     </div>
@@ -343,10 +343,10 @@
                                     <div class="progressbar-stats-1 dark">
                                         <div class="stats">
                                             <i class="fa  fa-hand-rock-o" style="color : white; font-size:30px;"></i> 
-                                            <div class="stats-number money" data-from="0" data-to="1000" style="color : white; font-size:30px;">0</div>
+                                            <div class="stats-number money" data-from="0" data-to="{{exercise}}" style="color : white; font-size:30px;">0</div>
                                         </div>
                                         <div class="progress animated-bar flat transparent progress-bar-xs mb10 mt0">
-                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="55"></div>
+                                            <div class="progress-bar progress-bar-white" role="progressbar" data-transitiongoal="{{exercise}}"></div>
                                         </div>
                                        
                                     </div>
@@ -669,7 +669,7 @@
                                             <h5 class="panel-title" style="text-align: center; font-size:25px; color: #e2d34d;">Admission Requests</h5>
                                         </div>  
                                       
-                                        <div class="panel-body">
+                                        <div class="panel-body" id="tabledown">
                                             <table id="basic-datatables" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                 <thead >
                                                     <tr style="">
@@ -687,23 +687,19 @@
                                                 </thead>
                                                 
                                                 <tbody>
+                                                    {% for request in requests %}
                                                     <tr>
-                                                         
-                                                        <td>1.</td>
-                                                        <td>Jalal</td>
-                                                        <td>jalalx@msn.com</td>
-                                                        <td>03032002831</td>
-                                                        <td>Silver</td>
-                                                        <td>07/14/2020</td>
+                                                        <td>{{forloop.counter}}</td>
+                                                        <td>{{request.ad_name}}</td>
+                                                        <td>{{request.ad_email}}</td>
+                                                        <td>{{request.ad_contact}}</td>
+                                                        <td>{{request.ad_package}}</td>
+                                                        <td>{{request.ad_date}}</td>
                                                         <td>
-                                                            <a title="delete" href=""><i class="fa fa-trash-o" id="tablebtns" style="background-color: #d9534f; color: white; padding: 5px;" data-toggle="modal" data-target=""> delete</i></a>
+                                                            <a title="delete" href="/adminportal/dashboard/?mode=delete&id={{request.ad_id}}"><i class="fa fa-trash-o" id="tablebtns" style="background-color: #d9534f; color: white; padding: 5px;" data-toggle="modal" data-target=""> delete</i></a>
                                                         </td>
-                                                        
                                                     </tr>
-                                                    
-                                                    
-
-                                                   
+                                                    {% endfor %}
                                                 </tbody>
                                             </table>
     
@@ -832,7 +828,7 @@
                 $(document).ready(function() {
                                 //------------- Line chart with dots -------------//
                             var lineDotsData = {
-                                labels : ["October","February","March","April","May","June","July"],
+                                labels : [{% for day in months.data %}"{{day}}", {% endfor %}],
                                 datasets : [
                                     {
                                         label: "Income",
@@ -842,7 +838,7 @@
                                         pointStrokeColor : "#fff",
                                         pointHighlightFill : "#fff",
                                         pointHighlightStroke : "rgba(226,211,77,1)",				
-                                        data : [10000, 12000, 9000, 16000, 50000, 40000, 25000]
+                                        data : [{% for income in income.data %}{{income}},{% endfor %}]
                                     },
                                     {
                                         label: "Profit",
@@ -852,7 +848,7 @@
                                         pointStrokeColor : "#fff",
                                         pointHighlightFill : "#fff",
                                         pointHighlightStroke : "rgba(64,64,64,1)",
-                                        data : {{data}}
+                                        data : [{% for profit in profit.data %}{{profit}},{% endfor %}]
                                     }
                                 ]
 
@@ -904,13 +900,13 @@
                                                     //------------- Donut chart  -------------//
                             var donutData = [
                                 {
-                                    value: {{users.inactive}},
+                                    value: {{user.inactive}},
                                     color:"rgba(64,64,64,0.8)",
                                     highlight: "#404040",
                                     label: "Users Inactive: "
                                 },
                                 {
-                                    value: {{users.active}},
+                                    value: {{user.active}},
                                     color: "rgba(267, 211, 77, 0.6)",
                                     highlight: "rgba(267, 211, 77, 0.8)",
                                     label: "Users Active: "

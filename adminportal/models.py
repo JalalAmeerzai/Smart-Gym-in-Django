@@ -208,4 +208,13 @@ class FinanceHistoryData(models.Model):
     fh_recieved = models.IntegerField(default=0)
     fh_added_by = models.CharField(max_length=500, default="")
     fh_added_on = models.CharField(max_length=500, default="")
+
+
+class AdmissionData(models.Model):
+    ad_id = models.AutoField(primary_key=True)
+    ad_package = models.CharField(max_length=500, default="pkg")
+    ad_name = models.CharField(max_length=500, default="")
+    ad_email = models.CharField(max_length=500, unique=True, default="")
+    ad_contact = models.CharField(max_length=500, default="")
+    ad_date = models.CharField(max_length=500, default="")    
     
