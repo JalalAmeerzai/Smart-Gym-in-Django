@@ -72,7 +72,7 @@
                         
                     </li>
                     <li id="otherbut">
-                        <a href="/userportal/login">
+                        <a href="/userportal/logout">
                             <i class="fa fa-power-off setlogbtn"></i>
                             <span class="sr-only">Logout</span>
                         </a>
@@ -98,8 +98,8 @@
                         </div>
                         <!-- / .sidebar-panel -->
                         <div class="user-info clearfix">
-                            <img src="{% static 'userportal/img/avatars/128.jpg'%}" alt="avatar">
-                            <span class="name">Jalal Ameerzai</span>
+                            <img src="/media/adminportal/member/{{request.session.userid}}.jpg" alt="avatar">
+                            <span class="name">{{ request.session.username }}</span>
                             <div class="btn-group">
                                 <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
                                 </div>
@@ -123,7 +123,7 @@
                                     <ul class="sub">
                                         <li><a href="/userportal/routines"><span class="txt">Routine List</span></a>
                                         </li>
-                                        <li><a href="/userportal/createroutine"><span class="txt">Create Routine</span></a>
+                                        <li><a href="/userportal/yourroutine"><span class="txt">Your Routine</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -177,135 +177,32 @@
 
 
 
-                        <div class="row">
+                        <div class="row" style="margin-bottom: 80px;">
                             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">HIIT Sprint</h2>
+                                
+                                {% for ex in exercises %}
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="panel">
+                                            <!-- Start .panel -->
+                                            <div class="panel-heading">
+                                                <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
+                                                    <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">{{ex.exercise_name}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <img src="/media/adminportal/exercise/{{ex.exercise_img_name}}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                                <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">{{ex.exercise_desc}}</h5>
+                                                <ul>
+                                                    <li class="list-item"><strong>Equipment: </strong>{{ex.exercise_equipment}}</li>
+                                                    <li class="list-item"><strong>Target Muscles: </strong>{{ex.exercise_muscle}}</li>
+                                                    <li class="list-item"><strong>Sets/Reps: </strong>{{ex.exercise_sets}}</li>
+                                                </ul>
+                                                <button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3" id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="{{ex.exercise_tutorial}}" style="margin-top: 10px;">Tutorial</button>
                                             </div>
                                         </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <ul>
-                                                <li class="list-item"><strong>Equipment: </strong>Treadmill</li>
-                                                <li class="list-item"><strong>Target Muscles: </strong>Quads, Glutes, Hips, Hamstrings</li>
-                                                <li class="list-item"><strong>Sets/Reps: </strong>4 X 12</li>
-                                            </ul>
-                                            <button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3" id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="margin-top: 10px;">Tutorial</button>
-                                        </div>
+                                        <!-- End .panel -->
                                     </div>
-                                    <!-- End .panel -->
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">HIIT Sprint</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <ul>
-                                                <li class="list-item"><strong>Equipment: </strong>Treadmill</li>
-                                                <li class="list-item"><strong>Target Muscles: </strong>Quads, Glutes, Hips, Hamstrings</li>
-                                                <li class="list-item"><strong>Sets/Reps: </strong>4 X 12</li> </ul>
-                                            <button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3" id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="margin-top: 10px;">Tutorial</button>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
-
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">HIIT Sprint</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <ul>
-                                                <li class="list-item"><strong>Equipment: </strong>Treadmill</li>
-                                                <li class="list-item"><strong>Target Muscles: </strong>Quads, Glutes, Hips, Hamstrings</li>
-                                                <li class="list-item"><strong>Sets/Reps: </strong>4 X 12</li> </ul>
-                                            <button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3" id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="margin-top: 10px;">Tutorial</button>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">HIIT Sprint</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <ul>
-                                                <li class="list-item"><strong>Equipment: </strong>Treadmill</li>
-                                                <li class="list-item"><strong>Target Muscles: </strong>Quads, Glutes, Hips, Hamstrings</li>
-                                                <li class="list-item"><strong>Sets/Reps: </strong>4 X 12</li> </ul>
-                                            <button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3" id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="margin-top: 10px;">Tutorial</button>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">HIIT Sprint</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <ul>
-                                                <li class="list-item"><strong>Equipment: </strong>Treadmill</li>
-                                                <li class="list-item"><strong>Target Muscles: </strong>Quads, Glutes, Hips, Hamstrings</li>
-                                                <li class="list-item"><strong>Sets/Reps: </strong>4 X 12</li> </ul>
-                                            <button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3" id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="margin-top: 10px;">Tutorial</button>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">HIIT Sprint</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <ul>
-                                                <li class="list-item"><strong>Equipment: </strong>Treadmill</li>
-                                                <li class="list-item"><strong>Target Muscles: </strong>Quads, Glutes, Hips, Hamstrings</li>
-                                            </ul>
-                                            <button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 col-sm-offset-3 col-xs-offset-3 col-md-offset-3 col-lg-offset-3" id="subcbtn" data-toggle="modal" data-target="#videoModal" data-theVideo="https://www.youtube.com/embed/KUiVnKd-ePI" style="margin-top: 10px;">Tutorial</button>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
+                                {% endfor %}
 
 
                             </div>

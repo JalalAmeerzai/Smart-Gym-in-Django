@@ -72,7 +72,7 @@
                         
                     </li>
                     <li id="otherbut">
-                        <a href="/userportal/login">
+                        <a href="/userportal/logout">
                             <i class="fa fa-power-off setlogbtn"></i>
                             <span class="sr-only">Logout</span>
                         </a>
@@ -98,8 +98,8 @@
                         </div>
                         <!-- / .sidebar-panel -->
                         <div class="user-info clearfix">
-                            <img src="{% static 'userportal/img/avatars/128.jpg'%}" alt="avatar">
-                            <span class="name">Jalal Ameerzai</span>
+                            <img src="/media/adminportal/member/{{request.session.userid}}.jpg" alt="avatar">
+                            <span class="name">{{ request.session.username }}</span>
                             <div class="btn-group">
                                 <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
                                 </div>
@@ -120,10 +120,10 @@
                                 </li>
                                 <li>
                                     <a href="#" class="active"><i class=" l-arrows-right-double-31"></i> <span class="txt">Workout Routines</span></a>
-                                    <ul class="sub show" style="display: block;">
+                                    <ul class="sub" style="display: block;">
                                         <li><a class="active" href="/userportal/routines"><span class="txt">Routine List</span></a>
                                         </li>
-                                        <li><a href="/userportal/createroutine"><span class="txt">Create Routine</span></a>
+                                        <li><a href="/userportal/yourroutine"><span class="txt">Your Routine</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -179,114 +179,31 @@
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">Full Body</h2>
+                                {% for routine in routines %}
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                                        <div class="panel">
+                                            <!-- Start .panel -->
+                                            <div class="panel-heading">
+                                                <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
+                                                    <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">{{routine.routine_name}}</h2>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <img src="/media/adminportal/routine/{{routine.routine_img_name}}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                                                <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">{{routine.routine_desc}}</h5>
+                                                {% if routine.routine_id == following %}
+                                                    <a style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollowing"  disabled style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Following</button></a>
+                                                {% else %}
+                                                    <a style="text-decoration: none;" href="/userportal/followroutine/{{routine.routine_id}}"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollow"   style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Follow</button></a>
+                                                {% endif %}
+                                                <a href="/userportal/viewroutine/{{routine.routine_id}}" style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtn"   style="margin-top: 10px; font-size: 12px;"><i class="fa fa-eye"></i> View</button></a>
                                             </div>
                                         </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <a style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollowing"   style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Following</button></a>
-                                            <a href="/userportal/viewroutine" style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtn"   style="margin-top: 10px; font-size: 12px;"><i class="fa fa-eye"></i> View</button></a>
-                                        </div>
+                                        <!-- End .panel -->
                                     </div>
-                                    <!-- End .panel -->
-                                </div>
+                                {% endfor %}
 
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">Full Body</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <a style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollow"   style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Following</button></a>
-                                            <a href="/userportal/viewroutine" style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtn"   style="margin-top: 10px; font-size: 12px;"><i class="fa fa-eye"></i> View</button></a>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
-
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">Full Body</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <a style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollow"   style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Following</button></a>
-                                            <a href="/userportal/viewroutine" style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtn"   style="margin-top: 10px; font-size: 12px;"><i class="fa fa-eye"></i> View</button></a>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">Full Body</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <a style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollow"   style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Following</button></a>
-                                            <a href="/userportal/viewroutine" style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtn"   style="margin-top: 10px; font-size: 12px;"><i class="fa fa-eye"></i> View</button></a>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">Full Body</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <a style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollow"   style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Following</button></a>
-                                            <a href="/userportal/viewroutine" style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtn"   style="margin-top: 10px; font-size: 12px;"><i class="fa fa-eye"></i> View</button></a>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-                                    <div class="panel">
-                                        <!-- Start .panel -->
-                                        <div class="panel-heading">
-                                            <div class="bs-callout bs-callout-info fade in" style="border: 1px ;">
-                                                <h3 style="margin-bottom: 0; color: #e2d34d; text-align: center;">Full Body</h2>
-                                            </div>
-                                        </div>
-                                        <div class="panel-body">
-                                            <img src="{% static 'userportal/img/exr1.jpg'%}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
-                                            <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">Do 30 seconds to a minute of sprinting, followed by a minute or two of walking or slow jogging. Repeat this cycle for just 10 minutes, and you'll complete a HIIT workout.</h5>
-                                            <a style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollow"   style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Following</button></a>
-                                            <a href="/userportal/viewroutine" style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtn"   style="margin-top: 10px; font-size: 12px;"><i class="fa fa-eye"></i> View</button></a>
-                                        </div>
-                                    </div>
-                                    <!-- End .panel -->
-                                </div>
+                                
 
 
                             </div>

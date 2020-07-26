@@ -72,7 +72,7 @@
                         
                     </li>
                     <li id="otherbut">
-                        <a href="/userportal/login">
+                        <a href="/userportal/logout">
                             <i class="fa fa-power-off setlogbtn"></i>
                             <span class="sr-only">Logout</span>
                         </a>
@@ -98,8 +98,8 @@
                         </div>
                         <!-- / .sidebar-panel -->
                         <div class="user-info clearfix">
-                            <img src="{% static 'userportal/img/avatars/128.jpg'%}" alt="avatar">
-                            <span class="name">Jalal Ameerzai</span>
+                            <img src="/media/adminportal/member/{{request.session.userid}}.jpg" alt="avatar">
+                            <span class="name">{{ request.session.username }}</span>
                             <div class="btn-group">
                                 <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
                                 </div>
@@ -123,7 +123,7 @@
                                     <ul class="sub">
                                         <li><a href="/userportal/routines"><span class="txt">Routine List</span></a>
                                         </li>
-                                        <li><a href="/userportal/createroutine"><span class="txt">Create Routine</span></a>
+                                        <li><a href="/userportal/yourroutine"><span class="txt">Your Routine</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -202,13 +202,52 @@
                                             <div class="bs-callout bs-callout-info mt0">
                                                 <p> <i class="fa fa-file-picture-o" style="font-size:20px;">  </i> Display Picture</p>
                                             </div>
-                                            <form class="form-horizontal group-border stripped" role="form" class="col-lg-offset-4">
+                                            <form class="form-horizontal group-border stripped" role="form" class="col-lg-offset-4" method="POST" action="/userportal/settings/" enctype="multipart/form-data">{% csrf_token %}
+                                                <!--IMAGE ERROR MESSAGE-->
+                                                {% if imageerror == 1 %}
+                                                    <div class="alert alert-danger fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                        <strong>Input Error!</strong> <br>Please select a correct file format.
+                                                    </div>
+                                                {% endif %}
+                                                <!--DATA ERROR MESSAGE-->
+                                                {% if dataerror == 1 %}
+                                                    <div class="alert alert-danger fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                        <strong>Update Error!</strong> <br>Something went wrong. Try again later.
+                                                    </div>
+                                                {% endif %}
+                                                <!--WRONG PASSWORD ERROR MESSAGE-->
+                                                {% if passerror1 == 1 %}
+                                                    <div class="alert alert-danger fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                        <strong>Wrong Paasword!</strong> <br>You have entered wrong password. Please type in the correct password.
+                                                    </div>
+                                                {% endif %}
+
+                                                <!--success or unsuccess PASSWORD ERROR MESSAGE-->
+                                                {% if passerror2 == 1 %}
+                                                    <div class="alert alert-success fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="fa fa-check alert-icon "></i>
+                                                        <strong>Success!</strong> <br>You successfully changed your password.
+                                                    </div>
+                                                {% elif passerror2 == -1%}
+                                                    <div class="alert alert-danger fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                        <strong>Update Error!</strong> <br>Something went wrong. Try again later.
+                                                    </div>
+                                                {% endif %}
                                                 <div class="form-group">
                                                     <div class="col-sm-3">
-                                                        <img src="{% static 'userportal/img/avatars/128.jpg'%}" class="col-sm-12 col-lg-12 col-sx-12 col-md-12" />
+                                                        <img src="/media/adminportal/member/{{request.session.userid}}.jpg" class="col-sm-12 col-lg-12 col-sx-12 col-md-12" />
                                                         <br>
                                                         <div class="col-sm-12 col-lg-12 col-sx-12 col-md-12">
-                                                            <input type="file" class="form-control" id="picture" placeholder="Your Picture" style="margin-top: 20px;">
+                                                            <input type="file" class="form-control" id="picture" name="picture" placeholder="Your Picture" style="margin-top: 20px;" required>
                                                         </div>
                                                         
                                                     </div>
@@ -218,7 +257,7 @@
                                                 
                                                 <div class="form-group">
                                                      <div class="col-sm-offset-4 col-sm-4">
-                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Upload</button>
+                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="uploadpicture">Upload</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -230,41 +269,36 @@
                                                 <div class="bs-callout bs-callout-info mt0">
                                                     <p> <i class="fa fa-user" style="font-size:20px;">  </i> Account Details</p>
                                                 </div>
-                                                <form class="form-horizontal group-border stripped" role="form">
+                                                <form class="form-horizontal group-border stripped" role="form" method="POST" action="/userportal/settings/" >{% csrf_token %}
                                                     <div class="form-group">
                                                         <label for="inputEmail4" class="col-sm-2 control-label">Email</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" disabled value="{{member.member_email}}">
                                                         </div>
                                                     </div>
+                                                    
                                                     <div class="form-group">
-                                                        <label for="inputFirstName" class="col-sm-2 control-label">First Name</label>
+                                                        <label for="inputLastName" class="col-sm-2 control-label">Full Name</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="fname" placeholder="First Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="inputLastName" class="col-sm-2 control-label">Last Name</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="lname" placeholder="Last Name">
+                                                            <input type="text" class="form-control" id="lname" placeholder="Full Name" required name="name" value="{{member.member_name}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputContact" class="col-sm-2 control-label">Contact</label>
                                                         <div class="col-sm-10">
-                                                            <input type="tel" class="form-control" id="" placeholder="Contact No.">
+                                                            <input type="tel" class="form-control" id="" placeholder="Contact No." name="contact" required value="{{member.member_contact}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputAddress" class="col-sm-2 control-label">Address</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="" placeholder="Your Current Address..">
+                                                            <input type="text" class="form-control" id="" placeholder="Your Current Address.." name="address" required value="{{member.member_address}}">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputAddress" class="col-sm-2 control-label">Date of Birth</label>
                                                         <div class="col-sm-10">
-                                                            <input type="date" class="form-control" id="" placeholder="Your Birth Date Comes Here..">
+                                                            <input type="date" class="form-control" id="" placeholder="Your Birth Date Comes Here.." name="dob" value="{{member.member_dob}}" required>
                                                         </div>
                                                     </div>
 
@@ -272,7 +306,7 @@
                                                         <label for="inputHeight" class="col-sm-2 control-label">Height</label>
                                                         <div class="col-sm-3">
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="" placeholder="5">
+                                                                <input type="number" class="form-control" id="" placeholder="5" value="{{height.h1}}" min="1" name="height1">
                                                             </div>
                                                             <label for="inputhfts" class="col-sm-2 control-label">Feets</label>
                                                         </div>
@@ -281,7 +315,7 @@
 
                                                         <div class="col-sm-3">
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="" placeholder="10">
+                                                                <input type="number" class="form-control" id="" placeholder="10" max="12" min="0" value="{{height.h2}}" name="height2">
                                                             </div>
                                                             <label for="inputhinches" class="col-sm-2 control-label">Inches</label>
                                                         </div>
@@ -292,15 +326,16 @@
                                                         <label for="inputWeight" class="col-sm-2 control-label">Weight</label>
                                                         <div class="col-sm-4">
                                                             <div class="col-sm-10">
-                                                                <input type="number" class="form-control" id="" placeholder="87">
+                                                                <input type="number" class="form-control" id="" placeholder="87" name="weight" value="{{member.member_weight}}">
                                                             </div>
                                                             <label for="inputWeight" class="col-sm-2 control-label">Kgs</label>
                                                         </div>
                                                     </div>
+
                                                     
                                                     <div class="form-group">
                                                          <div class="col-sm-offset-4 col-sm-4">
-                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save Changes</button>
+                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="uploaddata">Save Changes</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -317,34 +352,36 @@
 
 
                                             
-                                            <div class="bs-callout bs-callout-info mt0">
+                                                <div class="bs-callout bs-callout-info mt0">
                                                     <p> <i class="fa  fa-key" style="font-size:20px;">  </i> Change Password</p>
                                             </div>
-                                                <form class="form-horizontal group-border stripped" role="form">
+                                                <form class="form-horizontal group-border stripped" role="form" method="POST" action="/userportal/settings/">{% csrf_token %}
                                                     <div class="form-group">
                                                         <label for="inputcpass" class="col-sm-2 control-label">Current Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="password" class="form-control" id="inputcpass" placeholder="Current Psssword">
+                                                            <input type="password" class="form-control" id="inputcpass" placeholder="Current Psssword" name="pass" required minlength="6">
                                                             
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputnpass" class="col-sm-2 control-label">New Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="password" class="form-control" id="inputnpass" placeholder="New Password">
+                                                            <input type="password" class="form-control" id="newpass" placeholder="New Password" name="newpass" required minlength="6" onkeyup="checkpass()">
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="inputrpass" class="col-sm-2 control-label">Repeat Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="password" class="form-control" id="inputrpass" placeholder="Repeat Password">
+                                                            <input type="password" class="form-control" id="newpassrpt" placeholder="Repeat Password" name="newpassrpt" required minlength="6" onkeyup="checkpass()">
                                                         </div>
+                                                        <div class="col-sm-2"></div>
+                                                        <div class="col-sm-10 text-danger" style="margin-top: 10px;" id="passerror" ></div>
                                                     </div>
                                                     
                                                     
                                                     <div class="form-group">
                                                          <div class="col-sm-offset-4 col-sm-4">
-                                                            <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Change Password</button>
+                                                            <button type="submit" class="btn btn-default uploadpass" id="subcbtn" style="width:100%" name="uploadpassword" >Change Password</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -456,5 +493,22 @@
         <script src="{% static 'userportal/plugins/forms/dropzone/dropzone.js'%}"></script>
         <script src="{% static 'userportal/js/pages/forms-advanced.js'%}"></script>
         <script src="{% static 'userportal/js/pages/tabs.js'%}"></script>
+
+
+        
+
+        <script>
+            function checkpass(){
+                newpass = document.getElementById("newpass").value
+                newpassrpt = document.getElementById("newpassrpt").value
+                if(newpass != newpassrpt){
+                    document.getElementsByName("uploadpassword")[0].disabled = true
+                    document.getElementById("passerror").innerHTML = "Error! Passwords dont match." 
+                }else{
+                    document.getElementsByName("uploadpassword")[0].disabled = false
+                    document.getElementById("passerror").innerHTML = ""
+                }
+            }
+        </script>
     </body>
 </html>

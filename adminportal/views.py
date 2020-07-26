@@ -637,6 +637,8 @@ def members(request):
                     os.remove("media\\adminportal\\member\\"+del_id+".jpg")
                     params["success"] = 1
                     params["successmessage"] = "Member successfully deleted."
+                    FinanceData.objects.filter(finance_member_id=del_id).delete()
+                    FinanceHistoryData.objects.filter(fh_member_id=del_id).delete()
                 except Exception:
                     pass
             else:
@@ -680,11 +682,17 @@ def membersprofile(request, memid):
         if params["member"].member_routine == "":
             params["noroutineexist"] = 1
         else:
-            routine = json.loads(RoutineData.objects.filter(routine_id = params["member"].member_routine)[0].routine_json)
-            params["routine"] = routine[days[datetime.datetime.now().weekday()]]
+            try:
+                routine = json.loads(RoutineData.objects.filter(routine_id = params["member"].member_routine)[0].routine_json)
+                params["routine"] = routine[days[datetime.datetime.now().weekday()]]
+            except Exception:
+                pass
 
             for exercise in params["routine"]:
-                params["routine"][exercise]["exname"] = ExerciseData.objects.filter(exercise_id = params["routine"][exercise]["exercise"])[0].exercise_name
+                try:
+                    params["routine"][exercise]["exname"] = ExerciseData.objects.filter(exercise_id = params["routine"][exercise]["exercise"])[0].exercise_name
+                except Exception:
+                    params["routine"][exercise]["exname"] = " - "
 
 
         #for package
@@ -889,7 +897,10 @@ def paymentdue(request):
             for member in finance_update:
                 try:
                     balance = member.finance_due
-                    due = balance + PackageData.objects.filter(package_id= MemberData.objects.filter(member_id=member.finance_member_id)[0].member_package)[0].package_price
+                    try:
+                        due = balance + PackageData.objects.filter(package_id= MemberData.objects.filter(member_id=member.finance_member_id)[0].member_package)[0].package_price
+                    except Exception:
+                        due = balance + 0
                     update = FinanceData.objects.filter(finance_member_id=member.finance_member_id).update(finance_month=currentMonth, finance_year=currentYear, finance_due=due, finance_balance=balance, finance_desc=currentMonth+" Subscription")
                 except Exception:
                     pass
@@ -1589,7 +1600,6 @@ def routines(request):
 
 
 
-
 def routinesview(request,rtid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
         params={}
@@ -1604,7 +1614,10 @@ def routinesview(request,rtid):
         exercise_count = ExerciseData.objects.all().order_by('exercise_id')
         for day in params["plan"]:
             for exercise in params["plan"][day]:
-                params["plan"][day][exercise]["exname"] = exercise_count.filter(exercise_id=params["plan"][day][exercise]["exercise"])[0].exercise_name
+                try:
+                    params["plan"][day][exercise]["exname"] = exercise_count.filter(exercise_id=params["plan"][day][exercise]["exercise"])[0].exercise_name
+                except Exception:
+                    params["plan"][day][exercise]["exname"] = " - "
         return render(request, 'adminportal/routineview.html', params)
     else:
         return redirect('/adminportal/login/')

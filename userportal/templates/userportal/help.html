@@ -72,7 +72,7 @@
                         
                     </li>
                     <li id="otherbut">
-                        <a href="/userportal/login">
+                        <a href="/userportal/logout">
                             <i class="fa fa-power-off setlogbtn"></i>
                             <span class="sr-only">Logout</span>
                         </a>
@@ -98,8 +98,8 @@
                         </div>
                         <!-- / .sidebar-panel -->
                         <div class="user-info clearfix">
-                            <img src="{% static 'userportal/img/avatars/128.jpg'%}" alt="avatar">
-                            <span class="name">Jalal Ameerzai</span>
+                            <img src="/media/adminportal/member/{{request.session.userid}}.jpg" alt="avatar">
+                            <span class="name">{{ request.session.username }}</span>
                             <div class="btn-group">
                                 <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
                                 </div>
@@ -123,7 +123,7 @@
                                     <ul class="sub">
                                         <li><a href="/userportal/routines"><span class="txt">Routine List</span></a>
                                         </li>
-                                        <li><a href="/userportal/createroutine"><span class="txt">Create Routine</span></a>
+                                        <li><a href="/userportal/yourroutine"><span class="txt">Your Routine</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -188,18 +188,33 @@
                                             </div>
                                         </div>
                                         <div class="panel-body">
-                                            <form class="form-horizontal group-border stripped" role="form">
+                                            <form class="form-horizontal group-border" role="form" method="POST" action="/userportal/help/" >{% csrf_token %}
+                                                    {% if error == 1 %}
+                                                        <div class="alert alert-danger fade in">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                            <strong>Input Error!</strong> <br>{{errormessage}}
+                                                        </div>
+                                                    {% endif %}
+
+                                                    {% if success == 1 %}
+                                                        <div class="alert alert-success fade in">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <i class="fa fa-check alert-icon "></i>
+                                                            <strong>Success!</strong> <br>{{successmessage}}
+                                                        </div>
+                                                    {% endif %}
                                                 <div class="form-group">
-                                                    <label for="helpsubj" class="col-sm-2 control-label">Subject</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="helpsubj" placeholder="Type a subject here">
+                                                    
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="helpsubj" placeholder="Subject" name="subject" required>
                                                         
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="helpmsg" class="col-sm-2 control-label">Message</label>
-                                                    <div class="col-sm-10">
-                                                        <textarea class="form-control" id="helpmsg" placeholder="Your Message Comes Here!!" rows="7" style="resize: none;"></textarea>
+                                                    
+                                                    <div class="col-sm-12">
+                                                        <textarea class="form-control" id="helpmsg" placeholder="Message" rows="7" style="resize: none;" name="message" required></textarea>
                                                         
                                                     </div>
                                                 </div>
@@ -208,7 +223,7 @@
                                                 
                                                 <div class="form-group">
                                                      <div class="col-sm-offset-4 col-sm-4">
-                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%;">Submit Query</button>
+                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%;" name="send">Submit Query</button>
                                                     </div>
                                                 </div>
                                             </form>

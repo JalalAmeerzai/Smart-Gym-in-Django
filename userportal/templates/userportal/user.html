@@ -72,7 +72,7 @@
                         
                     </li>
                     <li id="otherbut">
-                        <a href="/userportal/login">
+                        <a href="/userportal/logout">
                             <i class="fa fa-power-off setlogbtn"></i>
                             <span class="sr-only">Logout</span>
                         </a>
@@ -98,8 +98,8 @@
                         </div>
                         <!-- / .sidebar-panel -->
                         <div class="user-info clearfix">
-                            <img src="{% static 'userportal/img/avatars/128.jpg'%}" alt="avatar">
-                            <span class="name">Jalal Ameerzai</span>
+                            <img src="/media/adminportal/member/{{request.session.userid}}.jpg" alt="avatar">
+                            <span class="name">{{ request.session.username }}</span>
                             <div class="btn-group">
                                 <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
                                 </div>
@@ -123,7 +123,7 @@
                                     <ul class="sub">
                                         <li><a href="/userportal/routines"><span class="txt">Routine List</span></a>
                                         </li>
-                                        <li><a href="/userportal/createroutine"><span class="txt">Create Routine</span></a>
+                                        <li><a href="/userportal/yourroutine"><span class="txt">Your Routine</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -190,7 +190,7 @@
                                             <!-- Start .row -->
                                             <div class="col-md-2">
                                                 <div class="profile-avatar">
-                                                    <img src="{% static 'userportal/img/avatars/128.jpg'%}" alt="Avatar" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" >
+                                                    <img src="/media/adminportal/member/{{member.member_img_name}}" alt="Avatar" class="col-md-12 col-lg-12 col-sm-12 col-xs-12" >
                                                     <p class="mt10">
                                                         Online
                                                         <span class="device">
@@ -201,10 +201,16 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="profile-name">
-                                                    <h3>Jalal Ameerzai</h3>
+                                                    <h3>{{member.member_name}}</h3>
                                                     <p class="job-title mb0"><i class="fa  fa-info-circle"></i> Member at SmartGYM</p>
                                                     <p class="balance" style="margin-bottom: 30px; font-size: 20px;">
-                                                        Status: <span class="text-success" style="font-size: 20px;">Active</span>
+                                                        Status: 
+                                                        
+                                                        {% if member.member_status == "Active" %}
+                                                            <span class="text-success" style="font-size: 20px;">Active</span>
+                                                        {% else %}
+                                                            <span class="text-danger" style="font-size: 20px;">Inactive</span>
+                                                        {% endif %}
                                                     </p>
                                                     <a href="/userportal/settings" style="" id="subcbtn"> <i class="l-basic-settings"></i> Update</a>
                                                     
@@ -217,21 +223,30 @@
                                                         <div class="col-md-6">
                                                             <dl class="mt20">
                                                                 <dt class="text-muted">Phone</dt>
-                                                                <dd>(367)-045-347</dd>
+                                                                <dd>member.member_contact</dd>
                                                                 <dt class="text-muted">Email</dt>
-                                                                <dd>jalalx@msn.com</dd>
+                                                                <dd>{{member.member_email}}</dd>
                                                                 <dt class="text-muted">Address</dt>
-                                                                <dd>XYZ Street, ABC City, Pakistan</dd>
+                                                                <dd>{{member.member_address}}</dd>
                                                             </dl>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <dl class="mt20">
                                                                 <dt class="text-muted">Date of Birth</dt>
-                                                                <dd>02 - 10 - 1994</dd>
+                                                                <dd>{{member.member_dob}}</dd>
                                                                 <dt class="text-muted">Height</dt>
-                                                                <dd>5' 10''</dd>
+                                                                {% if member.member_height == "" %}
+                                                                    <dd>-</dd>
+                                                                {% else %}
+                                                                    <dd>{{member.member_height}}</dd>
+                                                                {% endif %}
+                                                                
                                                                 <dt class="text-muted">Weight</dt>
-                                                                <dd>87 kgs</dd>
+                                                                {% if member.member_weight == "" %}
+                                                                    <dd>-</dd>
+                                                                {% else %}
+                                                                    <dd>{{member.member_weight}} Kgs</dd>
+                                                                {% endif %}
                                                             </dl>
                                                         </div>
                                                     </div>
@@ -277,9 +292,9 @@
                                                         
                                                         <h4 id="subc"><i class="fa fa-user" style="color:#e2d34d"></i></h4>
                                                         <br>
-                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Membership Package :<span style="color: #e2d34d;"> <strong>Silver</strong></span></h3>
+                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Membership Package :<span style="color: #e2d34d;"> <strong>{{package.name}}</strong></span></h3>
                                                         <br>
-                                                        <a href="/userportal/subscription#subscriptionupdate" id="subcbtn" class="">Upgrade</a>
+                                                        <br>
 
                                                     </div>
                                                     <br>
@@ -300,9 +315,9 @@
                                                         
                                                         <h4 id="subc"><i class="l-ecommerce-graph1" style="color:#e2d34d"></i></h4>
                                                         <br>
-                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Admission :<span style="color: #e2d34d"><strong> Rs. 8,000.</strong></span> one time</h3>
+                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Admission :<span style="color: #e2d34d"><strong> Rs. {{package.admission}}.</strong></span> one time</h3>
                                                         <br>
-                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Monthly :<span style="color: #e2d34d"><strong> Rs. 12,000.</strong></span> per month</h3>
+                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Monthly :<span style="color: #e2d34d"><strong> Rs. {{package.price}}.</strong></span> per month</h3>
                                                         
         
                                                     </div>
@@ -324,9 +339,9 @@
                                                         
                                                         <h4 id="subc"><i class="l-banknote" style="color:#e2d34d"></i></h4>
                                                         <br>
-                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Balance :<span style="color: #e2d34d"><strong> Rs. 2,000.</strong></span></h3>
+                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Balance :<span style="color: #e2d34d"><strong> Rs. {{payment.balance}}.</strong></span></h3>
                                                         <br>
-                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> To be paid :<span style="color: #e2d34d"><strong> Rs. 14,000.</strong></span></h3>
+                                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> To be paid :<span style="color: #e2d34d"><strong> Rs. {{payment.due}}.</strong></span></h3>
                                                         
         
                                                     </div>
@@ -349,59 +364,30 @@
                                         <h4 class="panel-title" style="text-align:center; font-size:25px; color: #e2d34d"><i class=" l-basic-elaboration-calendar-plus" style="font-size:25px; color:#e2d34d"></i> Today's Diet</h4>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="panel-group accordion" id="accordion1">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h5 class="panel-title">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseMeal1">Meal #1</a>
-                                                    </h5>
-                                                </div>
-                                                <div id="collapseMeal1" class="panel-collapse collapse in">
-                                                    <div class="panel-body">
-                                                       <ol>
-                                                           <li>Grilled Salmon, 100gm</li>
-                                                           <li>3 Boiled Eggs</li>
-                                                           <li>2 Toated Brown Breads</li>
-                                                           <li>8 Crushed Almonds</li>
-                                                       </ol>
+                                        {% if nodietexist == 1 %}
+                                            <h2 style="text-align: center; text-justify: center; color: #909090;"> None </h2>
+                                        {% else %}
+                                            <div class="panel-group accordion" id="accordion1">
+                                                {% for meal in diet.values %}
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseMeal{{forloop.counter}}">Meal #{{forloop.counter}}</a>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="collapseMeal{{forloop.counter}}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <h3 style="text-align: center; color: #909090;">{{meal.time}}</h3>
+                                                            <hr>
+                                                            
+                                                            <br>
+                                                            <h4 style="color: #909090;">{{meal.meal}}</h4> 
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                {% endfor %}
                                             </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h5 class="panel-title">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseMeal2">Meal #2</a>
-                                                    </h5>
-                                                </div>
-                                                <div id="collapseMeal2" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <ol>
-                                                            <li>Grilled Salmon, 100gm</li>
-                                                            <li>3 Boiled Eggs</li>
-                                                            <li>2 Toated Brown Breads</li>
-                                                            <li>8 Crushed Almonds</li>
-                                                        </ol>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h5 class="panel-title">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseMeal3">Meal #3</a>
-                                                    </h5>
-                                                </div>
-                                                <div id="collapseMeal3" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <ol>
-                                                            <li>Grilled Salmon, 100gm</li>
-                                                            <li>3 Boiled Eggs</li>
-                                                            <li>2 Toated Brown Breads</li>
-                                                            <li>8 Crushed Almonds</li>
-                                                        </ol>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <!-- End .panel -->
@@ -415,62 +401,32 @@
                                         <h4 class="panel-title" style="text-align:center; font-size:25px; color: #e2d34d"><i class=" l-basic-elaboration-calendar-plus" style="font-size:25px; color:#e2d34d"></i> Today's Plan</h4>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="panel-group accordion" id="accordion2">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h5 class="panel-title">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseExercise1">Exercise #1</a>
-                                                    </h5>
-                                                </div>
-                                                <div id="collapseExercise1" class="panel-collapse collapse in">
-                                                    <div class="panel-body">
-                                                        <h3>Butterfly</h3>
-                                                        <ul>
-                                                            <li>Sets: 3</li>
-                                                            <li>Reps: 10</li>
-                                                        </ul>
-                                                        
-                                                        <h4>Note: Take 30 seconds rest in between sets.</h4> 
+                                        {% if noroutineexist == 1 %}
+                                            <h2 style="text-align: center; text-justify: center; color: #909090;"> None </h2>
+                                        {% else %}
+                                            <div class="panel-group accordion" id="accordion2">
+                                                {% for routine in routine.values %}
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading">
+                                                        <h5 class="panel-title">
+                                                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseExercise{{forloop.counter}}">Exercise #{{forloop.counter}} - {{routine.exname}}</a>
+                                                        </h5>
+                                                    </div>
+                                                    <div id="collapseExercise{{forloop.counter}}" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <h3 style="text-align: center; color: #909090;">{{routine.exname}}</h3>
+                                                            <hr>
+                                                            <h5 class="col-lg-6 col-md-6 col-sm-6" style="text-align: center;"><strong style="color: #909090;">Sets:</strong> {{routine.sets}}</h5>
+                                                            <h5 class="col-lg-6 col-md-6 col-sm-6" style="text-align: center;"><strong style="color: #909090;">Reps:</strong> {{routine.reps}}</h5>
+                                                            <br><br><br>
+                                                            <h4 ><strong style="color: #909090;">Note:</strong> {{routine.notes}}</h4> 
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                {% endfor %}
+                                                
                                             </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h5 class="panel-title">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseExercise2">Exercise #2</a>
-                                                    </h5>
-                                                </div>
-                                                <div id="collapseExercise2" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <h3>Butterfly</h3>
-                                                        <ul>
-                                                            <li>Sets: 3</li>
-                                                            <li>Reps: 10</li>
-                                                        </ul>
-                                                        
-                                                        <h4>Note: Take 30 seconds rest in between sets.</h4> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h5 class="panel-title">
-                                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseExercise3">Exercise #3</a>
-                                                    </h5>
-                                                </div>
-                                                <div id="collapseExercise3" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <h3>Butterfly</h3>
-                                                        <ul>
-                                                            <li>Sets: 3</li>
-                                                            <li>Reps: 10</li>
-                                                        </ul>
-                                                        
-                                                        <h4>Note: Take 30 seconds rest in between sets.</h4> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <!-- End .panel -->

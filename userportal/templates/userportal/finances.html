@@ -72,7 +72,7 @@
                         
                     </li>
                     <li id="otherbut">
-                        <a href="/userportal/login">
+                        <a href="/userportal/logout">
                             <i class="fa fa-power-off setlogbtn"></i>
                             <span class="sr-only">Logout</span>
                         </a>
@@ -98,8 +98,8 @@
                         </div>
                         <!-- / .sidebar-panel -->
                         <div class="user-info clearfix">
-                            <img src="{% static 'userportal/img/avatars/128.jpg'%}" alt="avatar">
-                            <span class="name">Jalal Ameerzai</span>
+                            <img src="/media/adminportal/member/{{request.session.userid}}.jpg" alt="avatar">
+                            <span class="name">{{ request.session.username }}</span>
                             <div class="btn-group">
                                 <div type="button" class="btn btn-default btn-xs" style="margin-top: 5px ;"><i class="fa fa-group"></i>
                                 </div>
@@ -123,7 +123,7 @@
                                     <ul class="sub">
                                         <li><a href="/userportal/routines"><span class="txt">Routine List</span></a>
                                         </li>
-                                        <li><a href="/userportal/createroutine"><span class="txt">Create Routine</span></a>
+                                        <li><a href="/userportal/yourroutine"><span class="txt">Your Routine</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -187,9 +187,9 @@
                                         
                                         <h4 id="subc"><i class="l-ecommerce-graph1" style="color:#e2d34d"></i></h4>
                                         <br>
-                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Package :<span style="color: #e2d34d"><strong> Silver</strong></span></h3>
+                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Package :<span style="color: #e2d34d"><strong> {{package.name}}</strong></span></h3>
                                         <br>
-                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Monthly :<span style="color: #e2d34d"><strong> Rs. 12,000.</strong></span> per month</h3>
+                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Monthly :<span style="color: #e2d34d"><strong> Rs. {{package.price}}.</strong></span> per month</h3>
                                         
                                         
                                     </div>
@@ -210,9 +210,9 @@
                                         
                                         <h4 id="subc"><i class="l-banknote" style="color:#e2d34d"></i></h4>
                                         <br>
-                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Balance Due :<span style="color: #e2d34d"><strong> Rs. 300</strong></span></h3>
+                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Balance Due :<span style="color: #e2d34d"><strong> Rs. {{payment.balance}}</strong></span></h3>
                                         <br>
-                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Current Amount Due :<span style="color: #e2d34d"><strong> Rs. 12, 300</strong></span></h3>
+                                        <h3 class="panel-title" style="text-align:center; font-size:18px;"> Current Amount Due :<span style="color: #e2d34d"><strong> Rs. {{payment.due}}</strong></span></h3>
                                         
                                     </div>
                                     <br>
@@ -234,8 +234,8 @@
                                         <th title="balance" style="font-size: 12px; text-align: center; "><i class="fa fa-list-ol"> </i> Balance</th>
                                         <th title="due" style="font-size: 12px; text-align: center; "><i class="fa fa-dollar"> </i> Due</th>
                                         <th title="received" style="font-size: 12px; text-align: center;"><i class="l-banknote"> </i> Received</th>
-                                        <th title="added by" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Received by</th>
-                                        <th title="add date" style="font-size: 12px; text-align: center;"><i class="fa fa-calendar"> </i> Received on</th>
+                                        <th title="added by" style="font-size: 12px; text-align: center; width: 10%;"><i class="fa fa-user"> </i> Received by</th>
+                                        <th title="add date" style="font-size: 12px; text-align: center; width: 10%;"><i class="fa fa-calendar"> </i> Received on</th>
                                         
                                         
                                         
@@ -244,80 +244,19 @@
                                 </thead>
                                 
                                 <tbody>
+                                    {% for history in transactions %}
                                     <tr>
-                                         
-                                        <td>1.</td>
-                                        <td>Monthly Subscription</td>
-                                        <td>June</td>
-                                        <td>2020</td>
-                                        <td>Rs. 3000</td>
-                                        <td>Rs. 16000</td>
-                                        <td>Rs. 10000</td>
-                                        <td>Jalal Ameerzai</td>
-                                        <td>14/7/2020</td>
-                                        
-                                        
+                                        <td>{{forloop.counter}}</td>
+                                        <td>{{history.fh_desc}}</td>
+                                        <td>{{history.fh_month}}</td>
+                                        <td>{{history.fh_year}}</td>
+                                        <td>Rs. {{history.fh_balance}}</td>
+                                        <td>Rs. {{history.fh_due}}</td>
+                                        <td>Rs. {{history.fh_recieved}}</td>
+                                        <td>{{history.fh_added_by}}</td>
+                                        <td>{{history.fh_added_on}}</td>
                                     </tr>
-                                    <tr>
-                                         
-                                        <td>1.</td>
-                                        <td>Monthly Subscription</td>
-                                        <td>June</td>
-                                        <td>2020</td>
-                                        <td>Rs. 3000</td>
-                                        <td>Rs. 16000</td>
-                                        <td>Rs. 10000</td>
-                                        <td>Jalal Ameerzai</td>
-                                        <td>14/7/2020</td>
-                                        
-                                        
-                                    </tr>
-
-                                    <tr>
-                                         
-                                        <td>1.</td>
-                                        <td>Monthly Subscription</td>
-                                        <td>June</td>
-                                        <td>2020</td>
-                                        <td>Rs. 3000</td>
-                                        <td>Rs. 16000</td>
-                                        <td>Rs. 10000</td>
-                                        <td>Jalal Ameerzai</td>
-                                        <td>14/7/2020</td>
-                                        
-                                        
-                                    </tr>
-
-                                    <tr>
-                                         
-                                        <td>1.</td>
-                                        <td>Monthly Subscription</td>
-                                        <td>June</td>
-                                        <td>2020</td>
-                                        <td>Rs. 3000</td>
-                                        <td>Rs. 16000</td>
-                                        <td>Rs. 10000</td>
-                                        <td>Jalal Ameerzai</td>
-                                        <td>14/7/2020</td>
-                                        
-                                        
-                                    </tr>
-
-                                    <tr>
-                                         
-                                        <td>1.</td>
-                                        <td>Monthly Subscription</td>
-                                        <td>June</td>
-                                        <td>2020</td>
-                                        <td>Rs. 3000</td>
-                                        <td>Rs. 16000</td>
-                                        <td>Rs. 10000</td>
-                                        <td>Jalal Ameerzai</td>
-                                        <td>14/7/2020</td>
-                                        
-                                        
-                                    </tr>
-                                   
+                                    {% endfor %}
                                 </tbody>
                             </table>
                                     </div>
