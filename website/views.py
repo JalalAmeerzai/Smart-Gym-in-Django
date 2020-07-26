@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from adminportal.models import ClassData, TrainerData
+from adminportal.models import ClassData, TrainerData, PackageData, AdmissionData
+import datetime
 
 def index(request):
     return render(request, 'website/index.html')
@@ -47,12 +48,52 @@ def contact(request):
 
 
 def getregistered(request):
-    return render(request, 'website/memberform.html')
+    params = {"error":0, "errormessage":"", "success":0, "successmessage": ""}
+
+    if "request" in request.POST:
+        name = request.POST.get("name","").title()
+        email = request.POST.get("email","").lower()
+        contact = request.POST.get("contact","")
+        package = request.POST.get("package","")
+        date = datetime.datetime.now().strftime("%Y-%m-%d")
+        try:
+            ad_request = AdmissionData(ad_name=name, ad_email=email, ad_contact=contact, ad_package=package, ad_date=date)
+            ad_request.save()
+            params["success"] = 1
+            params["successmessage"] = "We have recieved your request. Our team will soon contact you regarding the admissions at SmartGYM"
+        except Exception:
+            params["error"] = 1
+            params["errormessage"] = "Something went wrong. Please try again later and if the problem still occurs then contact our admin."
+    else:
+        if "package_selected" in request.GET:
+            package = request.GET.get("package_selected","")
+        else:
+            package = ""
+            
+
+    
+    
+    params["package"] = package
+    return render(request, 'website/memberform.html', params)
 
 
 
 def membership(request):
-    return render(request, 'website/membership.html')
+    params = {}
+    package_count = PackageData.objects.all().order_by('package_id')
+    packages = {}
+    for package in package_count:
+        features = [feature.lstrip().rstrip() for feature in package.package_features.split(",")]
+        packages[package.package_id] = {
+                "id":package.package_id, 
+                "name": package.package_name, 
+                "desc": package.package_desc, 
+                "features": features, 
+                "price": '{:,}'.format(package.package_price),
+                "admission": '{:,}'.format(package.package_admission)
+        }
+    params["package_list"] = packages 
+    return render(request, 'website/membership.html', params)
 
 
 

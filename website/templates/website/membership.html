@@ -21,56 +21,26 @@
     <div class="border-bottom">
       <div class="row no-gutters">
         
-        <div class="col-md-6 col-lg-4">
-          <div class="w-100 h-100 block-feature p-5 bg-light">
-            <span class="d-block mb-3">
-              <span class="darkcolor display-4">Silver</span>
-            </span>
-            <h2>Rs. 4000.00 / Month</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora fugiat iure eveniet perferendis odit est.</p>
-            <ul class="site-block-check">
-              <li>Feature 1</li>
-              <li>Feature 2</li>
-              <li>Feature 3</li>
-              <li>Feature 4</li>
-            </ul>
-            <p><a href="/website/getregistered" class="btn btn-primary pill text-white px-4">Register</a></p>
+        {% for package in package_list.values %}
+          <div class="col-md-6 col-lg-4">
+            <div class="w-100 h-100 block-feature p-5 bg-light">
+              <span class="d-block mb-3">
+                <span class="darkcolor display-4">{{package.name}}</span>
+              </span>
+              <h2>Rs. {{package.price}}.00 / Month</h2>
+              <h6>Admission: Rs. {{package.admission}}.00</h6>
+              <p>{{package.desc}}</p>
+              <ul class="site-block-check">
+                {% for feature in package.features %}
+                  <li>{{feature}}</li>
+                {% endfor %}
+              </ul>
+              
+              <p><a href="/website/getregistered/?package_selected={{package.name}}" class="btn btn-primary pill text-white px-4">Register</a></p>
+            </div>
           </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="w-100 h-100 block-feature p-5">
-            <span class="d-block mb-3">
-              <span class="darkcolor display-4">Gold</span>
-            </span>
-            <h2>Rs. 8000.00 / Month</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora fugiat iure eveniet perferendis odit est.</p>
-            <ul class="site-block-check">
-              <li>Feature 1</li>
-              <li>Feature 2</li>
-              <li>Feature 3</li>
-              <li>Feature 4</li>
-            </ul>
-            <p><a href="/website/getregistered" class="btn btn-primary pill text-white px-4">Register</a></p>
-          </div>
-        </div>
+        {% endfor %}
 
-        <div class="col-md-6 col-lg-4">
-          <div class="w-100 h-100 block-feature p-5 bg-light">
-            <span class="d-block mb-3">
-              <span class="darkcolor display-4">Platinum</span>
-            </span>
-            <h2>Rs. 11,000.00 / Month</h2>
-            
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora fugiat iure eveniet perferendis odit est.</p>
-            <ul class="site-block-check">
-              <li>Feature 1</li>
-              <li>Feature 2</li>
-              <li>Feature 3</li>
-              <li>Feature 4</li>
-            </ul>
-            <p><a href="/website/getregistered" class="btn btn-primary pill text-white px-4">Register</a></p>
-          </div>
-        </div>
       </div>
     </div> <!-- .block-feature -->
 
