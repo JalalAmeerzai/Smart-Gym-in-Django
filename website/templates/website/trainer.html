@@ -56,88 +56,21 @@
         </div>
 
           <div class="row">
-
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="{% static 'website/images/trainer/T1.jpg'%}" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Mr. XYZ</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>    
-            </div>
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="{% static 'website/images/trainer/T2.jpg'%}" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Mr. XYZ</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>    
-            </div>
-
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="{% static 'website/images/trainer/T3.jpg'%}" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Mr. XYZ</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>    
-            </div>
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="{% static 'website/images/trainer/T4.jpg'%}" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Mr. XYZ</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>    
-            </div>
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="{% static 'website/images/trainer/T5.jpg'%}" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Mr. XYZ</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>    
-            </div>
-
-            <div class="col-lg-4 mb-4">
-              <div class="block-trainer">
-                <img src="{% static 'website/images/trainer/T6.jpg'%}" alt="Image" class="img-fluid">
-                <div class="block-trainer-overlay">
-                  <h2>Mr. XYZ</h2>
-                  <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quas iste corporis asperiores placeat earum.</p>
-                  <p>
-                    <a href="#" class="p-2"><span class="icon-facebook"></span></a>
-                    <a href="#" class="p-2"><span class="icon-instagram"></span></a>
-                  </p>
-                </div>
-              </div>    
-            </div>
-
+            {% for trainer in trainers %}
+              <div class="col-lg-4 mb-4">
+                <div class="block-trainer">
+                  <img src="/media/adminportal/trainer/{{trainer.trainer_img_name}}" alt="Image" class="img-fluid">
+                  <div class="block-trainer-overlay">
+                    <h2>{{trainer.trainer_name}}</h2>
+                    <p class="text-white" >{{trainer.trainer_about|slice:"0:50"}}...</p>
+                    <p>
+                      <a href="{{trainer.trainer_fb}}" class="p-2"><span class="icon-facebook"></span></a>
+                      <a href="{{trainer.trainer_ig}}" class="p-2"><span class="icon-instagram"></span></a>
+                    </p>
+                  </div>
+                </div>    
+              </div>
+            {% endfor %}
           </div>
 
       </div>

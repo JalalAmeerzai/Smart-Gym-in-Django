@@ -57,4 +57,6 @@ def membership(request):
 
 
 def trainer(request):
-    return render(request, 'website/trainer.html')
+    params = {}
+    params["trainers"] = TrainerData.objects.all()
+    return render(request, 'website/trainer.html', params)
