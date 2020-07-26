@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'website.apps.WebsiteConfig',
     'userportal.apps.UserportalConfig',
-    'adminportal.apps.AdminportalConfig'
+    'adminportal.apps.AdminportalConfig',
+    'api.apps.ApiConfig'
 ]
 
 MIDDLEWARE = [
