@@ -356,6 +356,7 @@ def help(request):
 
 
         if "send" in request.POST:
+            
             member = MemberData.objects.filter(member_id=request.session["userid"])[0]
             name = member.member_name.title()
             email = member.member_email.lower()
