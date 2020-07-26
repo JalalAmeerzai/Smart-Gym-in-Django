@@ -25,78 +25,20 @@
         </div>
 
         <div class="nonloop-block-13 owl-carousel">
-          
+          {% for class in classes.values %}
           <div class="block-media-1 heading-with-border bg-white">
-            <img src="{% static 'website/images/classes/1. yoga.jpg'%}" alt="Image" class="img-fluid">
+            <img src="/media/adminportal/class/{{class.img}}" alt="Image" class="img-fluid">
             <div class="p-4">
-              <h3 class="h5 heading">Yoga</h3>
-              <p>Yoga is a group of physical, mental, and spiritual practices or disciplines which originated in ancient India.</p>
+              <h3 class="h5 heading">{{class.name}}</h3>
+              <p>{{class.desc}}</p>
               <span class="d-flex align-items-center">
                 <span class="icon-person h4 mr-3"></span>
-                <span>Bruce Mars, David Holmes</span>
+                <span>{{class.trainer}}</span>
               </span>
             </div>
           </div>
+          {% endfor %}
 
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="{% static 'website/images/classes/2. hiit.jpg'%}" alt="Image" class="img-fluid">
-            <div class="p-4">
-              <h3 class="h5 heading">HIIT</h3>
-              <p>HIIT is a form of interval training, alternating short periods of intense anaerobic exercise with less intense recovery periods.</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>Bruce Mars, David Holmes</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="{% static 'website/images/classes/3. crossfit.jpg'%}" alt="Image" class="img-fluid">
-            <div class="p-4">
-              <h3 class="h5 heading">Crossfit</h3>
-              <p>CrossFit is a strength and conditioning workout that is made up of functional movement performed at a high intensity level.</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>Bruce Mars, David Holmes</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="{% static 'website/images/classes/4. bodypump.jpg'%}" alt="Image" class="img-fluid">
-            <div class="p-4">
-              <h3 class="h5 heading">Bodypump</h3>
-              <p>BODYPUMP is a fast-paced, barbell-based workout that's specifically designed to help you get lean, toned and fit.</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>Bruce Mars, David Holmes</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="{% static 'website/images/classes/5. aerobics.jpg'%}" alt="Image" class="img-fluid">
-            <div class="p-4">
-              <h3 class="h5 heading">Aerobics</h3>
-              <p>Aerobics is a form of physical exercise that combines rhythmic aerobic exercise with stretching and strength training.</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>Bruce Mars, David Holmes</span>
-              </span>
-            </div>
-          </div>
-
-          <div class="block-media-1 heading-with-border bg-white">
-            <img src="{% static 'website/images/classes/6. 30dc.jpg'%}" alt="Image" class="img-fluid">
-            <div class="p-4">
-              <h3 class="h5 heading">30 Day Challenge</h3>
-              <p>The 30-Day Fitness Challenge is designed to work every major muscle group in your body—every day.</p>
-              <span class="d-flex align-items-center">
-                <span class="icon-person h4 mr-3"></span>
-                <span>Bruce Mars, David Holmes</span>
-              </span>
-            </div>
-          </div>
           
 
         </div>
@@ -135,91 +77,110 @@
         </ul>
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="pills-sunday" role="tabpanel" aria-labelledby="pills-sunday-tab">
+            {% for timetable in timetable.sunday.values %}
             <div class="row-wrap">
               <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>     
+                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">{{timetable.name}}</h3></div>
+                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span>{{timetable.trainer}}</div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.stime}}</span></div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.etime}}</span></div>     
               </div>
             </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Yoga</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
-              </div>
-            </div>
-            <div class="row-wrap">
-              <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
-              </div>
-            </div>
-
+            {% endfor %}
           </div>
 
           <div class="tab-pane fade" id="pills-monday" role="tabpanel" aria-labelledby="pills-monday-tab">
             
+            {% for timetable in timetable.monday.values %}
             <div class="row-wrap">
               <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
+                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">{{timetable.name}}</h3></div>
+                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span>{{timetable.trainer}}</div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.stime}}</span></div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.etime}}</span></div>     
               </div>
             </div>
+            {% endfor %}
+
+          </div>
+
+
+          <div class="tab-pane fade" id="pills-tuesday" role="tabpanel" aria-labelledby="pills-tuesday-tab">
+            
+            {% for timetable in timetable.tuesday.values %}
             <div class="row-wrap">
               <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
+                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">{{timetable.name}}</h3></div>
+                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span>{{timetable.trainer}}</div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.stime}}</span></div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.etime}}</span></div>     
               </div>
             </div>
+            {% endfor %}
+
+          </div>
+
+
+          <div class="tab-pane fade" id="pills-wednesday" role="tabpanel" aria-labelledby="pills-wednesday-tab">
+            
+            {% for timetable in timetable.wednesday.values %}
             <div class="row-wrap">
               <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Yoga</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
+                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">{{timetable.name}}</h3></div>
+                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span>{{timetable.trainer}}</div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.stime}}</span></div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.etime}}</span></div>     
               </div>
             </div>
+            {% endfor %}
+
+          </div>
+
+
+          <div class="tab-pane fade" id="pills-thursday" role="tabpanel" aria-labelledby="pills-thursday-tab">
+            
+            {% for timetable in timetable.thursday.values %}
             <div class="row-wrap">
               <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Running</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
+                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">{{timetable.name}}</h3></div>
+                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span>{{timetable.trainer}}</div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.stime}}</span></div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.etime}}</span></div>     
               </div>
             </div>
+            {% endfor %}
+
+          </div>
+
+
+          <div class="tab-pane fade" id="pills-friday" role="tabpanel" aria-labelledby="pills-friday-tab">
+            
+            {% for timetable in timetable.friday.values %}
             <div class="row-wrap">
               <div class="row bg-white p-4 align-items-center">
-                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">Weight Lifting</h3></div>
-                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span> David Holmes</div>
-                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;">&mdash;</div>
-                <div class="col-sm-3 col-md-3 col-lg-3 text-md-right"><span href="#" class="btn btn-primary pill px-4 mt-3 mt-md-0" style="cursor: default;"><span class="icon-clock-o mr-3"></span>8:00am &mdash; 10:00am</span></div>  
+                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">{{timetable.name}}</h3></div>
+                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span>{{timetable.trainer}}</div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.stime}}</span></div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.etime}}</span></div>     
               </div>
             </div>
+            {% endfor %}
+
+          </div>
+
+
+          <div class="tab-pane fade" id="pills-saturday" role="tabpanel" aria-labelledby="pills-saturday-tab">
+            
+            {% for timetable in timetable.saturday.values %}
+            <div class="row-wrap">
+              <div class="row bg-white p-4 align-items-center">
+                <div class="col-sm-3 col-md-3 col-lg-3"><h3 class="h5">{{timetable.name}}</h3></div>
+                <div class="col-sm-3 col-md-3 col-lg-3"><span class="icon-person mr-3"></span>{{timetable.trainer}}</div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.stime}}</span></div>
+                <div class="col-sm-3 col-md-3 col-lg-3" style="text-align: center;"><span class="icon-clock-o mr-3"></span>{{timetable.etime}}</span></div>     
+              </div>
+            </div>
+            {% endfor %}
 
           </div>
 
