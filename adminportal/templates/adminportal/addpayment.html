@@ -217,8 +217,23 @@
                                         <!-- Start .panel -->
                                         
                                         <div class="panel-body">
-                                            <form class="form-horizontal group-border stripped" role="form">
+                                            <form class="form-horizontal group-border stripped" role="form" method="POST" action="/adminportal/paymentadd/{{member.finance_member_id}}"> {% csrf_token %}
 
+                                                
+                                                {% if error == 1 %}
+                                                    <div class="alert alert-danger fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="glyphicon glyphicon-ban-circle alert-icon "></i>
+                                                        <strong>Payment Error!</strong> <br>{{errormessage}}
+                                                    </div>
+                                                {% endif %}
+                                                {% if success == 1 %}
+                                                    <div class="alert alert-success fade in">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                        <i class="fa fa-check alert-icon "></i>
+                                                        <strong>Payment Success</strong> <br>{{successmessage}}
+                                                    </div>
+                                                {% endif %}
 
                                                 <div class="form-group">
                                                     <div class="col-lg-12">
@@ -227,7 +242,7 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">ID</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="" placeholder="eg: mbr121">
+                                                                    <input type="text" class="form-control" id="" placeholder="eg: mbr121" disabled value="{{member.finance_member_id}}" name="id">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -237,7 +252,7 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">Name</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="" placeholder="eg: Jalal Ameerzai">
+                                                                    <input type="text" class="form-control" id="" placeholder="eg: Jalal Ameerzai" name="name" disabled value="{{member.finance_member_name}}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -253,7 +268,7 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">Description</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="text" class="form-control" id="" placeholder="eg: Monthly Subscription"> 
+                                                                    <input type="text" class="form-control" id="" placeholder="eg: Monthly Subscription" name="desc" required value="{{member.finance_desc}}" disabled> 
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -267,20 +282,7 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">Month</label>
                                                                 <div class="col-sm-12">
-                                                                   <select class="form-control" id="expmonth"> 
-                                                                       <option value="January">January</option>
-                                                                       <option value="February">February</option>
-                                                                       <option value="March">March</option>
-                                                                       <option value="April">April</option>
-                                                                       <option value="May">May</option>
-                                                                       <option value="June">June</option>
-                                                                       <option value="July">July</option>
-                                                                       <option value="August">August</option>
-                                                                       <option value="September">September</option>
-                                                                       <option value="October">October</option>
-                                                                       <option value="November">November</option>
-                                                                       <option value="December">December</option>
-                                                                   </select> 
+                                                                    <input type="text" class="form-control" id="expyear" placeholder="July" name="month" disabled value="{{member.finance_month}}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -291,7 +293,7 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">Year</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="number" class="form-control" id="expyear" placeholder="2020">
+                                                                    <input type="number" class="form-control" id="expyear" placeholder="2020" name="year" disabled value="{{member.finance_year}}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -305,7 +307,8 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">Balance</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="number" class="form-control" id="" placeholder="3000" disabled>
+                                                                    <input type="number" class="form-control" id="" placeholder="3000"  disabled value="{{member.finance_balance}}">
+                                                                    <input type="number" class="form-control" id="" placeholder="3000" name="balance" value="{{member.finance_balance}}" style="display: none;">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -316,7 +319,8 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">Due</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="number" class="form-control" id="" placeholder="13000" disabled>
+                                                                    <input type="number" class="form-control" id="" placeholder="13000"  disabled value="{{member.finance_due}}">
+                                                                    <input type="number" class="form-control" id="" placeholder="13000" name="due"  value="{{member.finance_due}}" style="display: none;">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -330,7 +334,7 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">Payment Received</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="number" class="form-control" id="" placeholder="3000">
+                                                                    <input type="number" class="form-control" id="" placeholder="3000" name="recieved" required min="1" max="{{member.finance_due}}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -341,7 +345,7 @@
                                                             <div class="form-group">
                                                                 <label for="" class="col-sm-12 control-label">Payment Date</label>
                                                                 <div class="col-sm-12">
-                                                                    <input type="date" class="form-control" id="">
+                                                                    <input type="date" class="form-control" id="" required name="date">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -353,7 +357,7 @@
                                                 <div class="form-group">
                                                     <div class="col-sm-offset-4 col-sm-4">
                                                         <br><br>
-                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%">Save</button>
+                                                        <button type="submit" class="btn btn-default" id="subcbtn" style="width:100%" name="makepayment">Save</button>
                                                     </div>
                                                 </div>
                                                             

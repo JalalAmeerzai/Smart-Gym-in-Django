@@ -218,68 +218,31 @@
                                         <table id="basic-datatables" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                             <thead >
                                                 <tr style="background-color: #404040; color: #e2d34d;">
-                                                   
-                                                    <th title="ID" style="font-size: 12px; text-align: center; width: 12%"><i class="fa fa-sort-numeric-asc"> </i> ID</th>
-                                                    <th title="name" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Name</th>
-                                                    
-                                                    <th title="balance" style="font-size: 12px; text-align: center; width: 12%;"><i class="fa fa-list-ol"> </i> Balance</th>
-                                                    <th title="due" style="font-size: 12px; text-align: center; width: 12%;"><i class="fa fa-dollar"> </i> Due</th>
-                                                    <th title="options" class="tableedit" style=" font-size: 12px; text-align: center; width: 15%;"><i class="l-software-pathfinder-subtract"> </i> Options</th>
+                                                    <th title="S. No." style="font-size: 12px; text-align: center; width: 10%"><i class="fa fa-sort-numeric-asc"> </i> S. No.</th>
+                                                    <th title="name" style="font-size: 12px; text-align: center;"><i class="fa fa-user"> </i> Member Name</th>
+                                                    <th title="member id" style="font-size: 12px; text-align: center; width: 10%;"><i class="l-basic-postcard-multiple"> </i> Member ID</th>
                                                     
                                                     
-                                                    
+                                                    <th title="balance" style="font-size: 12px; text-align: center; width:10%"><i class="fa fa-list-ol"> </i> Balance</th>
+                                                    <th title="due" style="font-size: 12px; text-align: center; width: 10%;"><i class="fa fa-dollar"> </i> Due</th>
+                                                    <th title="options" class="tableedit" style=" font-size: 12px; text-align: center; width: 10%;"><i class="l-software-pathfinder-subtract"> </i> Options</th>
                                                 </tr>
                                             </thead>
                                             
                                             <tbody>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
+                                                {% for member in members.values %}
+                                                <tr> 
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{member.name}}</td>
+                                                    <td>{{member.id}}</td>
+                                                    <td>Rs. {{member.balance}}</td>
+                                                    <td>Rs. {{member.due}}</td>
                                                     <td>
-                                                        <a title="view" href="/adminportal/paymenthistoryview"><i class="fa   fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding: 5px;" data-toggle="modal" data-target=""> view</i></a>
+                                                        <a title="view" style="text-decoration: none;" href="/adminportal/paymenthistoryview/{{member.id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #51bf87; color: white; padding: 5px; font-size: 15px; " data-toggle="modal" data-target=""> View</i></a>
                                                     </td>
-                                                    
                                                 </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
-                                                    <td>
-                                                        <a title="view" href="/adminportal/paymenthistoryview"><i class="fa   fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding: 5px;" data-toggle="modal" data-target=""> view</i></a>
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
-                                                    <td>
-                                                        <a title="view" href="/adminportal/paymenthistoryview"><i class="fa   fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding: 5px;" data-toggle="modal" data-target=""> view</i></a>
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Jalal</td>
-                                                    
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
-                                                    <td>
-                                                        <a title="view" href="/adminportal/paymenthistoryview"><i class="fa   fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding: 5px;" data-toggle="modal" data-target=""> view</i></a>
-                                                    </td>
-                                                    
-                                                </tr>
+                                                {% endfor %}
+                                               
                                                
                                             </tbody>
                                         </table>

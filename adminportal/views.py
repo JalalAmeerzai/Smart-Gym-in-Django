@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData, MessageData, ArchivedMessageData, ReplyMessageData, AttendanceData
+from .models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData, MessageData, ArchivedMessageData, ReplyMessageData, AttendanceData, FinanceData, FinanceHistoryData
 from django.utils.datastructures import MultiValueDictKeyError #for files
 import base64
 import imghdr
@@ -536,6 +536,9 @@ def members(request):
                             image_result.write(image_64_decode)
                             #for attendance
                             days = ("monday","tuesday","wednesday","thursday","friday","saturday","sunday")
+                            months = ("January","February","March","April","May","June","July", "August", "September", "October", "November", "December")
+                            currentMonth = months[dt.now().month-1]
+                            currentYear = dt.now().year
                             try:
                                 send_mail(
                                     'Welcome to SmartGym - This Email Contains your Account Credentials',
@@ -547,11 +550,15 @@ def members(request):
                                 params["successmessage"] = "Member added successfully."
                                 add_attendance = AttendanceData(attendance_member_id=new_id, attendance_member_name=name,  attendance_in_time="", attendance_out_time="", attendance_date=datetime.datetime.now().strftime("%Y-%m-%d"), attendance_day=days[datetime.datetime.now().weekday()])
                                 add_attendance.save()
+                                add_finance = FinanceData(finance_member_name=name, finance_member_id=new_id, finance_desc="Admission and "+currentMonth+" Subscription", finance_month=currentMonth, finance_year=currentYear, finance_balance = 0, finance_due = (PackageData.objects.filter(package_id= package)[0].package_price + PackageData.objects.filter(package_id= package)[0].package_admission))
+                                add_finance.save()
                             except Exception:
                                 params["success"] = 1
                                 params["successmessage"] = "Member added successfully. But Email failed to deliver"
                                 add_attendance = AttendanceData(attendance_member_id=new_id, attendance_member_name=name,  attendance_in_time="", attendance_out_time="", attendance_date=datetime.datetime.now().strftime("%Y-%m-%d"), attendance_day=days[datetime.datetime.now().weekday()])
                                 add_attendance.save()
+                                add_finance = FinanceData(finance_member_name=name, finance_member_id=new_id, finance_desc="Admission and "+currentMonth+" Subscription", finance_month=currentMonth, finance_year=currentYear, finance_balance = 0, finance_due = (PackageData.objects.filter(package_id= package)[0].package_price + PackageData.objects.filter(package_id= package)[0].package_admission))
+                                add_finance.save()
                         except Exception:
                             params["error"] = 1
                             params["errormessage"] = "Something went wrong. Try again later."
@@ -672,6 +679,8 @@ def membersprofileedit(request, memid):
                     params["dataerror"] = 1
                 else:
                     update_attendance_name = AttendanceData.objects.filter(attendance_member_id=memid).update(attendance_member_name=name)
+                    update_finance_name = FinanceData.objects.filter(finance_member_id=memid).update(finance_member_name=name)
+                    update_finance_history_name = FinanceHistoryData.objects.filter(fh_member_id=memid).update(fh_member_name=name)
                     return redirect('/adminportal/membersprofile/'+memid)
             
             #upload package logic
@@ -736,7 +745,7 @@ def attendance(request):
                 if len(member) == 1:
                     #return HttpResponse(memberid)
                     if member[0].attendance_in_time != "":
-                        out_time_update = AttendanceData.objects.filter(attendance_member_id=memberid).update(attendance_out_time=out_time)
+                        out_time_update = AttendanceData.objects.filter(attendance_member_id=memberid, attendance_date=today).update(attendance_out_time=out_time)
             except Exception:
                 pass
             return redirect("/adminportal/attendance")
@@ -751,7 +760,7 @@ def attendance(request):
                 member = AttendanceData.objects.filter(attendance_date=today, attendance_in_time="", attendance_member_id=memberid)
                 if len(member) == 1:
                     #return HttpResponse(memberid)
-                    in_time_update = AttendanceData.objects.filter(attendance_member_id=memberid).update(attendance_in_time=in_time)
+                    in_time_update = AttendanceData.objects.filter(attendance_member_id=memberid, attendance_date=today).update(attendance_in_time=in_time)
             except Exception:
                 pass
             return redirect("/adminportal/attendance")
@@ -793,16 +802,6 @@ def attendancehistory(request):
     else:
         return redirect('/adminportal/login/')
     
-
-
-
-
-
-def paymentadd(request):
-    if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/addpayment.html')
-    else:
-        return redirect('/adminportal/login/')
     
 
 
@@ -811,10 +810,73 @@ def paymentadd(request):
 
 def paymentdue(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/duepayment.html')
+        
+        months = ("January","February","March","April","May","June","July", "August", "September", "October", "November", "December")
+        currentMonth = months[dt.now().month-1]
+        currentYear = dt.now().year
+        finance_update = FinanceData.objects.all().order_by("finance_member_name")
+        if finance_update[0].finance_month != currentMonth:
+            for member in finance_update:
+                try:
+                    balance = member.finance_due
+                    due = balance + PackageData.objects.filter(package_id= MemberData.objects.filter(member_id=member.finance_member_id)[0].member_package)[0].package_price
+                    update = FinanceData.objects.filter(finance_member_id=member.finance_member_id).update(finance_month=currentMonth, finance_year=currentYear, finance_due=due, finance_balance=balance, finance_desc=currentMonth+" Subscription")
+                except Exception:
+                    pass
+        
+        
+        params={}
+        members_count = FinanceData.objects.all().filter(finance_due__gte=1).order_by("finance_member_name")
+        members = {}
+        for member in members_count:
+            if len(MemberData.objects.filter(member_id=member.finance_member_id)) == 1:
+                members[member.finance_member_id] = {"name": member.finance_member_name, "id": member.finance_member_id, "desc": member.finance_desc, "month": member.finance_month, "year": member.finance_year, "due": member.finance_due, "balance": member.finance_balance}
+
+        params["members"] = members
+        return render(request, 'adminportal/duepayment.html', params)
     else:
         return redirect('/adminportal/login/')
     
+
+
+
+
+def paymentadd(request, memid):
+    if "userid" in request.session and request.session["userrole"] == "Admin" :
+        params = {"error":0, "errormessage":"", "success":0, "successmessage": ""}
+
+        if "makepayment" in request.POST:
+            balance = request.POST.get("balance","")
+            balance = int(balance) 
+            due = request.POST.get("due","")
+            due = int(due)
+            recieved = request.POST.get("recieved","")
+            recieved = int(recieved)
+            update = FinanceData.objects.filter(finance_member_id=memid).update(finance_due=(due-recieved), finance_balance=(due-recieved))
+            if update == 1:
+                member_transaction = FinanceData.objects.filter(finance_member_id=memid)[0]
+                added_by = request.session["userid"]
+                added_on = datetime.datetime.now().strftime("%Y-%m-%d")
+                transaction = FinanceHistoryData(fh_desc=member_transaction.finance_desc, fh_member_id=member_transaction.finance_member_id, fh_member_name=member_transaction.finance_member_name, fh_month=member_transaction.finance_month, fh_year=member_transaction.finance_year, fh_balance=balance, fh_due=due, fh_recieved=recieved, fh_added_by=added_by, fh_added_on=added_on)
+                transaction.save()
+                params["success"] = 1
+                params["successmessage"] = "Payment made successfully"
+            else:
+                params["error"] = 1
+                params["errormessage"] = "Transaction failed. Try again later."
+
+
+
+        try:
+            finance_member = FinanceData.objects.filter(finance_member_id=memid)[0]
+            params["member"] = finance_member
+        except Exception:
+            return redirect("/adminportal/paymentdue")
+        
+        return render(request, 'adminportal/addpayment.html', params)
+    else:
+        return redirect('/adminportal/login/')
+
 
 
 
@@ -822,7 +884,14 @@ def paymentdue(request):
 
 def paymenthistory(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-        return render(request, 'adminportal/historypayment.html')
+        params={}
+        members_count = FinanceData.objects.all().order_by("finance_member_name")
+        members = {}
+        for member in members_count:
+                members[member.finance_member_id] = {"name": member.finance_member_name, "id": member.finance_member_id, "desc": member.finance_desc, "month": member.finance_month, "year": member.finance_year, "due": member.finance_due, "balance": member.finance_balance}
+
+        params["members"] = members
+        return render(request, 'adminportal/historypayment.html', params)
     else:
         return redirect('/adminportal/login/')
     
@@ -831,9 +900,12 @@ def paymenthistory(request):
 
 
 
-def paymenthistoryview(request):
+def paymenthistoryview(request,memid):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
-         return render(request, 'adminportal/viewhistorypayment.html')
+        params={"member":""}
+        history = FinanceHistoryData.objects.filter(fh_member_id=memid).order_by("-fh_added_on")
+        params["member"] = history
+        return render(request, 'adminportal/viewhistorypayment.html', params)
     else:
         return redirect('/adminportal/login/')
    

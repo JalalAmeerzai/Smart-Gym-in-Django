@@ -195,7 +195,7 @@
                         <!-- Start .page-content-inner -->
                         <div id="page-header" class="clearfix">
                             <div class="page-header">
-                                <h2>Jalal Ameerzai - Transaction History</h2>
+                                <h2>{{member.0.fh_member_name}} - Transaction History</h2>
                                 <span class="txt">Below is the list of transactions done by the user</span>
                             </div>
                             
@@ -236,80 +236,19 @@
                                             </thead>
                                             
                                             <tbody>
+                                                {% for history in member %}
                                                 <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Monthly Subscription</td>
-                                                    <td>June</td>
-                                                    <td>2020</td>
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
-                                                    <td>Rs. 10000</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>14/7/2020</td>
-                                                    
-                                                    
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{history.fh_desc}}</td>
+                                                    <td>{{history.fh_month}}</td>
+                                                    <td>{{history.fh_year}}</td>
+                                                    <td>Rs. {{history.fh_balance}}</td>
+                                                    <td>Rs. {{history.fh_due}}</td>
+                                                    <td>Rs. {{history.fh_recieved}}</td>
+                                                    <td>{{history.fh_added_by}}</td>
+                                                    <td>{{history.fh_added_on}}</td>
                                                 </tr>
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Monthly Subscription</td>
-                                                    <td>June</td>
-                                                    <td>2020</td>
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
-                                                    <td>Rs. 10000</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>14/7/2020</td>
-                                                    
-                                                    
-                                                </tr>
-
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Monthly Subscription</td>
-                                                    <td>June</td>
-                                                    <td>2020</td>
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
-                                                    <td>Rs. 10000</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>14/7/2020</td>
-                                                    
-                                                    
-                                                </tr>
-
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Monthly Subscription</td>
-                                                    <td>June</td>
-                                                    <td>2020</td>
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
-                                                    <td>Rs. 10000</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>14/7/2020</td>
-                                                    
-                                                    
-                                                </tr>
-
-                                                <tr>
-                                                     
-                                                    <td>1.</td>
-                                                    <td>Monthly Subscription</td>
-                                                    <td>June</td>
-                                                    <td>2020</td>
-                                                    <td>Rs. 3000</td>
-                                                    <td>Rs. 16000</td>
-                                                    <td>Rs. 10000</td>
-                                                    <td>Jalal Ameerzai</td>
-                                                    <td>14/7/2020</td>
-                                                    
-                                                    
-                                                </tr>
-                                               
+                                                {% endfor %}
                                             </tbody>
                                         </table>
 

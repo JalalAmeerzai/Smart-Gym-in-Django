@@ -182,4 +182,30 @@ class AttendanceData(models.Model):
     attendance_out_time = models.CharField(max_length=500, default="")
     attendance_day = models.CharField(max_length=500, default="")
     attendance_date = models.CharField(max_length=500, default="")
+
+
+
+class FinanceData(models.Model):
+    finance_id = models.AutoField(primary_key=True)
+    finance_member_id = models.CharField(max_length=500, default="")
+    finance_member_name = models.CharField(max_length=500, default="")
+    finance_desc = models.CharField(max_length=500, default="")
+    finance_month = models.CharField(max_length=500, default="")
+    finance_year = models.CharField(max_length=500, default="")
+    finance_balance = models.IntegerField(default=0)
+    finance_due = models.IntegerField(default=0)
+
+
+class FinanceHistoryData(models.Model):
+    fh_id = models.AutoField(primary_key=True)
+    fh_member_id = models.CharField(max_length=500, default="")
+    fh_member_name = models.CharField(max_length=500, default="")
+    fh_desc = models.CharField(max_length=500, default="")
+    fh_month = models.CharField(max_length=500, default="")
+    fh_year = models.CharField(max_length=500, default="")
+    fh_balance = models.IntegerField(default=0)
+    fh_due = models.IntegerField(default=0)
+    fh_recieved = models.IntegerField(default=0)
+    fh_added_by = models.CharField(max_length=500, default="")
+    fh_added_on = models.CharField(max_length=500, default="")
     
