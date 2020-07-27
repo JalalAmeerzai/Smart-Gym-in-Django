@@ -24,6 +24,7 @@ urlpatterns = [
     path('', views.index, name="landing-page"),
     path('website/', include('website.urls')),
     path('userportal/', include('userportal.urls')),
-    path('adminportal/', include('adminportal.urls'))
+    path('adminportal/', include('adminportal.urls')),
+    path('api/', include('api.urls')),
     #path('productapi/', views.productapi, name="api")
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

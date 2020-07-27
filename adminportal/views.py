@@ -789,9 +789,14 @@ def membersprofileedit(request, memid):
         if height == "":
             params["height"] = {"h1": "", "h2":""}
         else:
-            h1 = height.split(",")[0]
-            h2 = height.split(",")[1]
-            params["height"] = {"h1": int(h1), "h2": int(h2)}
+            try:
+                h1 = height.split(",")[0]
+                h2 = height.split(",")[1]
+                params["height"] = {"h1": int(h1), "h2": int(h2)}
+            except Exception:
+                params["height"] = {"h1": 0, "h2": 0}
+
+            
 
         params["packages"] = PackageData.objects.all().order_by('package_id')
         params["routines"] = RoutineData.objects.all().order_by('routine_id')
