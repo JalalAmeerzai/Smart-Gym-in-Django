@@ -146,6 +146,55 @@ def userroutine(request):
             return JsonResponse({"routine": routine})
 
 
+@csrf_exempt
+def identifymachine(request):
+    if request.method == "POST":
+        user_request = json.loads(request.body)
+        image_base64_string = user_request["image"]
+        image_64_decode = base64.decodebytes(image_base64_string.encode('ascii'))
+        image_result = open("media\\adminportal\\identify\\machine.jpg", 'wb')
+        image_result.write(image_64_decode)
+        machine_name = "bench" #machine learning identification to return output string machine name here
+        try:
+            exercises = ExerciseData.objects.filter(exercise_equipment__icontains=machine_name)
+            exercises_to_send = {}
+            i = 1
+            for exercise in exercises:
+                exercises_to_send["Exercise"+str(i)] = {"name": exercise.exercise_name, "equipment": exercise.exercise_equipment, "video": exercise.exercise_tutorial}
+                i = i+1
+        except Exception:
+            pass    
+        
+        if exercises_to_send == {}:
+            exercises_to_send["message"] = "no exercises found"
+        
+        return JsonResponse(exercises_to_send)
+
+
+@csrf_exempt
+def listofroutines(request):
+    if request.method == "POST":
+        routines = RoutineData.objects.all()
+        routines_to_send = {}
+        if len(routines) > 0:
+            i = 1
+            for routine in routines:
+                imagestr = base64.b64encode(open('media\\adminportal\\routine\\'+routine.routine_id+".jpg", 'rb').read()).decode('utf-8')
+                routines_to_send["Routine"+str(i)] = {"id": routine.routine_id, "name": routine.routine_name, "description": routine.routine_desc, "image": imagestr}
+                i = i + 1
+            return JsonResponse(routines_to_send)
+        else:
+            return JsonResponse({"message": "no routines found"})
+
+
+
+@csrf_exempt
+def viewroutine(request):
+    if request.method == "POST":
+        user_request = json.loads(request.body)
+
+
+
 
 #@csrf_exempt
 #def productapi(request):

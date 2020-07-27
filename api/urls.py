@@ -8,4 +8,7 @@ urlpatterns = [
     path('createsuperuser/', views.createsuperuser, name="api-createsuperuser"),
     path('userdiet/', views.userdiet, name="api-userdiet"),
     path('userroutine/', views.userroutine, name="api-userroutine"),
+    path('identifymachine/', views.identifymachine, name="api-identifymachine"),
+    path('listofroutines/', views.listofroutines, name="api-listofroutines"),
+    path('viewroutine/', views.viewroutine, name="api-viewroutine"),
 ]
