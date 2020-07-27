@@ -83,26 +83,30 @@ def homescreen(request):
             response["dob"] = member[0].member_dob
             response["height"] = member[0].member_height
             response["weight"] = member[0].member_weight
-            
             image = open('media\\adminportal\\member\\'+member[0].member_img_name, 'rb')
             image_read = image.read()
             response["image"] = base64.b64encode(image_read).decode('utf-8')
-            
             try:
                 response["routine"] = json.loads(RoutineData.objects.filter(routine_id = member[0].member_routine)[0].routine_json)[user_request["day"].lower()]
+                for key, routine in response["routine"].items():
+                    imagestr = base64.b64encode(open('media\\adminportal\\exercise\\'+routine["exercise"]+".jpg", 'rb').read()).decode('utf-8')
+                    response["routine"][key]["name"] = ExerciseData.objects.filter(exercise_id = routine["exercise"])[0].exercise_name
+                    response["routine"][key]["image"] = imagestr
             except Exception:
                 response["routine"] = 0
-            
             try:
                 response["diet"] = json.loads(DietData.objects.filter(diet_id = member[0].member_diet)[0].diet_json)[user_request["day"].lower()]
             except Exception:
                 response["diet"] = 0
-
             return JsonResponse(response)
-
         else:
             return JsonResponse({"message": "can't locate user"})
 
+
+
+@csrf_exempt
+def createsuperuser(request):
+    return HttpResponse("Ss")
 
 
 #@csrf_exempt
@@ -139,3 +143,9 @@ def homescreen(request):
             #print(type(image_64_encode),"\n\n", image_64_encode )
             #image_result = open('cv233.png', 'wb') # create a writable image and write the decoding result
             #image_result.write(image_64_decode)
+
+
+
+
+            #slikeroperator
+            #ExerciseData.objects.filter(exercise_equipment__icontains='bench')[0].exercise_name

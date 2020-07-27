@@ -790,11 +790,15 @@ def membersprofileedit(request, memid):
             params["height"] = {"h1": "", "h2":""}
         else:
             try:
-                h1 = height.split(",")[0]
-                h2 = height.split(",")[1]
-                params["height"] = {"h1": int(h1), "h2": int(h2)}
+                h1 = int(height.split(",")[0])
             except Exception:
-                params["height"] = {"h1": 0, "h2": 0}
+                h1 = 0
+            try:
+                h2 = int(height.split(",")[1])
+            except Exception:
+                h2 = 0
+            params["height"] = {"h1":h1, "h2": h2}
+            
 
             
 
