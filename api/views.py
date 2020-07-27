@@ -106,7 +106,45 @@ def homescreen(request):
 
 @csrf_exempt
 def createsuperuser(request):
-    return HttpResponse("Ss")
+    adm = AdminData(admin_id="adm1", admin_name="Super User", admin_email="super@user.com", admin_password="superuser123", admin_contact="03031234567", admin_address="Super Street Block Super, supercity", admin_dob="1994-10-02", admin_status="Active", admin_role="Admin", admin_img_name="adm1.jpg", admin_added_by="superuser", admin_added_on="2020-07-28")
+    adm.save()
+    return HttpResponse("success")
+
+
+
+@csrf_exempt
+def userdiet(request):
+    if request.method == "POST":
+        user_request = json.loads(request.body)
+        try:
+            diet = json.loads(DietData.objects.filter(diet_id=MemberData.objects.filter(member_id=user_request["id"])[0].member_diet)[0].diet_json)
+            return JsonResponse(diet)
+        except Exception:
+            diet = 0
+            return JsonResponse({"diet": diet})
+
+
+
+@csrf_exempt
+def userroutine(request):
+    if request.method == "POST":
+        user_request = json.loads(request.body)
+        try:
+            routine = json.loads(RoutineData.objects.filter(routine_id=MemberData.objects.filter(member_id=user_request["id"])[0].member_routine)[0].routine_json)
+            for day in routine:
+                for exercise in routine[day]:
+                    try:
+                        routine[day][exercise]["name"] = ExerciseData.objects.filter(exercise_id=routine[day][exercise]["exercise"])[0].exercise_name
+                        imagestr = base64.b64encode(open('media\\adminportal\\exercise\\'+routine[day][exercise]["exercise"]+".jpg", 'rb').read()).decode('utf-8')
+                        routine[day][exercise]["image"] = imagestr
+                    except Exception:
+                        routine[day][exercise]["name"] = " - "
+                        routine[day][exercise]["image"] = 0
+            return JsonResponse(routine)
+        except Exception:
+            routine = 0
+            return JsonResponse({"routine": routine})
+
 
 
 #@csrf_exempt
