@@ -11,4 +11,6 @@ urlpatterns = [
     path('identifymachine/', views.identifymachine, name="api-identifymachine"),
     path('listofroutines/', views.listofroutines, name="api-listofroutines"),
     path('viewroutine/', views.viewroutine, name="api-viewroutine"),
+    path('followroutine/', views.followroutine, name="api-followroutine"),
+    path('settings/', views.settings, name="api-settings"),
 ]

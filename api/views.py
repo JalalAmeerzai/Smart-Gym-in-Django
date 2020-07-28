@@ -146,6 +146,7 @@ def userroutine(request):
             return JsonResponse({"routine": routine})
 
 
+
 @csrf_exempt
 def identifymachine(request):
     if request.method == "POST":
@@ -171,6 +172,7 @@ def identifymachine(request):
         return JsonResponse(exercises_to_send)
 
 
+
 @csrf_exempt
 def listofroutines(request):
     if request.method == "POST":
@@ -192,47 +194,89 @@ def listofroutines(request):
 def viewroutine(request):
     if request.method == "POST":
         user_request = json.loads(request.body)
+        try:
+            routine = RoutineData.objects.filter(routine_id=user_request["routine"])[0]
+            routine_json = json.loads(routine.routine_json)
+            for day in routine_json:
+                for exercise in routine_json[day]:
+                    try:
+                        routine_json[day][exercise]["name"] = ExerciseData.objects.filter(exercise_id=routine_json[day][exercise]["exercise"])[0].exercise_name
+                        imagestr = base64.b64encode(open('media\\adminportal\\exercise\\'+routine_json[day][exercise]["exercise"]+".jpg", 'rb').read()).decode('utf-8')
+                        routine_json[day][exercise]["image"] = imagestr
+                    except Exception:
+                        routine_json[day][exercise]["name"] = " - "
+                        routine_json[day][exercise]["image"] = 0
+            view_routine = {"id": routine.routine_id, "name": routine.routine_name, "description": routine.routine_desc, "image": base64.b64encode(open('media\\adminportal\\routine\\'+routine.routine_id+".jpg", 'rb').read()).decode('utf-8'), "routine": routine_json}
+            return JsonResponse(view_routine)
+        except Exception:
+            return JsonResponse({"message": "something went wrong"})
 
 
 
+@csrf_exempt
+def followroutine(request):
+    if request.method == "POST":
+        user_request = json.loads(request.body)
+        try:
+            update = MemberData.objects.filter(member_id = user_request["id"]).update(member_routine=user_request["routine"])
+            if update == 1:
+                return JsonResponse({"state": 1})
+            else:
+                return JsonResponse({"state": 0})
+        except Exception:
+            return JsonResponse({"message": "something went wrong"})
 
-#@csrf_exempt
-#def productapi(request):
-    #if request.method=="GET":
-        #jalal = [{'id':'existing','name':'test user'}]
-        #jalal.append({'id': request.GET.get('id', ''), 'name': request.GET.get('name', '')})
-        #products = Product.objects.all()
-        #return HttpResponse(json.dumps(jalal,  default=str))
+
+
+@csrf_exempt
+def settings(request):
+    if request.method == "POST":
+        user_request = json.loads(request.body)
         
-        #objectreturn = {}
-        #for i in range(1,4):
-            #obj = "obj"+str(i)
-            #objectreturn[obj] = {"id": i, "name": "test"+str(i)}
-        #objectreturn["obj"+str(request.GET.get('id', ''))] = {'id': request.GET.get('id', ''), 'name': request.GET.get('name', '')}
-        #return JsonResponse(objectreturn)
-        
-        #getting raw data in the form of json and converting it into json
-        #dicts = json.loads(request.body) # to get the raw json data from request and convert it into a json or a dictionary   
-        #return JsonResponse(dicts)
+        if user_request["update"].lower() == "image":
+            if len(MemberData.objects.filter(member_id=user_request["id"])) > 0:
+                try:
+                    imagestr = user_request["image"]
+                    image_64_decode = base64.decodebytes(imagestr.encode('ascii'))
+                    image_result = open('media\\adminportal\\member\\'+user_request["id"]+".jpg", 'wb')
+                    image_result.write(image_64_decode)
+                    return JsonResponse({"state": 1})
+                except Exception:
+                    return JsonResponse({"state": 0})
+            else:
+                return JsonResponse({"message": "can't locate user"})
 
-        #return HttpResponse(len(request.body))
-
-
-
-
-
-            #image = open('media\\adminportal\\member\\'+member[0].member_img_name, 'rb')
-            #image_read = image.read()
-            #string = base64.b64encode(image_read)
             
-            #image_64_encode = base64.encodebytes(image_read)
-            #image_64_decode = base64.decodebytes(imgstr.encode('ascii'))
-            #print(type(image_64_encode),"\n\n", image_64_encode )
-            #image_result = open('cv233.png', 'wb') # create a writable image and write the decoding result
-            #image_result.write(image_64_decode)
+        
+
+        if user_request["update"].lower() == "password":
+            if len(MemberData.objects.filter(member_id=user_request["id"], member_password=user_request["oldpassword"])) > 0:
+                if len(user_request["newpassword"]) >= 6:
+                    update = MemberData.objects.filter(member_id = user_request["id"]).update(member_password=user_request["newpassword"])
+                    if update == 1:
+                        return JsonResponse({"state": 1})
+                    else:
+                        return JsonResponse({"state": 0})
+                else:
+                    return JsonResponse({"state": 0})
+            else:
+                return JsonResponse({"message": "type old password correctly"})
+        
 
 
 
-
-            #slikeroperator
-            #ExerciseData.objects.filter(exercise_equipment__icontains='bench')[0].exercise_name
+        if user_request["update"].lower() == "data":
+            if len(MemberData.objects.filter(member_id=user_request["id"])) > 0:
+                name = user_request["name"].title()
+                contact = user_request["contact"]
+                dob = user_request["dob"]
+                address = user_request["address"]
+                height = user_request["height"]
+                weight = user_request["weight"]
+                update = MemberData.objects.filter(member_id=user_request["id"]).update(member_name=name, member_contact=contact, member_address=address, member_height=height, member_weight=weight, member_dob=dob)
+                if update == 1:
+                    return JsonResponse({"state": 1})
+                else:
+                    return JsonResponse({"state": 0})
+            else:
+                return JsonResponse({"message": "can't locate user"})
