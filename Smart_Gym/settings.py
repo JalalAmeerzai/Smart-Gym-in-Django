@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'o$b3-3_6+4(^b=3ne-@llm%urvw-whe+avz^wni4r1$@5q$5yc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -84,8 +84,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'smartgym',
         'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': 'localhost'
+        'PASSWORD': 'qwerty12345',
+        'HOST': 'smart-gym-django.cpchyr3btoe9.us-east-2.rds.amazonaws.com',
+        'PORT': '5432'
     }
 }
 
