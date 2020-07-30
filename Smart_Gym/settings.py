@@ -81,12 +81,8 @@ WSGI_APPLICATION = 'Smart_Gym.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'smartgym',
-        'USER': 'postgres',
-        'PASSWORD': 'qwerty12345',
-        'HOST': 'smart-gym-django.cpchyr3btoe9.us-east-2.rds.amazonaws.com',
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

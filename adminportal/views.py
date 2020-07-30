@@ -182,7 +182,7 @@ def settings(request):
                     else:
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\admin\\"+admin[0].admin_img_name, 'wb')
+                        image_result = open("./media/adminportal/admin/"+admin[0].admin_img_name, 'wb')
                         image_result.write(image_64_decode)
                         return redirect('/adminportal/user/')
 
@@ -259,7 +259,12 @@ def staff(request):
 
         # add admin logic
         if "addadmin" in request.POST:
-            new_id = "adm" + str((int(admin_count[len(admin_count)-1].admin_id[-1])+1))
+            ids = []
+            for member in admin_count:
+                ids.append(int(re.search(r'\d+', member.admin_id).group()))
+            max_id = max(ids)                  
+            new_id = "adm" + str((max_id+1))
+            
             try:
                 file = request.FILES['picture']
             except MultiValueDictKeyError:
@@ -288,7 +293,7 @@ def staff(request):
                             new_admin.save()
                             image_64_encode = base64.encodebytes(file.read())
                             image_64_decode = base64.decodebytes(image_64_encode)
-                            image_result = open("media\\adminportal\\admin\\"+picture, 'wb')
+                            image_result = open("./media/adminportal/admin/"+picture, 'wb')
                             image_result.write(image_64_decode)
                             try:
                                 send_mail(
@@ -313,7 +318,7 @@ def staff(request):
             admin_delete = AdminData.objects.filter(admin_id = del_id).delete()
             if admin_delete[0] == 1:
                 try:
-                    os.remove("media\\adminportal\\admin\\"+del_id+".jpg")
+                    os.remove("./media/adminportal/admin/"+del_id+".jpg")
                     params["success"] = 1
                     params["successmessage"] = "Staff member successfully deleted."
                 except Exception:
@@ -376,7 +381,7 @@ def staffprofileedit(request, adminid):
                     else:
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\admin\\"+admin[0].admin_img_name, 'wb')
+                        image_result = open("./media/adminportal/admin/"+admin[0].admin_img_name, 'wb')
                         image_result.write(image_64_decode)
                         return redirect('/adminportal/staffprofile/'+adminid)
             
@@ -414,7 +419,12 @@ def trainers(request):
             if len(trainer_count) == 0:
                 new_id = "tr1"
             else:
-                new_id = "tr" + str((int(trainer_count[len(trainer_count)-1].trainer_id[-1])+1))
+                ids = []
+                for member in trainer_count:
+                    ids.append(int(re.search(r'\d+', member.trainer_id).group()))
+                max_id = max(ids)                  
+                new_id = "tr" + str((max_id+1))
+                
 
             try:
                 file = request.FILES['picture']
@@ -448,7 +458,7 @@ def trainers(request):
                             new_trainer.save()
                             image_64_encode = base64.encodebytes(file.read())
                             image_64_decode = base64.decodebytes(image_64_encode)
-                            image_result = open("media\\adminportal\\trainer\\"+picture, 'wb')
+                            image_result = open("./media/adminportal/trainer/"+picture, 'wb')
                             image_result.write(image_64_decode)
                             params["success"] = 1
                             params["successmessage"] = "Trainer added successfully."
@@ -462,7 +472,7 @@ def trainers(request):
             trainer_delete = TrainerData.objects.filter(trainer_id = del_id).delete()
             if trainer_delete[0] == 1:
                 try:
-                    os.remove("media\\adminportal\\trainer\\"+del_id+".jpg")
+                    os.remove("./media/adminportal/trainer/"+del_id+".jpg")
                     params["success"] = 1
                     params["successmessage"] = "Trainer successfully deleted."
                 except Exception:
@@ -515,7 +525,7 @@ def trainersprofileedit(request, trainerid):
                     else:
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\trainer\\"+trainer[0].trainer_img_name, 'wb')
+                        image_result = open("./media/adminportal/trainer/"+trainer[0].trainer_img_name, 'wb')
                         image_result.write(image_64_decode)
                         return redirect('/adminportal/trainersprofile/'+trainerid)
             
@@ -552,13 +562,17 @@ def members(request):
     if "userid" in request.session and request.session["userrole"] == "Admin" :
         params={"error":0, "errormessage":"", "success":0, "successmessage":""}
         member_count = MemberData.objects.all().order_by('member_id')
-
+        
         # add member logic
         if "addmember" in request.POST:
             if len(member_count) == 0:
                 new_id = "mem1"
             else:
-                new_id = "mem" + str((int(member_count[len(member_count)-1].member_id[-1])+1))
+                ids = []
+                for member in member_count:
+                    ids.append(int(re.search(r'\d+', member.member_id).group()))
+                max_id = max(ids)                  
+                new_id = "mem" + str((max_id+1))
 
             try:
                 file = request.FILES['picture']
@@ -596,7 +610,7 @@ def members(request):
                             new_member.save()
                             image_64_encode = base64.encodebytes(file.read())
                             image_64_decode = base64.decodebytes(image_64_encode)
-                            image_result = open("media\\adminportal\\member\\"+picture, 'wb')
+                            image_result = open("./media/adminportal/member/"+picture, 'wb')
                             image_result.write(image_64_decode)
                             #for attendance
                             days = ("monday","tuesday","wednesday","thursday","friday","saturday","sunday")
@@ -634,7 +648,7 @@ def members(request):
             if member_delete[0] == 1:
                 try:
                     attendance_delete = AttendanceData.objects.filter(attendance_member_id=del_id, attendance_date=datetime.datetime.now().strftime("%Y-%m-%d")).delete()
-                    os.remove("media\\adminportal\\member\\"+del_id+".jpg")
+                    os.remove("./media/adminportal/member/"+del_id+".jpg")
                     params["success"] = 1
                     params["successmessage"] = "Member successfully deleted."
                     FinanceData.objects.filter(finance_member_id=del_id).delete()
@@ -647,7 +661,7 @@ def members(request):
 
         
         # page logic
-        params["members"] = MemberData.objects.all().order_by('member_id')
+        params["members"] = MemberData.objects.all()
         params["packages"] = PackageData.objects.all().order_by('package_id')
         params["diets"] = DietData.objects.all().order_by('diet_id')
         params["routines"] = RoutineData.objects.all().order_by('routine_id')
@@ -736,7 +750,7 @@ def membersprofileedit(request, memid):
                     else:
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\member\\"+memid+".jpg", 'wb')
+                        image_result = open("./media/adminportal/member/"+memid+".jpg", 'wb')
                         image_result.write(image_64_decode)
                         return redirect('/adminportal/membersprofile/'+memid)
             
@@ -1014,7 +1028,12 @@ def classes(request):
             if len(class_count) == 0:
                 new_id = "cls1"
             else:
-                new_id = "cls" + str((int(class_count[len(class_count)-1].class_id[-1])+1))
+                ids = []
+                for class_single in class_count:
+                    ids.append(int(re.search(r'\d+', class_single.class_id).group()))
+                max_id = max(ids)                  
+                new_id = "cls" + str((max_id+1))
+                
             
             try:
                 file = request.FILES['picture']
@@ -1041,7 +1060,7 @@ def classes(request):
                         new_class.save()
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\class\\"+picture, 'wb')
+                        image_result = open("./media/adminportal/class/"+picture, 'wb')
                         image_result.write(image_64_decode)
                         params["success"] = 1
                         params["successmessage"] = "Class added successfully."
@@ -1055,7 +1074,7 @@ def classes(request):
             class_delete = ClassData.objects.filter(class_id = del_id).delete()
             if class_delete[0] == 1:
                 try:
-                    os.remove("media\\adminportal\\class\\"+del_id+".jpg")
+                    os.remove("./media/adminportal/class/"+del_id+".jpg")
                     params["success"] = 1
                     params["successmessage"] = "Class successfully deleted."
                 except Exception:
@@ -1111,7 +1130,7 @@ def classesedit(request, classid):
                     try:
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\class\\"+classid+".jpg", 'wb')
+                        image_result = open("./media/adminportal/class/"+classid+".jpg", 'wb')
                         image_result.write(image_64_decode)
                     except Exception:
                         params["error"] = 1
@@ -1172,7 +1191,12 @@ def expenses(request):
             if len(expense_count) == 0:
                 new_id = "exp1"
             else:
-                new_id = "exp" + str((int(expense_count[len(expense_count)-1].expense_id[-1])+1))
+                ids = []
+                for expense in expense_count:
+                    ids.append(int(re.search(r'\d+', expense.expense_id).group()))
+                max_id = max(ids)                  
+                new_id = "exp" + str((max_id+1))
+                
             try:
                 name = request.POST["name"].title()
                 price = request.POST.get("price","")
@@ -1248,7 +1272,12 @@ def packages(request):
             if len(package_count) == 0:
                 new_id = "pkg1"
             else:
-                new_id = "pkg" + str((int(package_count[len(package_count)-1].package_id[-1])+1))
+                ids = []
+                for pkg in package_count:
+                    ids.append(int(re.search(r'\d+', pkg.package_id).group()))
+                max_id = max(ids)                  
+                new_id = "pkg" + str((max_id+1))
+                
              
             name = request.POST["name"].upper()
 
@@ -1348,7 +1377,12 @@ def equipments(request):
             if len(equipment_count) == 0:
                 new_id = "eqp1"
             else:
-                new_id = "eqp" + str((int(equipment_count[len(equipment_count)-1].equipment_id[-1])+1))
+                ids = []
+                for eqp in equipment_count:
+                    ids.append(int(re.search(r'\d+', eqp.equipment_id).group()))
+                max_id = max(ids)                  
+                new_id = "eqp" + str((max_id+1))
+                
             
             try:
                 name = request.POST["name"].title()
@@ -1433,7 +1467,12 @@ def exercises(request):
             if len(exercise_count) == 0:
                 new_id = "exr1"
             else:
-                new_id = "exr" + str((int(exercise_count[len(exercise_count)-1].exercise_id[-1])+1))
+                ids = []
+                for exr in exercise_count:
+                    ids.append(int(re.search(r'\d+', exr.exercise_id).group()))
+                max_id = max(ids)                  
+                new_id = "exr" + str((max_id+1))
+                
             
             try:
                 file = request.FILES['picture']
@@ -1459,7 +1498,7 @@ def exercises(request):
                         new_exercise.save()
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\exercise\\"+picture, 'wb')
+                        image_result = open("./media/adminportal/exercise/"+picture, 'wb')
                         image_result.write(image_64_decode)
                         params["success"] = 1
                         params["successmessage"] = "Exercise added successfully."
@@ -1473,7 +1512,7 @@ def exercises(request):
             exercise_delete = ExerciseData.objects.filter(exercise_id = del_id).delete()
             if exercise_delete[0] == 1:
                 try:
-                    os.remove("media\\adminportal\\exercise\\"+del_id+".jpg")
+                    os.remove("./media/adminportal/exercise/"+del_id+".jpg")
                     params["success"] = 1
                     params["successmessage"] = "Class successfully deleted."
                 except Exception:
@@ -1508,7 +1547,7 @@ def exercisesedit(request, exrid):
                     try:
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\exercise\\"+exrid+".jpg", 'wb')
+                        image_result = open("./media/adminportal/exercise/"+exrid+".jpg", 'wb')
                         image_result.write(image_64_decode)
                     except Exception:
                         params["error"] = 1
@@ -1552,7 +1591,11 @@ def routines(request):
             if len(routine_count) == 0:
                 new_id = "rtn1"
             else:
-                new_id = "rtn" + str((int(routine_count[len(routine_count)-1].routine_id[-1])+1))
+                ids = []
+                for rtn in routine_count:
+                    ids.append(int(re.search(r'\d+', rtn.routine_id).group()))
+                max_id = max(ids)                  
+                new_id = "rtn" + str((max_id+1))
             
             try:
                 file = request.FILES['picture']
@@ -1575,7 +1618,7 @@ def routines(request):
                         new_routine.save()
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\routine\\"+picture, 'wb')
+                        image_result = open("./media/adminportal/routine/"+picture, 'wb')
                         image_result.write(image_64_decode)
                         params["success"] = 1
                         params["successmessage"] = "Routine added successfully."
@@ -1589,7 +1632,7 @@ def routines(request):
             routine_delete = RoutineData.objects.filter(routine_id = del_id).delete()
             if routine_delete[0] == 1:
                 try:
-                    os.remove("media\\adminportal\\routine\\"+del_id+".jpg")
+                    os.remove("./media/adminportal/routine/"+del_id+".jpg")
                     params["success"] = 1
                     params["successmessage"] = "Routine successfully deleted."
                 except Exception:
@@ -1647,7 +1690,12 @@ def diet(request):
             if len(diet_count) == 0:
                 new_id = "dt1"
             else:
-                new_id = "dt" + str((int(diet_count[len(diet_count)-1].diet_id[-1])+1))
+                ids = []
+                for dt in diet_count:
+                    ids.append(int(re.search(r'\d+', dt.diet_id).group()))
+                max_id = max(ids)                  
+                new_id = "dt" + str((max_id+1))
+                
             try:
                 name = request.POST["name"].title()
                 desc = request.POST.get("desc","")

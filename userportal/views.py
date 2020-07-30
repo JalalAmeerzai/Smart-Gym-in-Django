@@ -152,7 +152,7 @@ def settings(request):
                     else:
                         image_64_encode = base64.encodebytes(file.read())
                         image_64_decode = base64.decodebytes(image_64_encode)
-                        image_result = open("media\\adminportal\\member\\"+request.session["userid"]+".jpg", 'wb')
+                        image_result = open("./media/adminportal/member/"+request.session["userid"]+".jpg", 'wb')
                         image_result.write(image_64_decode)
                         return redirect('/userportal/user/')
 

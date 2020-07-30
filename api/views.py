@@ -62,9 +62,9 @@ def putmeasurements(request):
                 state = 1
             else:
                 state = 0
-            return JsonResponse({"state": state})
+            return HttpResponse(state)
         else:
-            return JsonResponse({"message": "can't locate user"})
+            return HttpResponse("can't locate user")
 
 
 
@@ -83,24 +83,24 @@ def homescreen(request):
             response["dob"] = member[0].member_dob
             response["height"] = member[0].member_height
             response["weight"] = member[0].member_weight
-            image = open('media\\adminportal\\member\\'+member[0].member_img_name, 'rb')
+            image = open('./media/adminportal/member/'+member[0].member_img_name, 'rb')
             image_read = image.read()
             response["image"] = base64.b64encode(image_read).decode('utf-8')
             try:
                 response["routine"] = json.loads(RoutineData.objects.filter(routine_id = member[0].member_routine)[0].routine_json)[user_request["day"].lower()]
                 for key, routine in response["routine"].items():
-                    imagestr = base64.b64encode(open('media\\adminportal\\exercise\\'+routine["exercise"]+".jpg", 'rb').read()).decode('utf-8')
+                    imagestr = base64.b64encode(open('./media/adminportal/exercise/'+routine["exercise"]+".jpg", 'rb').read()).decode('utf-8')
                     response["routine"][key]["name"] = ExerciseData.objects.filter(exercise_id = routine["exercise"])[0].exercise_name
                     response["routine"][key]["image"] = imagestr
             except Exception:
-                response["routine"] = 0
+                response["routine"] = []
             try:
                 response["diet"] = json.loads(DietData.objects.filter(diet_id = member[0].member_diet)[0].diet_json)[user_request["day"].lower()]
             except Exception:
-                response["diet"] = 0
+                response["diet"] = []
             return JsonResponse(response)
         else:
-            return JsonResponse({"message": "can't locate user"})
+            return HttpResponse("can't locate user")
 
 
 
@@ -120,8 +120,8 @@ def userdiet(request):
             diet = json.loads(DietData.objects.filter(diet_id=MemberData.objects.filter(member_id=user_request["id"])[0].member_diet)[0].diet_json)
             return JsonResponse(diet)
         except Exception:
-            diet = 0
-            return JsonResponse({"diet": diet})
+            diet = {}
+            return JsonResponse(diet)
 
 
 
@@ -135,15 +135,15 @@ def userroutine(request):
                 for exercise in routine[day]:
                     try:
                         routine[day][exercise]["name"] = ExerciseData.objects.filter(exercise_id=routine[day][exercise]["exercise"])[0].exercise_name
-                        imagestr = base64.b64encode(open('media\\adminportal\\exercise\\'+routine[day][exercise]["exercise"]+".jpg", 'rb').read()).decode('utf-8')
+                        imagestr = base64.b64encode(open('./media/adminportal/exercise/'+routine[day][exercise]["exercise"]+".jpg", 'rb').read()).decode('utf-8')
                         routine[day][exercise]["image"] = imagestr
                     except Exception:
                         routine[day][exercise]["name"] = " - "
                         routine[day][exercise]["image"] = 0
             return JsonResponse(routine)
         except Exception:
-            routine = 0
-            return JsonResponse({"routine": routine})
+            routine = {}
+            return JsonResponse(routine)
 
 
 
@@ -153,7 +153,7 @@ def identifymachine(request):
         user_request = json.loads(request.body)
         image_base64_string = user_request["image"]
         image_64_decode = base64.decodebytes(image_base64_string.encode('ascii'))
-        image_result = open("media\\adminportal\\identify\\machine.jpg", 'wb')
+        image_result = open("./media/adminportal/identify/machine.jpg", 'wb')
         image_result.write(image_64_decode)
         machine_name = "bench" #machine learning identification to return output string machine name here
         try:
@@ -167,7 +167,7 @@ def identifymachine(request):
             pass    
         
         if exercises_to_send == {}:
-            exercises_to_send["message"] = "no exercises found"
+            exercises_to_send = {}
         
         return JsonResponse(exercises_to_send)
 
@@ -175,18 +175,18 @@ def identifymachine(request):
 
 @csrf_exempt
 def listofroutines(request):
-    if request.method == "POST":
+    if request.method == "GET":
         routines = RoutineData.objects.all()
         routines_to_send = {}
         if len(routines) > 0:
             i = 1
             for routine in routines:
-                imagestr = base64.b64encode(open('media\\adminportal\\routine\\'+routine.routine_id+".jpg", 'rb').read()).decode('utf-8')
+                imagestr = base64.b64encode(open('./media/adminportal/routine/'+routine.routine_id+".jpg", 'rb').read()).decode('utf-8')
                 routines_to_send["Routine"+str(i)] = {"id": routine.routine_id, "name": routine.routine_name, "description": routine.routine_desc, "image": imagestr}
                 i = i + 1
             return JsonResponse(routines_to_send)
         else:
-            return JsonResponse({"message": "no routines found"})
+            return JsonResponse({})
 
 
 
@@ -201,15 +201,15 @@ def viewroutine(request):
                 for exercise in routine_json[day]:
                     try:
                         routine_json[day][exercise]["name"] = ExerciseData.objects.filter(exercise_id=routine_json[day][exercise]["exercise"])[0].exercise_name
-                        imagestr = base64.b64encode(open('media\\adminportal\\exercise\\'+routine_json[day][exercise]["exercise"]+".jpg", 'rb').read()).decode('utf-8')
+                        imagestr = base64.b64encode(open('./media/adminportal/exercise/'+routine_json[day][exercise]["exercise"]+".jpg", 'rb').read()).decode('utf-8')
                         routine_json[day][exercise]["image"] = imagestr
                     except Exception:
                         routine_json[day][exercise]["name"] = " - "
                         routine_json[day][exercise]["image"] = 0
-            view_routine = {"id": routine.routine_id, "name": routine.routine_name, "description": routine.routine_desc, "image": base64.b64encode(open('media\\adminportal\\routine\\'+routine.routine_id+".jpg", 'rb').read()).decode('utf-8'), "routine": routine_json}
+            view_routine = {"id": routine.routine_id, "name": routine.routine_name, "description": routine.routine_desc, "image": base64.b64encode(open('./media/adminportal/routine/'+routine.routine_id+".jpg", 'rb').read()).decode('utf-8'), "routine": routine_json}
             return JsonResponse(view_routine)
         except Exception:
-            return JsonResponse({"message": "something went wrong"})
+            return JsonResponse({})
 
 
 
@@ -220,11 +220,11 @@ def followroutine(request):
         try:
             update = MemberData.objects.filter(member_id = user_request["id"]).update(member_routine=user_request["routine"])
             if update == 1:
-                return JsonResponse({"state": 1})
+                return HttpResponse(0)
             else:
-                return JsonResponse({"state": 0})
+                return HttpResponse(0)
         except Exception:
-            return JsonResponse({"message": "something went wrong"})
+            return HttpResponse(0)
 
 
 
@@ -238,7 +238,7 @@ def settings(request):
                 try:
                     imagestr = user_request["image"]
                     image_64_decode = base64.decodebytes(imagestr.encode('ascii'))
-                    image_result = open('media\\adminportal\\member\\'+user_request["id"]+".jpg", 'wb')
+                    image_result = open('./media/adminportal/member/'+user_request["id"]+".jpg", 'wb')
                     image_result.write(image_64_decode)
                     return JsonResponse({"state": 1})
                 except Exception:
@@ -254,13 +254,13 @@ def settings(request):
                 if len(user_request["newpassword"]) >= 6:
                     update = MemberData.objects.filter(member_id = user_request["id"]).update(member_password=user_request["newpassword"])
                     if update == 1:
-                        return JsonResponse({"state": 1})
+                        return HttpResponse(1)
                     else:
-                        return JsonResponse({"state": 0})
+                        return HttpResponse(0)
                 else:
-                    return JsonResponse({"state": 0})
+                    return HttpResponse(0)
             else:
-                return JsonResponse({"message": "type old password correctly"})
+                return HttpResponse("type old password correctly")
         
 
 
@@ -275,8 +275,8 @@ def settings(request):
                 weight = user_request["weight"]
                 update = MemberData.objects.filter(member_id=user_request["id"]).update(member_name=name, member_contact=contact, member_address=address, member_height=height, member_weight=weight, member_dob=dob)
                 if update == 1:
-                    return JsonResponse({"state": 1})
+                    return HttpResponse(1)
                 else:
-                    return JsonResponse({"state": 0})
+                    return HttpResponse(0)
             else:
-                return JsonResponse({"message": "can't locate user"})
+                return HttpResponse("can't locate user")
