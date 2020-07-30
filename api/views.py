@@ -92,10 +92,20 @@ def homescreen(request):
                     imagestr = base64.b64encode(open('./media/adminportal/exercise/'+routine["exercise"]+".jpg", 'rb').read()).decode('utf-8')
                     response["routine"][key]["name"] = ExerciseData.objects.filter(exercise_id = routine["exercise"])[0].exercise_name
                     response["routine"][key]["image"] = imagestr
+                
+                routine_list = []
+                for routine in response["routine"].values():
+                    routine_list.append(routine)
+                
+                response["routine"] = routine_list
             except Exception:
                 response["routine"] = []
             try:
                 response["diet"] = json.loads(DietData.objects.filter(diet_id = member[0].member_diet)[0].diet_json)[user_request["day"].lower()]
+                diet_list = []
+                for diet in response["diet"].values():
+                    diet_list.append(diet)
+                response["diet"] = diet_list
             except Exception:
                 response["diet"] = []
             return JsonResponse(response)
@@ -116,18 +126,41 @@ def createsuperuser(request):
 def userdiet(request):
     if request.method == "POST":
         user_request = json.loads(request.body)
+        plan = {"monday": [], "tuesday": [], "wednesday":[], "thursday": [], "friday": [], "saturday":[], "sunday": []}
         try:
             diet = json.loads(DietData.objects.filter(diet_id=MemberData.objects.filter(member_id=user_request["id"])[0].member_diet)[0].diet_json)
-            return JsonResponse(diet)
+            for d_monday in diet["monday"].values():
+                plan["monday"].append(d_monday) 
+
+            for d_tuesday in diet["tuesday"].values():
+                plan["tuesday"].append(d_tuesday) 
+
+            for d_wednesday in diet["wednesday"].values():
+                plan["wednesday"].append(d_wednesday)
+                
+            for d_thursday in diet["thursday"].values():
+                plan["thursday"].append(d_thursday)
+
+            for d_friday in diet["friday"].values():
+                plan["friday"].append(d_friday)     
+            
+            for d_saturday in diet["saturday"].values():
+                plan["saturday"].append(d_saturday)  
+            
+            for d_sunday in diet["sunday"].values():
+                plan["sunday"].append(d_sunday)  
+
         except Exception:
-            diet = {}
-            return JsonResponse(diet)
+            plan = {"monday": [], "tuesday": [], "wednesday":[], "thursday": [], "friday": [], "saturday":[], "sunday": []}
+            
+        return JsonResponse(plan)
 
 
 
 @csrf_exempt
 def userroutine(request):
     if request.method == "POST":
+        plan = {"monday": [], "tuesday": [], "wednesday":[], "thursday": [], "friday": [], "saturday":[], "sunday": []}
         user_request = json.loads(request.body)
         try:
             routine = json.loads(RoutineData.objects.filter(routine_id=MemberData.objects.filter(member_id=user_request["id"])[0].member_routine)[0].routine_json)
@@ -140,16 +173,41 @@ def userroutine(request):
                     except Exception:
                         routine[day][exercise]["name"] = " - "
                         routine[day][exercise]["image"] = 0
-            return JsonResponse(routine)
+            
+
+            for d_monday in routine["monday"].values():
+                plan["monday"].append(d_monday) 
+
+            for d_tuesday in routine["tuesday"].values():
+                plan["tuesday"].append(d_tuesday) 
+
+            for d_wednesday in routine["wednesday"].values():
+                plan["wednesday"].append(d_wednesday)
+                
+            for d_thursday in routine["thursday"].values():
+                plan["thursday"].append(d_thursday)
+
+            for d_friday in routine["friday"].values():
+                plan["friday"].append(d_friday)     
+            
+            for d_saturday in routine["saturday"].values():
+                plan["saturday"].append(d_saturday)  
+            
+            for d_sunday in routine["sunday"].values():
+                plan["sunday"].append(d_sunday)
+
+
         except Exception:
-            routine = {}
-            return JsonResponse(routine)
+            plan = {"monday": [], "tuesday": [], "wednesday":[], "thursday": [], "friday": [], "saturday":[], "sunday": []}
+        
+        return JsonResponse(plan)
 
 
 
 @csrf_exempt
 def identifymachine(request):
     if request.method == "POST":
+        exercise_list = []
         user_request = json.loads(request.body)
         image_base64_string = user_request["image"]
         image_64_decode = base64.decodebytes(image_base64_string.encode('ascii'))
@@ -158,18 +216,11 @@ def identifymachine(request):
         machine_name = "bench" #machine learning identification to return output string machine name here
         try:
             exercises = ExerciseData.objects.filter(exercise_equipment__icontains=machine_name)
-            exercises_to_send = {}
-            i = 1
             for exercise in exercises:
-                exercises_to_send["Exercise"+str(i)] = {"name": exercise.exercise_name, "equipment": exercise.exercise_equipment, "video": exercise.exercise_tutorial}
-                i = i+1
+                exercise_list.append({"name": exercise.exercise_name, "equipment": exercise.exercise_equipment, "video": exercise.exercise_tutorial})
         except Exception:
-            pass    
-        
-        if exercises_to_send == {}:
-            exercises_to_send = {}
-        
-        return JsonResponse(exercises_to_send)
+            pass       
+        return JsonResponse({"exercises":exercise_list})
 
 
 
@@ -177,16 +228,15 @@ def identifymachine(request):
 def listofroutines(request):
     if request.method == "GET":
         routines = RoutineData.objects.all()
-        routines_to_send = {}
+        routines_list = []
         if len(routines) > 0:
             i = 1
             for routine in routines:
                 imagestr = base64.b64encode(open('./media/adminportal/routine/'+routine.routine_id+".jpg", 'rb').read()).decode('utf-8')
-                routines_to_send["Routine"+str(i)] = {"id": routine.routine_id, "name": routine.routine_name, "description": routine.routine_desc, "image": imagestr}
-                i = i + 1
-            return JsonResponse(routines_to_send)
+                routines_list.append({"id": routine.routine_id, "name": routine.routine_name, "description": routine.routine_desc, "image": imagestr}) 
+            return JsonResponse({"routines": routines_list})
         else:
-            return JsonResponse({})
+            return JsonResponse({"routines": []})
 
 
 
@@ -220,7 +270,7 @@ def followroutine(request):
         try:
             update = MemberData.objects.filter(member_id = user_request["id"]).update(member_routine=user_request["routine"])
             if update == 1:
-                return HttpResponse(0)
+                return HttpResponse(1)
             else:
                 return HttpResponse(0)
         except Exception:
@@ -240,11 +290,11 @@ def settings(request):
                     image_64_decode = base64.decodebytes(imagestr.encode('ascii'))
                     image_result = open('./media/adminportal/member/'+user_request["id"]+".jpg", 'wb')
                     image_result.write(image_64_decode)
-                    return JsonResponse({"state": 1})
+                    return HttpResponse(1)
                 except Exception:
-                    return JsonResponse({"state": 0})
+                    return HttpResponse(0)
             else:
-                return JsonResponse({"message": "can't locate user"})
+                return HttpResponse(0)
 
             
         
@@ -279,4 +329,4 @@ def settings(request):
                 else:
                     return HttpResponse(0)
             else:
-                return HttpResponse("can't locate user")
+                return HttpResponse("cant locate user")
