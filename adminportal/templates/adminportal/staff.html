@@ -267,11 +267,11 @@
                                                         
                                                         <td>{{admin.admin_status}}</td>
                                                         
-                                                        <td>{{admin.admin_added_by}}</td>
                                                         
+                                                        <td><a title="View Profile" href="/adminportal/staffprofile/{{admin.admin_added_by}}"><i class="fa fa-user" id="tablebtns" style="font-size: 14px; background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target="">  {{admin.admin_added_by}}</i></a>
                                                         <td>{{admin.admin_added_on}}</td>
                                                         <td> 
-                                                            <a title="view" href="/adminportal/staffprofile/{{admin.admin_id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
+                                                            <a title="view" href="/adminportal/staffprofile/{{admin.admin_id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #51bf87; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
                                                             {% if admin.admin_added_by != "superuser" %}
                                                                 <a title="delete" id="{{admin.admin_id}}" onclick="del(this.id)"><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target="#modal-style3"></i></a>
                                                             {% endif %}

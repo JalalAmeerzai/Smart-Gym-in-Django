@@ -870,6 +870,7 @@ def attendance(request):
         
         #add today logic
         today_attendance = AttendanceData.objects.all().filter(attendance_date=datetime.datetime.now().strftime("%Y-%m-%d"))
+        #return HttpResponse(len(today_attendance))
         if len(today_attendance) == 0:
             members = MemberData.objects.all()
             for member in members:

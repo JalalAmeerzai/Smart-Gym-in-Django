@@ -266,10 +266,11 @@
                                                         <td>{{trainer.trainer_about|slice:"0:80"}}...</td>
                                                         <td>{{trainer.trainer_status}}</td>
                                                         
-                                                        <td>{{trainer.trainer_added_by}}</td>
+                                                        
+                                                        <td><a title="View Profile" href="/adminportal/staffprofile/{{trainer.trainer_added_by}}"><i class="fa fa-user" id="tablebtns" style="font-size: 14px; background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target="">  {{trainer.trainer_added_by}}</i></a>
                                                         <td>{{trainer.trainer_added_on}}</td>
                                                         <td> 
-                                                            <a title="view" href="/adminportal/trainersprofile/{{trainer.trainer_id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #404040; color: #e2d34d; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
+                                                            <a title="view" href="/adminportal/trainersprofile/{{trainer.trainer_id}}"><i class="fa fa-eye" id="tablebtns" style="background-color: #51bf87; color: white; padding-left: 4px; padding-right: 4px;" data-toggle="modal" data-target=""></i></a>
                                                             <a title="delete" id="{{trainer.trainer_id}}" onclick="del(this.id)"><i class="fa fa-trash-o" style="background-color: #d9534f; color:white; padding-left: 4px; padding-right: 4px;" id="tablebtns" data-toggle="modal" data-target="#modal-style3"></i></a>
                                                         </td>
                                                     </tr>
