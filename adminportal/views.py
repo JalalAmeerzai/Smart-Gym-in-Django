@@ -1085,25 +1085,30 @@ def classes(request):
                 params["errormessage"] = "Something went wrong. Try again later."
         
 
+        #return HttpResponse("here")
         #main page logic
         trainers = TrainerData.objects.all() #for trainers on html5 select
         params["trainers"] = trainers
-
+        #return HttpResponse("ff")
         classes = {}
         class_count = ClassData.objects.all().order_by('class_id')
         for classSingle in class_count:
+            try:
+                trname = trainers.filter(trainer_id=classSingle.class_trainer)[0].trainer_name
+            except Exception:
+                trname = ""
             classes[classSingle.class_id] = {
                 "id": classSingle.class_id, 
                 "name": classSingle.class_name, 
                 "desc": classSingle.class_desc, 
-                "trainer": trainers.filter(trainer_id=classSingle.class_trainer)[0].trainer_name,
+		"trainer": trname,
                 "days": classSingle.class_days,
                 "stime": classSingle.class_stime,
                 "etime": classSingle.class_etime,
                 "added_by": classSingle.class_added_by,
                 "added_on": classSingle.class_added_on,    
             }
-            
+        #return HttpResponse("here now")    
         params["classes"] = classes
         return render(request, 'adminportal/classes.html', params)
     else:
@@ -1162,13 +1167,17 @@ def classesedit(request, classid):
         params["trainers"] = trainers
 
         classSingle = ClassData.objects.filter(class_id=classid)[0]
+        try:
+            trname = trainers.filter(trainer_id=classSingle.class_trainer)[0].trainer_name
+        except Exception:
+            trname = ""
         params["class"] = {
             "id": classSingle.class_id,
             "name": classSingle.class_name,
             "desc": classSingle.class_desc,
             "days": classSingle.class_days,
             "trid": classSingle.class_trainer,
-            "trname": trainers.filter(trainer_id = classSingle.class_trainer)[0].trainer_name,
+            "trname": trname,
             "stime": classSingle.class_stime,
             "etime": classSingle.class_etime
         }
