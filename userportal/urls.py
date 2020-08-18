@@ -10,6 +10,7 @@ urlpatterns = [
     path('settings/', views.settings, name="userportal-settings"),
     path('routines/', views.routines, name="userportal-routines"),
     path('followroutine/<str:rtid>', views.followroutine, name="userportal-followroutine"),
+    path('unfollowroutine/', views.unfollowroutine, name="userportal-unfollowroutine"),
     path('yourroutine/', views.yourroutine, name="userportal-yourroutine"),
     path('viewroutine/<str:rtid>', views.viewroutine, name="userportal-viewroutine"),
     path('diet/', views.diet, name="userportal-diet"),

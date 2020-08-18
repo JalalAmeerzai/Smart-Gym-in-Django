@@ -269,6 +269,26 @@ def followroutine(request, rtid):
 
 
 
+
+
+def unfollowroutine(request):
+    if "userid" in request.session and request.session["userrole"] == "Member" :
+        try:
+            update = MemberData.objects.filter(member_id=request.session["userid"]).update(member_routine="")
+            return redirect('/userportal/routines/')
+        except Exception:
+            return redirect('/userportal/routines') 
+        return render(request, 'userportal/createroutine.html')
+    else:
+        return redirect('/userportal/login/')
+
+
+
+
+
+
+
+
 def viewroutine(request, rtid):
     if "userid" in request.session and request.session["userrole"] == "Member" :
         params={}

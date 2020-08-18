@@ -192,7 +192,7 @@
                                                 <img src="/media/adminportal/routine/{{routine.routine_img_name}}" class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
                                                 <h5 class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="margin-top: 20px;">{{routine.routine_desc}}</h5>
                                                 {% if routine.routine_id == following %}
-                                                    <a style="text-decoration: none;"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollowing"  disabled style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Following</button></a>
+                                                    <a style="text-decoration: none;" href="/userportal/unfollowroutine/"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollowing" style=" margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Unfollow</button></a>
                                                 {% else %}
                                                     <a style="text-decoration: none;" href="/userportal/followroutine/{{routine.routine_id}}"><button class="btn btn-default col-lg-6 col-md-6 col-sm-6 col-xs-6 " id="subcbtnfollow"   style="margin-top: 10px; font-size: 12px;"><i class="glyphicon glyphicon-pushpin"></i> Follow</button></a>
                                                 {% endif %}
