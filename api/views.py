@@ -1,21 +1,9 @@
-from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from adminportal.models import AdminData, TrainerData, PackageData, EquipmentData, ClassData, ExpenseData, ExerciseData, DietData, RoutineData, MemberData, MessageData, ArchivedMessageData, ReplyMessageData, AttendanceData, FinanceData, FinanceHistoryData, AdmissionData
-from django.utils.datastructures import MultiValueDictKeyError #for files
+from adminportal.models import AdminData, ExerciseData, DietData, RoutineData, MemberData
 import base64
-import imghdr
-import datetime
-from datetime import datetime as dt
-import os
-import re #regex
-from django.core.mail import send_mail
-import json 
-from django.db.models import Avg, Count, Min, Sum
+import json
 from django.views.decorators.csrf import csrf_exempt
-
-
-
-
+#from classifier.vgg_model import VggModel    # addition
 
 
 @csrf_exempt
@@ -202,18 +190,27 @@ def userroutine(request):
         
         return JsonResponse(plan)
 
-
-
+import time
 @csrf_exempt
 def identifymachine(request):
     if request.method == "POST":
+        print("loading model")
+        #clf = VggModel()        # create an instance of class
+        print("model loaded")
         exercise_list = []
         user_request = json.loads(request.body)
         image_base64_string = user_request["image"]
         image_64_decode = base64.decodebytes(image_base64_string.encode('ascii'))
         image_result = open("./media/adminportal/identify/machine.jpg", 'wb')
         image_result.write(image_64_decode)
-        machine_name = "bench" #machine learning identification to return output string machine name here
+        image_result.close()        # close the file
+        print("predicting")
+        machine_name = ""
+        try:
+            machine_name = "bench" #clf.predict("./media/adminportal/identify/machine.jpg")  # new line
+            #print(machine_name)
+        except:
+            print("An exception occurred while predicting")
         try:
             exercises = ExerciseData.objects.filter(exercise_equipment__icontains=machine_name)
             for exercise in exercises:
