@@ -3,7 +3,7 @@ from adminportal.models import AdminData, ExerciseData, DietData, RoutineData, M
 import base64
 import json
 from django.views.decorators.csrf import csrf_exempt
-#from classifier.vgg_model import VggModel    # addition
+#from .classifier.vgg_model import VggModel    # addition
 
 
 @csrf_exempt
@@ -217,7 +217,7 @@ def identifymachine(request):
                 exercise_list.append({"name": exercise.exercise_name, "equipment": exercise.exercise_equipment, "video": exercise.exercise_tutorial})
         except Exception:
             pass       
-        return JsonResponse({"exercises":exercise_list})
+        return JsonResponse(exercise_list, safe=False)
 
 
 
