@@ -1,4 +1,6 @@
-This is a GYM MANAGEMENT SYSTEM built using Django for the FYP
+# Smart Gym Management System
+
+## This is a GYM MANAGEMENT SYSTEM built using Django for the FYP
 
 There are following 4 modules in this project:
     1) Landing pages for presentation.
